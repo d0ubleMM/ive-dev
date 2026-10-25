@@ -14,15 +14,17 @@ Then open `http://localhost:8000/`. The marketing pages can also be opened from 
 
 ## File map
 
-- `index.html`: homepage. The opening scene (agent swarm, board, IVE unfolds into "Integrated Vibecoding Environment"), the hero with the dark board rendered live, Why IVE (four reasons, pinned), Inside IVE (a reel of six generated scenes of the app's interface in its light theme: a session's terminal, ten terminals on the board, start and queue, Auto-fix loop, Pipelines, loop detection), Get IVE (`#install`; `#waitlist` and `#get-ive` stay as alias anchors) and the AIFOREU maker strip
+- `index.html`: homepage with a short zoom out of the V into IVE and the full-name reveal, then the workspace hero, three selectable dark product views (parallel terminals, terminal, review), an attention example, three progressive light workflow views, local/account facts, iPhone, install paths, FAQ and the maker strip
+- `workspace.css`, `workspace.js`: homepage composition and accessible preview tabs; all product scenes continue to use the existing generated IVE demo runtimes
+- `story.html`: the same letter zoom and word reveal as a standalone page; the tunnel and agent swarm are no longer used
 - `product.html`: every view and every loop of the app, one row each, as generated demos of the interface in the app's light theme; the first row is the Terminal, the Board row shows ten terminal tiles
 - `download.html`: Mac app, terminal install (`#terminal`), source install, requirements, removal and five questions
 - `architecture.html`: engineering architecture page
 - `imprint.html` and `privacy.html`: legal provider information and site-specific privacy notice (their `<main>` is unchanged by the redesign)
 - `404.html`: self-contained not-found page (own hashed style and script, root-absolute URLs)
 - `site.css`, `site.js`: shared design system and behaviour for every page (tokens, header, footer, buttons, frames, theme, download logic, copy buttons, the still viewer)
-- `opening.css`, `opening.js`: the homepage opening scene
-- `home.css`, `home.js`: homepage sections, Why IVE and the Inside IVE reel
+- `name-intro.css`, `name-intro.js`: the original letter zoom and measured word-unfold effect on Home and Story, with visible navigation and the made-by signature; `opening.css` and `opening.js` are retained legacy source, no longer loaded
+- `home.css`: retained phone, install and maker styles; `home.js`: the previous Why IVE/reel behaviour, no longer loaded by the homepage
 - `demo.css`, `demo.js`: the app previews in the page frames (iframes of `assets/demo/r5/frame.html`): sharp automatic scenes that always play in view, one Pause/Play next to each, the reel's chapters; loaded by `index.html` and `product.html`
 - `try.html`, `try.js`: "Try it yourself": the IVE app built into the site at window size under a slim strip (brand, the introduction's Skip/Again, Back to ive.dev), opened from the header of every page, the hero, the Try band, the Product and Download heads and the footer; `assets/demo/r7/frame.html?mode=app&tour=1`
 - `madeby.js`: the AIFOREU logo film in the maker strip
@@ -45,7 +47,7 @@ Serve the folder, open `assets/og.html` in a browser at exactly 1200×630, and c
 ## Product truth
 
 - IVE is open source under the Apache 2.0 license. The public repository is `https://github.com/michael-ra/ive`.
-- The primary homepage action for Mac users is the Mac app: https://github.com/michael-ra/ive/releases/latest/download/IVE-macOS-arm64.dmg (latest GitHub release of michael-ra/ive, Apple silicon, macOS 13.5 or newer, signed by AIFOREU GmbH and notarized by Apple). Linux, Intel Macs and developers use `curl -fsSL https://ive.dev/install.sh | bash` (puts the code in `~/.ive`, installs its dependencies, builds the app, adds an `ive` command in `~/.local/bin`; `ive` then runs IVE in the background), or from source with `git clone https://github.com/michael-ra/ive.git`, `cd ive`, `bash install.sh`, `bin/ive`.
+- The primary homepage action opens the browser demo. The secondary Mac action links to the Mac app: https://github.com/michael-ra/ive/releases/latest/download/IVE-macOS-arm64.dmg (latest GitHub release of michael-ra/ive, Apple silicon, macOS 13.5 or newer, signed by AIFOREU GmbH and notarized by Apple). Linux, Intel Macs and developers use `curl -fsSL https://ive.dev/install.sh | bash` (puts the code in `~/.ive`, installs its dependencies, builds the app, adds an `ive` command in `~/.local/bin`; `ive` then runs IVE in the background), or from source with `git clone https://github.com/michael-ra/ive.git`, `cd ive`, `bash install.sh`, `bin/ive`.
 - Requirements for the one-line installer and the source path: macOS or Linux, Python 3.11+, Node.js 22.12+ with npm, Git, and at least one supported coding CLI. The Mac app needs none of the first three: Apple silicon (M1 or newer), macOS 13.5 or newer, and at least one coding CLI you are signed in to. It opens in its own window, so no terminal or browser tab is needed. Telemetry is off by default.
 - Do not promise Windows support, an Intel Mac app, a community, stars, or contributors. Show no version number or file size for the Mac app.
 - Supported agents are Claude Code, Codex and Gemini (Antigravity CLI). The active CLI profiles in IVE 1.0.17 are Claude Code, Codex CLI and Antigravity CLI, Google's agent CLI with Gemini models (`backend/cli_profiles.py`, checked 2026-10-22). The standalone Gemini CLI profile is inactive in 1.0.17, so write "Claude Code, Codex and Gemini (Antigravity CLI)" in full lists, "Claude Code · Codex · Gemini" in short lists and chips, and never "Gemini CLI" alone. Models depend on the installed CLI and account; illustrations name only Haiku, Sonnet, Opus and the Gemini Pro and Flash models (`gemini-3.1-pro`, `gemini-3.5-flash`).
@@ -67,3 +69,18 @@ D1 database and the Worker were deleted, and the signup code was removed from th
 repository; the privacy notice no longer mentions the waitlist. Its last state is
 in the git history before that removal. Do not bring back a signup form without a
 new backend and a matching privacy notice.
+
+## Website review, 2026-10-25
+
+The workspace-first homepage combines a review of Herdr, tmux, Zellij, cmux,
+Warp, Solo, Conductor, Emdash and Superset. It changes the marketing website,
+not the IVE application. No competitor assets or product claims were imported.
+The three additional poster files in `assets/workspace/` are rendered from the
+existing IVE demo interface. They are scripted examples, not provider runs.
+
+Browser acceptance: `node scripts/qa-workspace.mjs` with Playwright available
+(or set `PLAYWRIGHT_MODULE` to its installation directory). Start the local
+static server on port 4187, or set `PREVIEW_URL`. This verifies responsive
+layouts, local resources, tabs, keyboard controls, reduced motion, copying the
+install command, no-JS fallbacks, and Chromium/WebKit rendering. Reports and
+screenshots go to the ignored `review/` folder.

@@ -111,7 +111,7 @@
     demo.ui = { toggle: toggle };
     toggle.addEventListener('click', function () {
       if (demo.frame && demo.frame.playing) { demo.userPaused = true; demo.frame.pause(); }
-      else { demo.userPaused = false; sync(demo); }
+      else { demo.userPaused = false; demo.userStarted = true; sync(demo); }
       renderPlayState(demo);
     });
   }
@@ -161,6 +161,7 @@
   }
   function wantsPlay(demo) {
     if (document.hidden || demo.userPaused) return false;
+    if (IVE.reduceMotion && IVE.reduceMotion() && !demo.userStarted) return false;
     if (IVE.openingIsPinned && IVE.openingIsPinned() && demo.figure.classList.contains('hero-frame')) return false;
     if (demo.figure.hasAttribute('data-demo-when-active') && stackedMode(demo) && !demo.figure.classList.contains('is-active')) return false;
     return demo.ratio >= 0.5;
@@ -342,6 +343,13 @@
   document.addEventListener('visibilitychange', sync);
   window.addEventListener('resize', sync);
   document.addEventListener('ive:openingchange', sync);
+  var motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function motionChanged() {
+    demos.forEach(function (d) { d.userStarted = false; });
+    sync();
+  }
+  if (motionPreference.addEventListener) motionPreference.addEventListener('change', motionChanged);
+  else if (motionPreference.addListener) motionPreference.addListener(motionChanged);
   IVE.demos = demos;
   IVE.syncDemos = sync;
 })();

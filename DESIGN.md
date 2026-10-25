@@ -7,6 +7,44 @@ Internal reference for every page of ive.dev. The full specification is
 `design/research/05-loops-and-automation.md` (sections 2 and 6). Everything is
 checked against IVE 1.0.17; the site shows no version number.
 
+## Homepage update, 2026-10-25
+
+The owner explicitly requested a substantial website redesign informed by a
+review of nine competing websites. For `index.html`, this section supersedes
+the earlier homepage composition map and pinned Why/Inside descriptions below.
+Shared product truth, palette, fonts, legal content and demo provenance remain
+applicable. This is a website change only.
+
+- Open inside the white stroke of the V, with the navigation visible. A brief
+  scroll-driven zoom reveals IVE, then the letters unfold into Integrated
+  Vibecoding Environment. The tunnel and agent swarm are removed.
+  This is a short 200svh sequence (180svh on phones), with a direct Explore IVE
+  link. Then show the asymmetric product hero and its existing actions.
+- The hero has three keyboard-accessible tabs: parallel terminals, terminal,
+  code review. They show existing dark IVE DOM demos, with explicit Pause/Play.
+- Show the moment a session needs attention using the existing light permission
+  scene, then let visitors choose task, check or pipeline in a second explorer.
+- Use one bounded petrol surface for local execution, CLI accounts and review.
+  Retain the phone visual and its coming-soon status, followed by installation
+  and short practical questions.
+- Graphite/Petrol stays the palette. New bounded trust ground: `#1D3835`, ink
+  `#EFF6F4`, secondary `#D4E3DF`, labels `#B2CAC3`. Status colors keep their roles.
+- The hero heading scales from 38–62px on phones to 88px on desktop. Existing
+  Archivo, Source Sans 3 and IBM Plex Mono remain self-hosted.
+- `name-intro.css` and `name-intro.js` retain the original measured font sizing,
+  zoom out of the V and exponential word reveal. The first frame is a white
+  letter surface below the visible navigation, including while fonts load.
+  The zoom occupies only the first fifth of the short scroll sequence.
+  `story.html` uses this same sequence; legacy `opening.*` is no longer loaded.
+  The linked "made by AIFOREU" signature appears as the name finishes unfolding.
+  Reduced motion and no-JS show the full name and signature without a pinned scene.
+- The product previews remain generated demonstrations of existing app UI.
+  No live providers, new product capabilities, or competitor assets were added.
+- Reduced motion prevents autoplay; explicit Play still works. Without JS all
+  six tabbed scenes appear as static posters. New assets use content-hash keys.
+- The pipeline has a smaller mobile stage scale so the complete loop is in view;
+  the full browser demo remains available for detailed interaction.
+
 ## Idea
 
 IVE is the local control room for parallel coding agents: several sessions run
@@ -53,8 +91,8 @@ Bento grids, icon walls, card stacks and repeated split sections are out.
   (sun in dark, moon in light, the label names the action); the GitHub icon button;
   the outlined primary action (Download for Mac or Install IVE). Below 720px:
   wordmark, primary action, Menu button with a panel.
-- While the opening scene is pinned the header uses the dark ink (`html.mark-dark`)
-  and hides its wordmark; the wordmark fades in at the hand-over.
+- While the name intro is pinned, `html.name-intro-active` keeps the header dark
+  and its wordmark, links and controls visible throughout the zoom and unfold.
 - Footer: IVE and "from AIFOREU" (link to aiforgov.eu), the six links, and the line
   "EU-based · Open source under the Apache 2.0 license". The 404 keeps only the
   line and the legal links.
@@ -257,7 +295,8 @@ Status glyphs belong only to product states inside diagrams and the app demos.
 ## Technical contract
 
 - Static HTML, CSS and JS, no build step. Shared: `site.css`, `site.js`; homepage
-  adds `opening.css`, `home.css`, `opening.js`, `home.js`, `madeby.js`; pages with
+  adds `home.css`, `workspace.css`, `workspace.js`, `name-intro.css`,
+  `name-intro.js`, `madeby.js`; pages with
   app demos add `demo.css`, `demo.js` and `frame-src 'self'` to their CSP. The demo
   document (`assets/demo/r8/frame.html`) has its own CSP (`style-src 'unsafe-inline'`
   for the app's inline geometry; scripts `'self'` only).

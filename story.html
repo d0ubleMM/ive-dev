@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-KaNwqQEGhH+PqDusuFZ6qrQi15MNoAnJWC6EBhW7ne8='; style-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0E1014">
+<script>(function(){var d=document.documentElement,t='dark';d.classList.remove('no-js');try{var s=localStorage.getItem('ive-theme');if(s==='light'||s==='dark')t=s;}catch(e){}d.setAttribute('data-theme',t);if(t==='light'){var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#F6F7F8');}d.classList.add('name-intro-active');try{if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('name-intro-live');}catch(e){}})();</script>
+<title>IVE · Inside the workspace</title>
+<meta name="description" content="Run Claude Code, Codex and Gemini (Antigravity CLI) side by side. One board shows which session runs, waits or is done. Open source under the Apache 2.0 license.">
+<link rel="canonical" href="https://ive.dev/story.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ive.dev/story.html">
+<meta property="og:title" content="IVE · Run your coding agents side by side">
+<meta property="og:description" content="Claude Code, Codex and Gemini (Antigravity CLI) side by side in one window. Open source under the Apache 2.0 license.">
+<meta property="og:image" content="https://ive.dev/assets/og.png?v=20261025-3b930af8a6e7">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Your agents. One workspace. The IVE board with parallel coding terminals.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="IVE · Run your coding agents side by side">
+<meta name="twitter:description" content="Claude Code, Codex and Gemini (Antigravity CLI) side by side in one window. Open source under the Apache 2.0 license.">
+<meta name="twitter:image" content="https://ive.dev/assets/og.png?v=20261025-3b930af8a6e7">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/archivo-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/source-sans-3-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css?v=20261023a">
+<link rel="stylesheet" href="site.css?v=20261024b-4ddf3867f9d4">
+<link rel="stylesheet" href="home.css?v=20261023g">
+<link rel="stylesheet" href="workspace.css?v=20261025-097c4f74a991">
+<link rel="stylesheet" href="name-intro.css?v=20261025-19bd4fc61064">
+</head>
+<body class="ive-story">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" data-header>
+  <div class="site-header-inner">
+    <a class="wordmark" href="index.html" aria-label="IVE, home"><span class="wordmark-text">IVE</span><span class="wordmark-dot" aria-hidden="true"></span></a>
+    <div class="site-menu" id="site-menu">
+      <nav aria-label="Main">
+        <ul class="nav-links">
+          <li><a class="nav-link" href="product.html">Product</a></li>
+          <li><a class="nav-link" href="download.html">Download</a></li>
+          <li><a class="nav-link" href="architecture.html">Architecture</a></li>
+        </ul>
+      </nav>
+      <div class="nav-tools">
+        <button class="tool" type="button" data-theme-toggle aria-label="Switch to light theme"><span class="tool-icon"><svg class="icon theme-icon-sun" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="2.75"/><path d="M8 1.75v1.5M8 12.75v1.5M1.75 8h1.5M12.75 8h1.5M3.58 3.58l1.06 1.06M11.36 11.36l1.06 1.06M3.58 12.42l1.06-1.06M11.36 4.64l1.06-1.06"/></svg><svg class="icon theme-icon-moon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.25 9.9A5.5 5.5 0 0 1 6.1 2.75a5.5 5.5 0 1 0 7.15 7.15Z"/></svg></span><span class="tool-name">Theme</span></button>
+        <a class="tool" href="https://github.com/michael-ra/ive" target="_blank" rel="noopener" aria-label="IVE on GitHub (opens in a new tab)"><span class="tool-icon"><svg class="icon icon-fill" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg></span><span class="tool-name">GitHub</span></a>
+      </div>
+    </div>
+    <a class="btn btn-fill btn-sm nav-cta" href="try.html">Try it yourself</a>
+    <button class="icon-btn menu-btn" type="button" data-menu-toggle aria-controls="site-menu" aria-expanded="false" aria-label="Menu"><svg class="icon menu-icon-open" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.75 5.5h10.5M2.75 10.5h10.5"/></svg><svg class="icon menu-icon-close" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
+  </div>
+</header>
+
+<main id="main"><section class="name-intro" id="mark" aria-label="IVE: Integrated Vibecoding Environment" data-name-intro>
+  <div class="name-intro-pin" data-name-pin>
+    <p class="name-intro-line" aria-hidden="true" data-name-line>
+      <span class="name-intro-word"><span class="name-intro-cap" data-name-cap>I</span><span class="name-intro-rest"><span class="name-intro-rest-text" data-name-rest>ntegrated</span></span></span>
+      <span class="name-intro-word"><span class="name-intro-cap" data-name-cap>V</span><span class="name-intro-rest"><span class="name-intro-rest-text" data-name-rest>ibecoding</span></span></span>
+      <span class="name-intro-word"><span class="name-intro-cap" data-name-cap>E</span><span class="name-intro-rest"><span class="name-intro-rest-text" data-name-rest>nvironment</span></span></span>
+    </p>
+    <p class="sr-only">IVE stands for Integrated Vibecoding Environment.</p>
+    <p class="name-intro-by"><a href="https://aiforgov.eu/" target="_blank" rel="noopener">made by AIFOREU<svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.75 11.25l6.5-6.5M5.75 4.75h5.5v5.5"/></svg><span class="sr-only"> (opens in a new tab)</span></a></p>
+    <div class="name-intro-bottom"><span class="name-intro-hint" aria-hidden="true">Scroll to unfold</span><a class="name-intro-link" href="index.html#hero">Explore IVE <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.75v10.5M3.75 9 8 13.25 12.25 9"/></svg></a></div>
+  </div>
+</section>
+<section class="story-close wrap"><p class="ws-kicker">Integrated Vibecoding Environment</p><h1>Your agents.<br>One workspace.</h1><a class="btn btn-fill" href="index.html">Explore IVE</a></section></main><footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-row">
+      <p class="footer-brand"><span class="wordmark wordmark-sm"><span class="wordmark-text">IVE</span><span class="wordmark-dot" aria-hidden="true"></span></span><a class="footer-maker" href="https://aiforgov.eu/" target="_blank" rel="noopener">from AIFOREU<svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.75 11.25l6.5-6.5M5.75 4.75h5.5v5.5"/></svg><span class="sr-only"> (opens in a new tab)</span></a></p>
+      <nav aria-label="Footer">
+        <ul class="footer-links">
+          <li><a href="try.html">Try it yourself</a></li>
+          <li><a href="product.html">Product</a></li>
+          <li><a href="download.html">Download</a></li>
+          <li><a href="architecture.html">Architecture</a></li>
+          <li><a href="https://github.com/michael-ra/ive" target="_blank" rel="noopener">GitHub<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="imprint.html">Imprint</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer-line">EU-based · Open source under the Apache 2.0 license</p>
+  </div>
+</footer>
+<script src="site.js?v=20261023c" defer></script><script src="name-intro.js?v=20261025-bee6bf75e574" defer></script>
+</body></html>

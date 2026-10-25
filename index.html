@@ -3,36 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-+2YNjuKpdbuWgZxIc7gAIrNdi+jwYzA8xrWiQxbwjCI='; style-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-KaNwqQEGhH+PqDusuFZ6qrQi15MNoAnJWC6EBhW7ne8='; style-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#0E1014">
-<script>(function(){var d=document.documentElement,t='dark';d.classList.remove('no-js');try{var s=localStorage.getItem('ive-theme');if(s==='light'||s==='dark')t=s;}catch(e){}d.setAttribute('data-theme',t);if(t==='light'){var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#F6F7F8');}try{if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('mark-live','mark-dark');}}catch(e){}})();</script>
-<title>IVE · Run your coding agents side by side</title>
+<script>(function(){var d=document.documentElement,t='dark';d.classList.remove('no-js');try{var s=localStorage.getItem('ive-theme');if(s==='light'||s==='dark')t=s;}catch(e){}d.setAttribute('data-theme',t);if(t==='light'){var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#F6F7F8');}d.classList.add('name-intro-active');try{if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('name-intro-live');}catch(e){}})();</script>
+<title>IVE · Your agents. One workspace.</title>
 <meta name="description" content="Run Claude Code, Codex and Gemini (Antigravity CLI) side by side. One board shows which session runs, waits or is done. Open source under the Apache 2.0 license.">
 <link rel="canonical" href="https://ive.dev/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ive.dev/">
-<meta property="og:title" content="IVE · Run your coding agents side by side">
+<meta property="og:title" content="IVE · Your agents. One workspace.">
 <meta property="og:description" content="Claude Code, Codex and Gemini (Antigravity CLI) side by side in one window. Open source under the Apache 2.0 license.">
-<meta property="og:image" content="https://ive.dev/assets/og.png?v=20261023a">
+<meta property="og:image" content="https://ive.dev/assets/og.png?v=20261025-3b930af8a6e7">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Run your coding agents side by side. The IVE board with four coding sessions.">
+<meta property="og:image:alt" content="Your agents. One workspace. The IVE board with parallel coding terminals.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="IVE · Run your coding agents side by side">
+<meta name="twitter:title" content="IVE · Your agents. One workspace.">
 <meta name="twitter:description" content="Claude Code, Codex and Gemini (Antigravity CLI) side by side in one window. Open source under the Apache 2.0 license.">
-<meta name="twitter:image" content="https://ive.dev/assets/og.png?v=20261023a">
+<meta name="twitter:image" content="https://ive.dev/assets/og.png?v=20261025-3b930af8a6e7">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/archivo-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/source-sans-3-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts.css?v=20261023a">
 <link rel="stylesheet" href="site.css?v=20261024b-4ddf3867f9d4">
-<link rel="stylesheet" href="opening.css?v=20261023c">
 <link rel="stylesheet" href="home.css?v=20261023g">
 <link rel="stylesheet" href="demo.css?v=20261023g">
+<link rel="stylesheet" href="workspace.css?v=20261025-097c4f74a991">
+<link rel="stylesheet" href="name-intro.css?v=20261025-19bd4fc61064">
 </head>
-<body>
+<body class="workspace-home" id="top">
 <a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site-header" data-header>
@@ -57,183 +58,34 @@
 </header>
 
 <main id="main">
-
-<!-- 0 + 1 · OPENING (4.1) AND HERO (3.1.1) -->
-<section class="hero" id="hero" aria-labelledby="hero-title">
-<!-- opening:start -->
-<!-- 02 · MARK: INSIDE THE MACHINE, AGENTS SWARM, COME UNDER CONTROL, THEN IVE UNFOLDS INTO ITS NAME -->
-<section class="mark" id="mark" aria-label="IVE — Integrated Vibecoding Environment" data-mark>
-  <div class="mark-pin" data-mark-pin>
-    <div class="scene" aria-hidden="true" data-scene>
-      <div class="scene-cam" data-scene-cam>
-        <div class="scene-space">
-          <div class="scene-wall wall-floor" data-wall="floor"></div>
-          <div class="scene-wall wall-ceil" data-wall="ceil"></div>
-          <div class="scene-wall wall-left" data-wall="left"></div>
-          <div class="scene-wall wall-right" data-wall="right"></div>
-        </div>
-        <div class="scene-rings" data-scene-rings></div>
-        <div class="scene-vignette" data-scene-vignette></div>
-        <div class="scene-board" data-scene-board><span class="sb-title">MISSION CONTROL</span><span class="sb-count">12 sessions</span></div>
-        <div class="scene-swarm" data-scene-swarm></div>
-      </div>
-      <p class="scene-caption mono" data-scene-caption="a">Agents running everywhere.<span class="sc-count" data-scene-count="a"></span></p>
-      <p class="scene-caption mono" data-scene-caption="b">Under control.<span class="sc-count" data-scene-count="b"></span></p>
-      <div class="scene-scan"></div>
-    </div>
-    <p class="mark-line" aria-hidden="true" data-mark-line>
-      <span class="mark-word"><span class="mark-cap" data-mark-cap>I</span><span class="mark-rest"><span class="mark-rest-text" data-mark-rest>ntegrated</span></span></span>
-      <span class="mark-word"><span class="mark-cap" data-mark-cap>V</span><span class="mark-rest"><span class="mark-rest-text" data-mark-rest>ibecoding</span></span></span>
-      <span class="mark-word"><span class="mark-cap" data-mark-cap>E</span><span class="mark-rest"><span class="mark-rest-text" data-mark-rest>nvironment</span></span></span>
+<section class="name-intro" id="mark" aria-label="IVE: Integrated Vibecoding Environment" data-name-intro>
+  <div class="name-intro-pin" data-name-pin>
+    <p class="name-intro-line" aria-hidden="true" data-name-line>
+      <span class="name-intro-word"><span class="name-intro-cap" data-name-cap>I</span><span class="name-intro-rest"><span class="name-intro-rest-text" data-name-rest>ntegrated</span></span></span>
+      <span class="name-intro-word"><span class="name-intro-cap" data-name-cap>V</span><span class="name-intro-rest"><span class="name-intro-rest-text" data-name-rest>ibecoding</span></span></span>
+      <span class="name-intro-word"><span class="name-intro-cap" data-name-cap>E</span><span class="name-intro-rest"><span class="name-intro-rest-text" data-name-rest>nvironment</span></span></span>
     </p>
-    <p class="sr-only">IVE — Integrated Vibecoding Environment</p>
-    <p class="mark-by mono" data-mark-by><a href="https://aiforgov.eu/" target="_blank" rel="noopener">made by AIFOREU ↗</a></p>
-    <p class="mark-hint mono" aria-hidden="true"><span class="mark-hint-word">Scroll</span><span class="mark-hint-line"></span></p>
-  </div>
-</section>
-<!-- opening:end -->
-
-  <div class="hero-body">
-    <div class="wrap">
-      <div class="hero-head">
-        <h1 id="hero-title">Run your coding agents side by side.</h1>
-        <p class="lead">Claude Code, Codex and Gemini (Antigravity&nbsp;CLI), each in its own terminal, in one window.</p>
-        <div class="hero-cta">
-          <a class="btn btn-fill" href="try.html">Try it yourself</a>
-          <a class="btn btn-outline" href="https://github.com/michael-ra/ive/releases/latest/download/IVE-macOS-arm64.dmg" data-mac-download data-install-label-narrow="Get IVE"><span data-mac-download-label>Download for Mac</span></a>
-          <div class="term" data-copy-box>
-            <pre class="term-code" data-copy-source><code><span class="term-line">curl -fsSL https://ive.dev/install.sh | bash</span></code></pre>
-            <button class="term-copy" type="button" data-copy="curl -fsSL https://ive.dev/install.sh | bash" aria-label="Copy the install command" hidden><svg class="icon icon-copy" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.25" y="5.25" width="8" height="8" rx="1.5"/><path d="M10.75 5.25V3.75a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h1.5"/></svg><svg class="icon icon-check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.25 8.5l3 3 6.5-7"/></svg><span data-copy-label>Copy</span></button>
-            <span class="sr-only" role="status" aria-live="polite" data-copy-status></span>
-          </div>
-        </div>
-        <p class="caption hero-note" data-mac-download-note>For Macs with Apple silicon and macOS 13.5 or newer.</p>
-      </div>
-
-      <figure class="frame hero-frame" data-demo="board" data-demo-theme="dark" data-demo-params="variant=hero&amp;minScale=0.8" data-demo-title="The IVE board: four coding sessions side by side" data-demo-caption="The IVE board">
-        <div class="frame-media">
-          <picture class="frame-poster"><source media="(max-width: 719.98px)" srcset="assets/demo/posters/board-hero-m.webp"><img src="assets/demo/posters/board-hero.webp" srcset="assets/demo/posters/board-hero.webp 1600w, assets/demo/posters/board-hero@2x.webp 3200w" sizes="(max-width: 1439.98px) 100vw, 1320px" width="1600" height="554" alt="The IVE board: four coding sessions side by side, two working, one waiting for your answer, one done." decoding="async"></picture>
-        </div>
-        <figcaption class="frame-caption hero-frame-footer">
-          <div class="try-row"></div>
-        </figcaption>
-      </figure>
-    </div>
+    <p class="sr-only">IVE stands for Integrated Vibecoding Environment.</p>
+    <p class="name-intro-by"><a href="https://aiforgov.eu/" target="_blank" rel="noopener">made by AIFOREU<svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.75 11.25l6.5-6.5M5.75 4.75h5.5v5.5"/></svg><span class="sr-only"> (opens in a new tab)</span></a></p>
+    <div class="name-intro-bottom"><span class="name-intro-hint" aria-hidden="true">Scroll to unfold</span><a class="name-intro-link" href="#hero">Explore IVE <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.75v10.5M3.75 9 8 13.25 12.25 9"/></svg></a></div>
   </div>
 </section>
 
-<!-- 2 · WHY IVE (3.1.2, 4.2) -->
-<section class="why" id="why" aria-labelledby="why-title" data-why>
-  <div class="why-pin" data-why-pin>
-    <p class="why-prelude" data-why-prelude aria-hidden="true">You have the agents.</p>
-    <div class="why-inner wrap">
-      <h2 class="why-question" id="why-title" data-why-question><span data-why-word>WHY</span> <span data-why-word>IVE?</span></h2>
-      <div class="why-layout" data-why-layout>
-        <div class="why-beats">
-          <article class="why-beat" data-why-beat="0">
-            <h3 class="pair"><span>Several tasks at once.</span> <span>Not one tab at a time.</span></h3>
-            <p>Give each task its own session and model. Start the next one while the first still runs.</p>
-          </article>
-          <article class="why-beat" data-why-beat="1">
-            <h3 class="pair"><span>One board.</span> <span>Who runs, who waits, who’s done.</span></h3>
-            <p>When a session needs you it is marked, and you answer it from the board.</p>
-          </article>
-          <article class="why-beat" data-why-beat="2">
-            <h3 class="pair"><span>Every change</span> <span>comes back to you.</span></h3>
-            <p>Working and staged diffs for each session, file by file, inside the app. Stage what you accept, annotate what you don’t.</p>
-          </article>
-          <article class="why-beat" data-why-beat="3">
-            <h3 class="pair"><span>Your machine.</span> <span>Your accounts.</span></h3>
-            <p>Runs on your computer with the CLI logins you already have. No IVE account. Your CLI talks to its provider as before.</p>
-          </article>
-        </div>
-        <div class="why-stage" data-why-stage>
-          <figure class="why-panel" data-why-panel aria-label="Pictures for the four reasons: the IVE board, a session waiting for your answer, the review of a change, and what runs where.">
-            <div class="why-media" data-why-media="0" data-demo="board" data-demo-theme="dark" data-demo-controls="false" data-demo-when-active data-demo-title="The IVE board: four sessions run side by side and change state">
-              <picture class="frame-poster"><img src="assets/demo/posters/board.webp" srcset="assets/demo/posters/board.webp 1600w, assets/demo/posters/board@2x.webp 3200w" sizes="760px" width="1600" height="1000" alt="" loading="lazy" decoding="async"></picture>
-            </div>
-            <div class="why-media" data-why-media="1" data-demo="attention" data-demo-theme="dark" data-demo-controls="false" data-demo-when-active data-demo-title="A board tile waiting for your answer: the session asks for permission to run npm test">
-              <picture class="frame-poster"><img src="assets/demo/posters/attention.webp" srcset="assets/demo/posters/attention.webp 1280w, assets/demo/posters/attention@2x.webp 2560w" sizes="640px" width="1280" height="880" alt="A board tile waiting for your answer: the session asks for permission to run npm test." loading="lazy" decoding="async"></picture>
-            </div>
-            <div class="why-media" data-why-media="2" data-demo="review" data-demo-theme="dark" data-demo-controls="false" data-demo-when-active data-demo-title="The IVE review: the changed files of a session and the first change, line by line">
-              <picture class="frame-poster"><img src="assets/demo/posters/review-dark.webp" srcset="assets/demo/posters/review-dark.webp 1280w, assets/demo/posters/review-dark@2x.webp 2560w" sizes="640px" width="1280" height="880" alt="" loading="lazy" decoding="async"></picture>
-            </div>
-            <div class="why-media why-ledger-wrap" data-why-media="3">
-              <dl class="ledger why-ledger">
-                <div><dt>Runs on</dt><dd>your computer, 127.0.0.1 by default</dd></div>
-                <div><dt>Signs in with</dt><dd>your Claude Code, Codex and Gemini (Antigravity&nbsp;CLI) logins</dd></div>
-                <div><dt>Account with IVE</dt><dd>none</dd></div>
-                <div><dt>Telemetry</dt><dd>off by default</dd></div>
-                <div><dt>Source</dt><dd>github.com/michael-ra/ive, Apache 2.0</dd></div>
-              </dl>
-              <span class="why-label">What runs where</span>
-            </div>
-          </figure>
-          <div class="why-try"></div>
-          <nav class="why-jumps" aria-label="Why IVE">
-            <button class="why-jump" type="button" data-why-jump="0">Parallel</button>
-            <button class="why-jump" type="button" data-why-jump="1">In view</button>
-            <button class="why-jump" type="button" data-why-jump="2">Review</button>
-            <button class="why-jump" type="button" data-why-jump="3">Yours</button>
-          </nav>
-        </div>
-      </div>
-    </div>
-  </div>
+<section class="ws-hero wrap" id="hero" aria-labelledby="hero-title">
+<div class="ws-hero-copy"><div><p class="ws-kicker">The workspace for coding agents</p><h1 id="hero-title">Your agents.<br>One workspace.</h1></div><div class="ws-hero-aside"><p class="ws-lead">Run tasks in parallel. Answer when you’re needed. Review what changed. All in one place.</p><div class="ws-actions"><a class="btn btn-fill" href="try.html">Try it yourself <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.75 8h10.5M9 3.75 13.25 8 9 12.25"/></svg></a><a class="btn btn-outline" href="https://github.com/michael-ra/ive/releases/latest/download/IVE-macOS-arm64.dmg" data-mac-download><span data-mac-download-label>Download for Mac</span></a></div><p class="ws-small">Open source. No IVE account.</p></div></div>
+<div class="ws-agent-strip"><span class="ws-agent-intro">Bring your agents</span><span class="ws-agent">Claude Code</span><span class="ws-agent">Codex</span><span class="ws-agent">Gemini</span><a href="#your-setup" class="ws-agent-detail">Your existing CLI logins <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.75 8h10.5M9 3.75 13.25 8 9 12.25"/></svg></a></div>
+<div class="ws-explorer ws-hero-explorer" data-ws-tabs><div class="ws-tabs" role="tablist" aria-label="Workspace views"><button class="ws-tab" id="workspace-tab-0" type="button" role="tab" aria-selected="true" aria-controls="workspace-panel-0" tabindex="0" data-ws-tab><span>Parallel agents</span><small>Every terminal in view</small></button><button class="ws-tab" id="workspace-tab-1" type="button" role="tab" aria-selected="false" aria-controls="workspace-panel-1" tabindex="-1" data-ws-tab><span>Your terminal</span><small>Work the way you know</small></button><button class="ws-tab" id="workspace-tab-2" type="button" role="tab" aria-selected="false" aria-controls="workspace-panel-2" tabindex="-1" data-ws-tab><span>Code review</span><small>See what changed</small></button></div><div class="ws-tab-panel" id="workspace-panel-0" role="tabpanel" aria-labelledby="workspace-tab-0" tabindex="0" data-ws-panel ><figure class="frame ws-preview  " data-demo="terminals" data-demo-theme="dark" data-demo-title="Your terminals, side by side. Each task keeps its own session." data-demo-params="minScale=0.8"><div class="frame-media"><img class="frame-poster" src="assets/workspace/terminals-dark.webp" width="1600" height="1000" alt="Your terminals, side by side. Each task keeps its own session." loading="lazy" decoding="async"></div><figcaption class="ws-preview-caption"><span>Your terminals, side by side. Each task keeps its own session.</span><div class="try-row"></div></figcaption></figure></div><div class="ws-tab-panel" id="workspace-panel-1" role="tabpanel" aria-labelledby="workspace-tab-1" tabindex="0" data-ws-panel hidden><figure class="frame ws-preview  " data-demo="terminal" data-demo-theme="dark" data-demo-title="The CLI you know, with the whole conversation one click away." data-demo-params="minScale=0.8"><div class="frame-media"><img class="frame-poster" src="assets/workspace/terminal-dark.webp" width="1600" height="1000" alt="The CLI you know, with the whole conversation one click away." loading="lazy" decoding="async"></div><figcaption class="ws-preview-caption"><span>The CLI you know, with the whole conversation one click away.</span><div class="try-row"></div></figcaption></figure></div><div class="ws-tab-panel" id="workspace-panel-2" role="tabpanel" aria-labelledby="workspace-tab-2" tabindex="0" data-ws-panel hidden><figure class="frame ws-preview  " data-demo="review" data-demo-theme="dark" data-demo-title="Review changed files and diffs without leaving IVE." data-demo-params=""><div class="frame-media"><img class="frame-poster" src="assets/demo/posters/review-dark.webp" width="1600" height="1000" alt="Review changed files and diffs without leaving IVE." loading="lazy" decoding="async"></div><figcaption class="ws-preview-caption"><span>Review changed files and diffs without leaving IVE.</span><div class="try-row"></div></figcaption></figure></div></div>
+<div class="ws-hero-tail"><a class="ws-text-link" href="product.html">Explore the whole app <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.75 8h10.5M9 3.75 13.25 8 9 12.25"/></svg></a></div>
 </section>
-
-<!-- 3 · INSIDE IVE (3.1.3, 4.3) -->
-<section class="inside" id="inside" aria-labelledby="inside-title" data-inside>
-  <div class="wrap">
-    <div class="inside-head">
-      <h2 id="inside-title">Inside IVE.</h2>
-      <p class="lead">From your terminal to the passing check.</p>
-    </div>
-    <div class="inside-live">
-      <ol class="chapters" data-chapters>
-        <li><button class="chapter-btn" type="button" data-chapter="1" aria-pressed="true" data-chapter-demo='{"scene": "terminal", "theme": "light", "poster": "assets/demo/posters/terminal.webp", "poster2x": "assets/demo/posters/terminal@2x.webp", "alt": "A session’s terminal inside IVE; an instruction is typed, the CLI works through its steps, then the same session is shown as Overview with the terminal below.", "caption": "A normal terminal, enhanced."}'><span class="chapter-num">01</span><span class="chapter-name">Terminal</span></button></li>
-        <li><button class="chapter-btn" type="button" data-chapter="2" aria-pressed="false" data-chapter-demo='{"scene": "terminals", "theme": "light", "poster": "assets/demo/posters/terminals.webp", "poster2x": "assets/demo/posters/terminals@2x.webp", "alt": "The board with ten sessions as terminal tiles; output streams in every tile, a waiting tile is answered with Enter, one terminal is opened at full size.", "caption": "Ten terminals, one board."}'><span class="chapter-num">02</span><span class="chapter-name">Ten at once</span></button></li>
-        <li><button class="chapter-btn" type="button" data-chapter="3" aria-pressed="false" data-chapter-demo='{"scene": "start", "theme": "light", "poster": "assets/demo/posters/start.webp", "poster2x": "assets/demo/posters/start@2x.webp", "alt": "A goal is typed on Home and started; while the agent works, the next instruction is typed and Enter queues it.", "caption": "Start with a sentence."}'><span class="chapter-num">03</span><span class="chapter-name">Start</span></button></li>
-        <li><button class="chapter-btn" type="button" data-chapter="4" aria-pressed="false" data-chapter-demo='{"scene": "autofix", "theme": "light", "poster": "assets/demo/posters/autofix.webp", "poster2x": "assets/demo/posters/autofix@2x.webp", "alt": "The plan is approved, a testing agent checks the work, the failed check goes back with its report, the second check passes.", "caption": "Build, check, fix, repeat."}'><span class="chapter-num">04</span><span class="chapter-name">Auto-fix loop</span></button></li>
-        <li><button class="chapter-btn" type="button" data-chapter="5" aria-pressed="false" data-chapter-demo='{"scene": "pipelines", "theme": "light", "poster": "assets/demo/posters/pipelines.webp", "poster2x": "assets/demo/posters/pipelines@2x.webp", "alt": "A saved pipeline runs on the canvas; the check fails, the fix stage runs, the second cycle passes.", "caption": "Draw your own loop."}'><span class="chapter-num">05</span><span class="chapter-name">Pipelines</span></button></li>
-        <li><button class="chapter-btn" type="button" data-chapter="6" aria-pressed="false" data-chapter-demo='{"scene": "loopdetect", "theme": "light", "poster": "assets/demo/posters/loopdetect.webp", "poster2x": "assets/demo/posters/loopdetect@2x.webp", "alt": "An agent runs the same npm test three times; IVE shows Loop detected and the agent changes its approach.", "caption": "Caught going in circles."}'><span class="chapter-num">06</span><span class="chapter-name">Loop detected</span></button></li>
-      </ol>
-      <figure class="frame is-light player" data-player data-demo-player data-demo-title="Inside IVE: six scenes of the interface">
-        <div class="frame-media">
-          <img class="frame-poster" data-player-poster src="assets/demo/posters/terminal.webp" srcset="assets/demo/posters/terminal.webp 1600w, assets/demo/posters/terminal@2x.webp 3200w" sizes="(max-width: 1023.98px) 100vw, 1200px" width="1600" height="1000" alt="" loading="lazy" decoding="async">
-        </div>
-        <figcaption class="player-captions">
-          <div class="player-caption-stack" aria-live="polite">
-            <div class="player-caption is-active" data-chapter-caption="1"><p class="cap-title">A normal terminal, enhanced.</p><p class="cap-text">Your CLI runs in its own terminal inside IVE; type into it as you always have. One click shows the same session as steps and replies.</p></div>
-            <div class="player-caption" data-chapter-caption="2"><p class="cap-title">Ten terminals. One board.</p><p class="cap-text">Every session is a tile with its live terminal and its state. Answer a prompt in place; open any terminal at full size.</p></div>
-            <div class="player-caption" data-chapter-caption="3"><p class="cap-title">Start with a sentence.</p><p class="cap-text">Type what you want on Home and press Start. While the agent works, write the next instruction; Enter queues it.</p></div>
-            <div class="player-caption" data-chapter-caption="4"><p class="cap-title">Build, check, fix, repeat.</p><p class="cap-text">You approve the plan. A testing agent checks the work; a failed check goes back with its report, up to the limit you set.</p></div>
-            <div class="player-caption" data-chapter-caption="5"><p class="cap-title">Draw your own loop.</p><p class="cap-text">Agents, checks and conditions on one canvas. Every loop has a cycle limit and shows which round it is on.</p></div>
-            <div class="player-caption" data-chapter-caption="6"><p class="cap-title">Caught going in circles.</p><p class="cap-text">When an agent repeats the same call three times, IVE warns you and tells it to change approach. On by default.</p></div>
-          </div>
-          <div class="player-provenance"></div>
-        </figcaption>
-      </figure></figure>
-    </div>
-    <!-- without JS: six figures in normal flow -->
-    <div class="inside-static">
-      <figure class="frame is-light"><span class="chapter-num">01 · Terminal</span><div class="frame-media"><img class="frame-poster" src="assets/demo/posters/terminal.webp" srcset="assets/demo/posters/terminal.webp 1600w, assets/demo/posters/terminal@2x.webp 3200w" sizes="(max-width: 1023.98px) 100vw, 1200px" width="1600" height="1000" alt="A session’s terminal inside IVE: the CLI’s steps and reply, the prompt box below." loading="lazy" decoding="async"></div><figcaption><p class="cap-title">A normal terminal, enhanced.</p><p class="cap-text">Your CLI runs in its own terminal inside IVE; type into it as you always have. One click shows the same session as steps and replies.</p></figcaption></figure>
-      <figure class="frame is-light"><span class="chapter-num">02 · Ten at once</span><div class="frame-media"><img class="frame-poster" src="assets/demo/posters/terminals.webp" srcset="assets/demo/posters/terminals.webp 1600w, assets/demo/posters/terminals@2x.webp 3200w" sizes="(max-width: 1023.98px) 100vw, 1200px" width="1600" height="1000" alt="The board with ten sessions as terminal tiles, each with its live transcript and state." loading="lazy" decoding="async"></div><figcaption><p class="cap-title">Ten terminals. One board.</p><p class="cap-text">Every session is a tile with its live terminal and its state. Answer a prompt in place; open any terminal at full size.</p></figcaption></figure>
-      <figure class="frame is-light"><span class="chapter-num">03 · Start</span><div class="frame-media"><img class="frame-poster" src="assets/demo/posters/start.webp" srcset="assets/demo/posters/start.webp 1600w, assets/demo/posters/start@2x.webp 3200w" sizes="(max-width: 1023.98px) 100vw, 1200px" width="1600" height="1000" alt="A goal typed on Home; while the agent works, the next instruction waits in the queue." loading="lazy" decoding="async"></div><figcaption><p class="cap-title">Start with a sentence.</p><p class="cap-text">Type what you want on Home and press Start. While the agent works, write the next instruction; Enter queues it.</p></figcaption></figure>
-      <figure class="frame is-light"><span class="chapter-num">04 · Auto-fix loop</span><div class="frame-media"><img class="frame-poster" src="assets/demo/posters/autofix.webp" srcset="assets/demo/posters/autofix.webp 1600w, assets/demo/posters/autofix@2x.webp 3200w" sizes="(max-width: 1023.98px) 100vw, 1200px" width="1600" height="1000" alt="The run details of a guided task: completed in the second cycle, every stage passed." loading="lazy" decoding="async"></div><figcaption><p class="cap-title">Build, check, fix, repeat.</p><p class="cap-text">You approve the plan. A testing agent checks the work; a failed check goes back with its report, up to the limit you set.</p></figcaption></figure>
-      <figure class="frame is-light"><span class="chapter-num">05 · Pipelines</span><div class="frame-media"><img class="frame-poster" src="assets/demo/posters/pipelines.webp" srcset="assets/demo/posters/pipelines.webp 1600w, assets/demo/posters/pipelines@2x.webp 3200w" sizes="(max-width: 1023.98px) 100vw, 1200px" width="1600" height="1000" alt="A pipeline on the canvas with a loop from the check back to the fix stage." loading="lazy" decoding="async"></div><figcaption><p class="cap-title">Draw your own loop.</p><p class="cap-text">Agents, checks and conditions on one canvas. Every loop has a cycle limit and shows which round it is on.</p></figcaption></figure>
-      <figure class="frame is-light"><span class="chapter-num">06 · Loop detected</span><div class="frame-media"><img class="frame-poster" src="assets/demo/posters/loopdetect.webp" srcset="assets/demo/posters/loopdetect.webp 1600w, assets/demo/posters/loopdetect@2x.webp 3200w" sizes="(max-width: 1023.98px) 100vw, 1200px" width="1600" height="1000" alt="A session with the warning Loop detected after the same npm test ran three times." loading="lazy" decoding="async"></div><figcaption><p class="cap-title">Caught going in circles.</p><p class="cap-text">When an agent repeats the same call three times, IVE warns you and tells it to change approach. On by default.</p></figcaption></figure>
-    </div>
-  </div>
-</section>
-
-<!-- 4 · GET IVE (3.1.4) -->
+<section class="ws-attention wrap" id="why" aria-labelledby="attention-title"><div class="ws-section-copy"><p class="ws-kicker">Less checking in</p><h2 id="attention-title">Know when<br>it’s your turn.</h2><p class="ws-lead">Keep the work moving without hunting through tabs. IVE makes the session that needs your answer visible.</p><dl class="ws-states"><div><dt><span class="ws-state-dot running"></span>Working</dt><dd>Let the agent carry on.</dd></div><div><dt><span class="ws-state-dot waiting"></span>Needs you</dt><dd>Answer right on the board.</dd></div><div><dt><span class="ws-state-dot done"></span>Ready to review</dt><dd>Open the diff and make the call.</dd></div></dl><a class="ws-text-link" href="try.html?at=attention&amp;tour=0">Try answering a request <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.75 8h10.5M9 3.75 13.25 8 9 12.25"/></svg></a></div><figure class="frame ws-preview ws-attention-preview is-light" data-demo="attention" data-demo-theme="light" data-demo-title="A permission request, right where the work is happening." data-demo-params=""><div class="frame-media"><img class="frame-poster" src="assets/workspace/attention-light.webp" width="1600" height="1000" alt="A permission request, right where the work is happening." loading="lazy" decoding="async"></div><figcaption class="ws-preview-caption"><span>A permission request, right where the work is happening.</span><div class="try-row"></div></figcaption></figure></section>
+<section class="ws-workflow" id="inside" aria-labelledby="workflow-title"><div class="wrap"><div class="ws-section-head"><div><p class="ws-kicker">From one task to a workflow</p><h2 id="workflow-title">Start simple.<br>Go further when you’re ready.</h2></div><p class="ws-lead">A familiar terminal to begin with. Checks and repeatable workflows when the task calls for more.</p></div><div class="ws-explorer ws-flow-explorer" data-ws-tabs><div class="ws-tabs" role="tablist" aria-label="Workflow views"><button class="ws-tab" id="workflow-tab-0" type="button" role="tab" aria-selected="true" aria-controls="workflow-panel-0" tabindex="0" data-ws-tab><span>Start with a task</span><small>Describe it. Choose your agent.</small></button><button class="ws-tab" id="workflow-tab-1" type="button" role="tab" aria-selected="false" aria-controls="workflow-panel-1" tabindex="-1" data-ws-tab><span>Add a check</span><small>Build. Test. Fix. Repeat.</small></button><button class="ws-tab" id="workflow-tab-2" type="button" role="tab" aria-selected="false" aria-controls="workflow-panel-2" tabindex="-1" data-ws-tab><span>Shape your workflow</span><small>Connect agents and checks.</small></button></div><div class="ws-tab-panel" id="workflow-panel-0" role="tabpanel" aria-labelledby="workflow-tab-0" tabindex="0" data-ws-panel ><figure class="frame ws-preview  is-light" data-demo="start" data-demo-theme="light" data-demo-title="Start a task, then queue the next instruction while the agent works." data-demo-params=""><div class="frame-media"><img class="frame-poster" src="assets/demo/posters/start.webp" width="1600" height="1000" alt="Start a task, then queue the next instruction while the agent works." loading="lazy" decoding="async"></div><figcaption class="ws-preview-caption"><span>Start a task, then queue the next instruction while the agent works.</span><div class="try-row"></div></figcaption></figure></div><div class="ws-tab-panel" id="workflow-panel-1" role="tabpanel" aria-labelledby="workflow-tab-1" tabindex="0" data-ws-panel hidden><figure class="frame ws-preview  is-light" data-demo="autofix" data-demo-theme="light" data-demo-title="Approve the plan. A failed check goes back with its report. You set the retry limit." data-demo-params=""><div class="frame-media"><img class="frame-poster" src="assets/demo/posters/autofix.webp" width="1600" height="1000" alt="Approve the plan. A failed check goes back with its report. You set the retry limit." loading="lazy" decoding="async"></div><figcaption class="ws-preview-caption"><span>Approve the plan. A failed check goes back with its report. You set the retry limit.</span><div class="try-row"></div></figcaption></figure></div><div class="ws-tab-panel" id="workflow-panel-2" role="tabpanel" aria-labelledby="workflow-tab-2" tabindex="0" data-ws-panel hidden><figure class="frame ws-preview  is-light" data-demo="pipelines" data-demo-theme="light" data-demo-title="Build a pipeline on the canvas, with conditions and a limit for every loop." data-demo-params="minScale=0.42"><div class="frame-media"><img class="frame-poster" src="assets/demo/posters/pipelines.webp" width="1600" height="1000" alt="Build a pipeline on the canvas, with conditions and a limit for every loop." loading="lazy" decoding="async"></div><figcaption class="ws-preview-caption"><span>Build a pipeline on the canvas, with conditions and a limit for every loop.</span><div class="try-row"></div></figcaption></figure></div></div></div></section>
+<section class="ws-ownership" id="your-setup" aria-labelledby="ownership-title"><div class="wrap"><div class="ws-ownership-top"><div><p class="ws-kicker">Built around your setup</p><h2 id="ownership-title">Your machine.<br>Your accounts. Your call.</h2></div><a class="ws-source-link" href="https://github.com/michael-ra/ive" target="_blank" rel="noopener"><span>Open source</span><span>Apache 2.0 <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.75 8h10.5M9 3.75 13.25 8 9 12.25"/></svg></span><span class="sr-only"> (opens in a new tab)</span></a></div><dl class="ws-facts"><div><dt>Runs locally</dt><dd>IVE runs on your computer. Your coding CLI connects to its provider as usual.</dd></div><div><dt>Use your CLI logins</dt><dd>Claude Code, Codex and Gemini (Antigravity CLI). No separate IVE account.</dd></div><div><dt>You decide what stays</dt><dd>Review the diff, stage what you accept, and leave feedback on what needs work.</dd></div></dl><div class="ws-ownership-bottom"><span>Telemetry is off by default.</span><a class="ws-text-link" href="architecture.html">See what runs where <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.75 8h10.5M9 3.75 13.25 8 9 12.25"/></svg></a></div></div></section>
 <section class="phone" id="iphone" aria-labelledby="phone-title">
   <div class="wrap phone-grid">
     <div class="phone-head">
       <p class="eyebrow">IVE for iPhone</p>
       <h2 id="phone-title">Your terminal, everywhere.</h2>
-      <p class="lead">Pair the iPhone app with IVE on your Mac. Every session, every terminal and every question an agent asks is then on your phone, over a secure connection, wherever you are. The agents keep running on the Mac.</p>
+      <p class="lead">Check a terminal. Answer a question. Keep things moving from your iPhone while the agents run on your Mac.</p>
     </div>
     <div class="phone-visual">
       <div class="ph" data-phone-mock>
@@ -276,19 +128,9 @@
       </dl>
       <div class="phone-cta">
         <span class="soon">Coming soon to the App Store</span>
-        <a class="btn btn-outline" href="try.html?at=phone">See it in the demo</a>
+        <a class="btn btn-outline" href="try.html?at=phone&amp;tour=0">See it in the demo</a>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="tryband" id="try" aria-labelledby="try-title">
-  <div class="wrap tryband-inner">
-    <div class="tryband-text">
-      <h2 id="try-title">Try IVE in your browser.</h2>
-      <p class="lead">The app with a sample project, nothing to install. Start a task, open its terminal, answer on the board, review the diff.</p>
-    </div>
-    <a class="btn btn-fill btn-lg" href="try.html">Try it yourself</a>
   </div>
 </section>
 
@@ -297,10 +139,10 @@
   <span class="anchor-alias" id="get-ive" aria-hidden="true"></span>
   <div class="wrap">
     <div class="get-head">
-      <h2 id="install-title">Open source. Two ways in.</h2>
-      <p class="lead">The Mac app on Apple silicon, or one command on Linux and Intel Macs. Not ready yet? <a href="try.html">Try it in the browser first</a>.</p>
+      <h2 id="install-title">Your next task starts here.</h2>
+      <p class="lead">Explore a sample project in your browser, or bring IVE to your own machine.</p>
     </div>
-    <div class="get-paths">
+    <div class="ws-install-primary"><a class="btn btn-fill btn-lg" href="try.html">Try it yourself <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.75 8h10.5M9 3.75 13.25 8 9 12.25"/></svg></a><span>No install. No sign-up.</span></div><div class="get-paths">
       <div class="panel get-path">
         <span class="label">Mac app</span>
         <a class="btn btn-outline" href="https://github.com/michael-ra/ive/releases/latest/download/IVE-macOS-arm64.dmg">Download for Mac</a>
@@ -314,19 +156,23 @@
           <span class="sr-only" role="status" aria-live="polite" data-copy-status></span>
         </div>
         <p class="panel-note">macOS or Linux. Python 3.11+, Node.js 22.12+, Git, and a coding CLI you are signed in to.</p>
-        <p class="get-more"><a class="arrow-link" href="download.html">Then run <code>ive</code>. All steps and the clone path<svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.75 8h10.5M9 3.75 13.25 8 9 12.25"/></svg></a></p>
+        <p class="get-more"><a class="arrow-link" href="download.html">Then run <code>ive</code>. Setup guide<svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.75 8h10.5M9 3.75 13.25 8 9 12.25"/></svg></a></p>
       </div>
     </div>
     <div class="get-links">
       <a class="btn btn-quiet btn-line" href="https://github.com/michael-ra/ive" target="_blank" rel="noopener">View on GitHub<svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.75 11.25l6.5-6.5M5.75 4.75h5.5v5.5"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
       <a class="btn btn-quiet btn-line" href="architecture.html">Read the architecture</a>
     </div>
-    <p class="get-star">If IVE is useful to you, give it a star on GitHub.</p>
+
   </div>
 </section>
 
-<!-- 5 · MAKER (3.1.5) -->
-<section class="maker" id="aiforeu" aria-labelledby="maker-title" data-madeby>
+<section class="ws-questions wrap" aria-labelledby="questions-title"><div><p class="ws-kicker">A few useful details</p><h2 id="questions-title">Before you start.</h2><a class="ws-text-link" href="download.html">The full setup guide <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.75 8h10.5M9 3.75 13.25 8 9 12.25"/></svg></a></div><div class="ws-faq">
+<details><summary>Can I use the agents I already pay for?</summary><p>Yes. IVE uses your existing Claude Code, Codex and Gemini (Antigravity CLI) logins. Model availability and usage limits come from your CLI and provider account.</p></details>
+<details><summary>What can I try in the browser?</summary><p>The IVE interface with a sample project: start a task, open a terminal, answer a request and review a diff. The example replies are scripted; no coding provider runs in the demo.</p><a href="try.html">Open the browser demo</a></details>
+<details><summary>What do I need to run IVE?</summary><p>The Mac app needs Apple silicon, macOS 13.5 or newer, and a coding CLI you are signed in to. The terminal install works on macOS or Linux with Python 3.11+, Node.js 22.12+ and Git.</p></details>
+<details><summary>Is the iPhone app available?</summary><p>It is coming soon to the App Store. You can explore the Phone view in the browser demo today. The coding agents themselves keep running on your Mac.</p><a href="try.html?at=phone&amp;tour=0">Explore the Phone view</a></details>
+</div></section><section class="maker" id="aiforeu" aria-labelledby="maker-title" data-madeby>
   <div class="wrap maker-grid">
     <figure class="maker-film">
       <div class="maker-frame"><video playsinline preload="none" poster="assets/aiforeu/reveal-poster.webp" aria-describedby="maker-desc" data-madeby-video data-src-large="assets/aiforeu/reveal-sound-1600.mp4" data-src-small="assets/aiforeu/reveal-sound-960.mp4"></video></div>
@@ -343,9 +189,7 @@
   </div>
 </section>
 
-</main>
-
-<footer class="site-footer">
+</main><footer class="site-footer">
   <div class="wrap">
     <div class="footer-row">
       <p class="footer-brand"><span class="wordmark wordmark-sm"><span class="wordmark-text">IVE</span><span class="wordmark-dot" aria-hidden="true"></span></span><a class="footer-maker" href="https://aiforgov.eu/" target="_blank" rel="noopener">from AIFOREU<svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.75 11.25l6.5-6.5M5.75 4.75h5.5v5.5"/></svg><span class="sr-only"> (opens in a new tab)</span></a></p>
@@ -365,9 +209,9 @@
   </div>
 </footer>
 <script src="site.js?v=20261023c" defer></script>
-<script src="opening.js?v=20261023c" defer></script>
-<script src="home.js?v=20261023f" defer></script>
-<script src="demo.js?v=20261023f" defer></script>
+<script src="demo.js?v=20261025-bbbdb6a42093" defer></script>
+<script src="workspace.js?v=20261025-aae0d094b51e" defer></script>
 <script src="madeby.js?v=20261023a" defer></script>
+<script src="name-intro.js?v=20261025-bee6bf75e574" defer></script>
 </body>
 </html>
