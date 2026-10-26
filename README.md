@@ -46,8 +46,8 @@ Serve the folder, open `assets/og.html` in a browser at exactly 1200×630, and c
 
 ## Product truth
 
-- IVE is open source under the Apache 2.0 license. The public repository is `https://github.com/michael-ra/ive`.
-- The primary homepage action opens the browser demo. The secondary Mac action links to the Mac app: https://github.com/michael-ra/ive/releases/latest/download/IVE-macOS-arm64.dmg (latest GitHub release of michael-ra/ive, Apple silicon, macOS 13.5 or newer, signed by AIFOREU GmbH and notarized by Apple). Linux, Intel Macs and developers use `curl -fsSL https://ive.dev/install.sh | bash` (puts the code in `~/.ive`, installs its dependencies, builds the app, adds an `ive` command in `~/.local/bin`; `ive` then runs IVE in the background), or from source with `git clone https://github.com/michael-ra/ive.git`, `cd ive`, `bash install.sh`, `bin/ive`.
+- IVE is open source under the Apache 2.0 license. The public repository is `https://github.com/michaelAGI/ive`.
+- The primary homepage action opens the browser demo. The secondary Mac action links to the Mac app: https://github.com/michaelAGI/ive/releases/latest/download/IVE-macOS-arm64.dmg (latest GitHub release of michaelAGI/ive, Apple silicon, macOS 13.5 or newer, signed by AIFOREU GmbH and notarized by Apple). Linux, Intel Macs and developers use `curl -fsSL https://ive.dev/install.sh | bash` (puts the code in `~/.ive`, installs its dependencies, builds the app, adds an `ive` command in `~/.local/bin`; `ive` then runs IVE in the background), or from source with `git clone https://github.com/michaelAGI/ive.git`, `cd ive`, `bash install.sh`, `bin/ive`.
 - Requirements for the one-line installer and the source path: macOS or Linux, Python 3.11+, Node.js 22.12+ with npm, Git, and at least one supported coding CLI. The Mac app needs none of the first three: Apple silicon (M1 or newer), macOS 13.5 or newer, and at least one coding CLI you are signed in to. It opens in its own window, so no terminal or browser tab is needed. Telemetry is off by default.
 - Do not promise Windows support, an Intel Mac app, a community, stars, or contributors. Show no version number or file size for the Mac app.
 - Supported agents are Claude Code, Codex and Gemini (Antigravity CLI). The active CLI profiles in IVE 1.0.17 are Claude Code, Codex CLI and Antigravity CLI, Google's agent CLI with Gemini models (`backend/cli_profiles.py`, checked 2026-10-22). The standalone Gemini CLI profile is inactive in 1.0.17, so write "Claude Code, Codex and Gemini (Antigravity CLI)" in full lists, "Claude Code · Codex · Gemini" in short lists and chips, and never "Gemini CLI" alone. Models depend on the installed CLI and account; illustrations name only Haiku, Sonnet, Opus and the Gemini Pro and Flash models (`gemini-3.1-pro`, `gemini-3.5-flash`).
@@ -58,7 +58,7 @@ Serve the folder, open `assets/og.html` in a browser at exactly 1200×630, and c
 
 ## Installer distribution
 
-The only installer published from this repository is the shell script `install.sh` at the site root. It installs IVE from the public source repository and must stay byte-identical to `get.sh` on the main branch of michael-ra/ive. The Mac app is a release asset of michael-ra/ive; the site only links it. Do not commit application bundles, DMG/PKG/IPA installers, release ZIP archives, or private app source here.
+The only installer published from this repository is the shell script `install.sh` at the site root. It installs IVE from the public source repository and must stay byte-identical to `get.sh` on the main branch of michaelAGI/ive. The Mac app is a release asset of michaelAGI/ive; the site only links it. Do not commit application bundles, DMG/PKG/IPA installers, release ZIP archives, or private app source here.
 
 ## Beta waitlist (removed)
 
@@ -84,3 +84,26 @@ static server on port 4187, or set `PREVIEW_URL`. This verifies responsive
 layouts, local resources, tabs, keyboard controls, reduced motion, copying the
 install command, no-JS fallbacks, and Chromium/WebKit rendering. Reports and
 screenshots go to the ignored `review/` folder.
+
+## Mac release acceptance
+
+For each Mac release, complete the app release, installation and website checks
+together. A source push alone does not update the Mac download.
+
+1. Build the clean public app commit; keep private iPhone/Watch source and private
+   builds out of the public repository, release and site.
+2. Verify the terminal/session workflow, bundle and native runtime. Sign all
+   embedded code with Developer ID, submit to Apple, wait for acceptance, export
+   the notarized app, and validate its ticket, signature and Gatekeeper verdict.
+3. Package that app as `IVE-macOS-arm64.dmg`, publish its SHA-256 alongside it,
+   then publish the matching GitHub release as latest. Do not replace an existing
+   release silently or point latest at an unsigned development build.
+4. Download the asset through the site's latest-release link. Verify its hash,
+   embedded source revision, app ticket and Gatekeeper verdict independently.
+5. Compare the served `install.sh` byte for byte with public `main:get.sh`, check
+   the download page and deployment, and update any affected install instructions.
+6. When updating the owner's Mac, verify the installed app at `/Applications/IVE.app`,
+   preserve projects/chats and hooks, and remove duplicate application copies.
+
+Record concrete evidence and any failed or excluded checks. There is no
+automatic Mac publisher or desktop updater attached to every Git push.
