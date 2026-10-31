@@ -31,7 +31,10 @@
   }
   boot();
 
+  var booted = false;
   function boot() {
+  if (booted) return; // several media changes before one frame must not boot twice
+  booted = true;
   var pin = section.querySelector('[data-cursor-pin]');
   var canvas = section.querySelector('[data-cursor-canvas]');
   var ctx = canvas.getContext('2d');
@@ -457,6 +460,9 @@
     // goes (1 - cursorA in drawLine), 1 once the prologue lies above. Set before the loop may
     // stop, so a page that opens or is restored below the prologue ends at 1 as well
     setVar(root, '--dot-pop', done ? '1' : ease(seg(seg(p, T.grow), CURSOR)).toFixed(3));
+    // the done state too (the pin hides, pointer events pass, the name intro's own Explore row
+    // shows): a late boot far below the prologue may never get a visible frame
+    section.classList.toggle('is-done', done);
     if (!visible) { raf = 0; return; }
     var ready = intro.classList.contains('is-ready');
     if (ready !== geomReady) { geomReady = ready; geom = null; drawn = ''; }
