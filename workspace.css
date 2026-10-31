@@ -10,12 +10,15 @@
 .ws-text-link:hover { color: var(--accent); }
 .ws-text-link .icon { width: 16px; height: 16px; transition: transform 160ms ease; }
 .ws-text-link:hover .icon { transform: translateX(3px); }
-/* The hero light (ACCENT-BRIEF, Where 3): a soft radial light of the pop behind the explorer frame,
-   its peak in the frame's upper right third, so only the spill around the frame shows. Geometry
-   from the frame itself: the frame is the content width (min(100vw - 2 gutters, --maxw)) at its
-   aspect ratio, and its bottom sits a fixed caption + tail above the hero's bottom, so the light is
+/* The hero light (ACCENT-BRIEF, Where 3): a soft radial light of the pop behind the explorer frame.
+   Its peak sits inside the frame, a third of the frame height below the top edge and a sixth of the
+   frame width in from the right, so the frame hides the core and only a soft spill shows: along the
+   frame's right edge and, far weaker, above its top right corner. Geometry comes from the frame
+   itself: the frame is the content width (min(100vw - 2 gutters, --maxw)) at its aspect ratio, and
+   its bottom sits a fixed caption + tail (--halo-edge) above the hero's bottom, so the light is
    anchored from the bottom and needs no fixed top. --halo-cx is the peak's distance from the hero's
-   right edge (gutter + a sixth of the frame). */
+   right edge, --halo-cy its depth below the frame's top edge, --halo-right the box's right inset
+   (0 here, into the page margin on wide screens, the frame's edge on phones). */
 .ws-hero {
   position: relative; isolation: isolate;
   padding-top: clamp(128px, 13vh, 184px); padding-bottom: 0;
@@ -27,28 +30,40 @@
   --halo-frame-h: calc(var(--halo-frame-w) / 2.1);
   --halo-edge: 151px;
   --halo-cx: calc(var(--gutter) + var(--halo-frame-w) / 6);
-  --halo-rx: min(450px, 70vw);
-  --halo-ry: min(280px, 50vw);
+  --halo-cy: calc(var(--halo-frame-h) / 3);
+  /* the width sets how far the spill reaches past the frame's right edge; the height is pinned by the tab row */
+  --halo-rx: calc(var(--halo-frame-w) * .36);
+  /* with the peak a third down, .43 of the frame height puts about .04 at the frame's top edge and
+     nothing at the agent strip */
+  --halo-ry: calc(var(--halo-frame-h) * .43);
+  --halo-right: 0px;
 }
-/* The box is clamped to the page: its left edge never goes below 0, its right edge stops 12px short
-   of the viewport on wide screens and at the hero's edge on phones (no negative inset there), so
-   the document never widens. The gradient's own radii and centre place the light; the falloff is
-   front-loaded so the hero's small grey texts sit on a near-zero tint and any cut at the box edge
-   is invisible. No blur. */
+/* The box is clamped to the page: its left edge never goes below 0 and its right edge never passes
+   the viewport, so the document never widens. The falloff is one smooth bell, (1 - t^2)^2 sampled
+   every tenth, so no stop leaves a kink and the light theme's faint rings stay evenly spaced. No blur. */
 .ws-hero::before {
   content: '';
   position: absolute; z-index: -1; pointer-events: none;
   left: max(0px, calc(100% - var(--halo-cx) - var(--halo-rx)));
-  right: min(0px, calc((100% - 100vw) / 2 + 12px));
-  bottom: calc(var(--halo-edge) + var(--halo-frame-h) * 5 / 6 - var(--halo-ry));
+  right: var(--halo-right);
+  bottom: calc(var(--halo-edge) + var(--halo-frame-h) - var(--halo-cy) - var(--halo-ry));
   height: calc(2 * var(--halo-ry));
-  background: radial-gradient(var(--halo-rx) var(--halo-ry) at min(var(--halo-rx), calc(100% - var(--halo-cx))) 50%,
+  background: radial-gradient(var(--halo-rx) var(--halo-ry) at calc(100% - var(--halo-cx) + var(--halo-right)) 50%,
     var(--pop-glow) 0%,
-    color-mix(in srgb, var(--pop-glow) 80%, transparent) 30%,
-    color-mix(in srgb, var(--pop-glow) 35%, transparent) 55%,
-    color-mix(in srgb, var(--pop-glow) 8%, transparent) 75%,
+    color-mix(in srgb, var(--pop-glow) 98%, transparent) 10%,
+    color-mix(in srgb, var(--pop-glow) 92%, transparent) 20%,
+    color-mix(in srgb, var(--pop-glow) 83%, transparent) 30%,
+    color-mix(in srgb, var(--pop-glow) 71%, transparent) 40%,
+    color-mix(in srgb, var(--pop-glow) 56%, transparent) 50%,
+    color-mix(in srgb, var(--pop-glow) 41%, transparent) 60%,
+    color-mix(in srgb, var(--pop-glow) 26%, transparent) 70%,
+    color-mix(in srgb, var(--pop-glow) 13%, transparent) 80%,
+    color-mix(in srgb, var(--pop-glow) 4%, transparent) 90%,
     transparent 100%);
 }
+/* one hue in the hero's first view: the kicker and the selected tab's bar are neutral here, so the
+   dot and the filled button are the only colour; section kickers further down stay mint */
+.ws-hero .ws-kicker { color: var(--text-3); }
 .ws-hero-copy { display: grid; grid-template-columns: 1.55fr 1fr; gap: 64px; align-items: end; }
 .ws-hero h1 { font-size: clamp(58px, 5.9vw, 88px); line-height: 1.03; letter-spacing: -.055em; font-stretch: 112%; font-weight: 650; }
 .ws-hero-aside { padding-bottom: 3px; }
@@ -69,6 +84,7 @@
 .ws-tab:hover { color: var(--text-1); background: var(--bg-raised); }
 .ws-tab[aria-selected="true"] { color: var(--text-1); background: var(--bg-raised); border-color: var(--line-strong); }
 .ws-tab[aria-selected="true"]::before { content: ''; position: absolute; top: -1px; left: 22px; right: 22px; height: 2px; background: var(--accent); }
+.ws-hero-explorer .ws-tab[aria-selected="true"]::before { background: var(--text-2); }
 .ws-tab-panel { outline-offset: 6px; }
 .ws-hero-explorer .frame-media { aspect-ratio: 2.1; border-radius: 0 8px 8px 8px; }
 .ws-hero-explorer .frame-media::after { box-shadow: inset 0 1px 0 rgba(255,255,255,.08); }
@@ -113,17 +129,20 @@
 .workspace-home .phone { padding-block: var(--ws-space); }
 .workspace-home .phone .phone-head h2 { font-size: clamp(34px,3.6vw,52px); letter-spacing: -.04em; }
 .workspace-home .phone .phone-head .lead { font-size: 20px; }
-/* The hero light's quieter echo (half the peak) behind the big button; a flat ellipse that ends
-   above the install paths, whose 12px labels and notes are --text-4 and have no contrast to spare */
+/* The hero light's quieter echo behind the big button: a quarter of the glow token, which shows
+   beside the button at about 40 % of the spill the hero actually shows (its core is behind the
+   frame). A flat ellipse with the hero's bell falloff that ends above the install paths, whose
+   12px labels and notes are --text-4 and have no contrast to spare */
 .workspace-home .get {
   padding-block: 96px 80px;
   --echo-rx: min(360px, 60vw);
   --echo-ry: min(130px, 28vw);
   background: radial-gradient(var(--echo-rx) var(--echo-ry) at 50% 276px,
-    color-mix(in srgb, var(--pop-glow) 50%, transparent) 0%,
-    color-mix(in srgb, var(--pop-glow) 40%, transparent) 30%,
-    color-mix(in srgb, var(--pop-glow) 17%, transparent) 55%,
-    color-mix(in srgb, var(--pop-glow) 4%, transparent) 75%,
+    color-mix(in srgb, var(--pop-glow) 24%, transparent) 0%,
+    color-mix(in srgb, var(--pop-glow) 22%, transparent) 20%,
+    color-mix(in srgb, var(--pop-glow) 17%, transparent) 40%,
+    color-mix(in srgb, var(--pop-glow) 10%, transparent) 60%,
+    color-mix(in srgb, var(--pop-glow) 3%, transparent) 80%,
     transparent 100%) no-repeat, var(--bg-inset);
   border-block: 1px solid var(--line);
 }
@@ -155,8 +174,10 @@ html.no-js .ws-tabs { display: none; }
 html.no-js .ws-tab-panel + .ws-tab-panel { margin-top: 32px; }
 html.no-js .ws-hero-explorer .frame-media { border-radius: 8px; }
 @media (min-width: 1320px) {
-  /* wide screens: the light's box reaches into the page margin and ends 12px short of the viewport;
-     fade its last 64px so the cut never shows as a line (below 1320px the box ends at the screen edge) */
+  /* wide screens: the light's box reaches into the page margin and ends 12px short of the viewport
+     (the hero is --maxw plus two gutters wide here); fade its last 64px so the cut never shows as
+     a line (below 1320px the box ends at the screen edge) */
+  .ws-hero { --halo-right: calc((var(--maxw) + 2 * var(--gutter) - 100vw) / 2 + 12px); }
   .ws-hero::before { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 64px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 64px), transparent); }
 }
 @media (min-width: 1600px) { .ws-hero { padding-top: 168px; } }
@@ -173,8 +194,13 @@ html.no-js .ws-hero-explorer .frame-media { border-radius: 8px; }
   .ws-questions { gap: 60px; }
 }
 @media (max-width: 719.98px) {
-  /* phone frame: 3:4, and caption + tail are 138px; the light keeps its place in the frame's upper right third */
-  .ws-hero { padding-top: 112px; --halo-frame-h: calc(var(--halo-frame-w) * 4 / 3); --halo-edge: 138px; }
+  /* phone frame: 3:4, and caption + tail are 138px. The gutter is only 20px, so the light's box ends
+     at the frame's right edge with a short fade (no stripe cut by the screen); the peak moves in
+     under the last tab and the radii keep the tab labels on at most .04 */
+  .ws-hero { padding-top: 112px; --halo-frame-h: calc(var(--halo-frame-w) * 4 / 3); --halo-edge: 138px;
+    --halo-right: var(--gutter); --halo-cx: calc(var(--gutter) + var(--halo-frame-w) * .24);
+    --halo-rx: calc(var(--halo-frame-w) * .55); --halo-ry: calc(var(--halo-frame-h) * .45); }
+  .ws-hero::before { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); }
   .ws-hero-copy { display: block; }
   .ws-kicker { font-size: 10px; margin-bottom: 17px; }
   .ws-hero h1 { font-size: clamp(38px,10.4vw,62px); line-height: 1.08; letter-spacing: -.045em; }
