@@ -178,6 +178,12 @@ html.no-js .why-try { display: none; }
 .try-exit:hover { color: var(--text-1); }
 .try-stage { position: relative; flex: 1; min-height: 0; }
 .try-frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: transparent; }
+/* without JS the stage cannot build the app (the frame needs scripts too): a short note with the
+   two ways on, instead of an empty frame */
+.try-nojs { position: absolute; inset: 0; display: grid; place-content: center; gap: 10px; padding: 48px 20px; text-align: center; color: var(--text-2); font-size: 16px; line-height: 1.55; }
+.try-nojs p { margin: 0; max-width: 46ch; }
+.try-nojs-lead { font-family: var(--display); font-weight: 650; font-size: 22px; color: var(--text-1); }
+.try-nojs-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 14px; }
 
 @media print {
   .demo-frame, .demo-scrub { display: none !important; }
