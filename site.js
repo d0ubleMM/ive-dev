@@ -100,20 +100,20 @@
         root.classList.toggle('cta-quiet', onScreen || firstCta.getBoundingClientRect().bottom > 0);
       };
       measureCtas();
-      if ('IntersectionObserver' in window) {
-        // fires whenever a button enters or leaves the viewport (also upwards), which covers
-        // both halves of the rule; the measure itself stays a handful of rect reads
-        var ctaObserver = new IntersectionObserver(measureCtas, { threshold: 0 });
-        forEach(pageCtas, function (b) { ctaObserver.observe(b); });
-      } else {
-        var ctaQueued = false;
-        window.addEventListener('scroll', function () {
-          if (ctaQueued) return;
-          ctaQueued = true;
-          requestAnimationFrame(function () { ctaQueued = false; measureCtas(); });
-        }, { passive: true });
-      }
-      window.addEventListener('resize', measureCtas);
+      // measured on scroll, not with an IntersectionObserver: a jump that passes every button
+      // at once (a hash link from the top to the maker strip) changes no intersection and would
+      // leave the state stale; the measure is a handful of rect reads, once per frame at most
+      var ctaQueued = false;
+      var queueCtas = function () {
+        if (ctaQueued) return;
+        ctaQueued = true;
+        requestAnimationFrame(function () { ctaQueued = false; measureCtas(); });
+      };
+      window.addEventListener('scroll', queueCtas, { passive: true });
+      window.addEventListener('resize', queueCtas);
+      window.addEventListener('hashchange', queueCtas);
+      window.addEventListener('pageshow', queueCtas);
+      window.addEventListener('load', queueCtas);
     }
 
     // Safety net: mark the current page when the markup does not.
