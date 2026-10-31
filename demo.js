@@ -15,6 +15,7 @@
     ? { pause: 'Pause', play: 'Abspielen', pauseLabel: 'Vorschau anhalten', playLabel: 'Vorschau abspielen' }
     : { pause: 'Pause', play: 'Play', pauseLabel: 'Pause the preview', playLabel: 'Play the preview' };
   var FRAME = 'assets/demo/r5/frame.html'; // versioned runtime folder of the previews (CDN caches these files for hours)
+  var POSTER_AFTER = 4000; // ms a preview may take to paint before its poster stands in
   var demos = [];
   var whyGroup = [];
 
@@ -45,7 +46,7 @@
 
   /* ── one frame (iframe + its protocol) ── */
   function Frame(scene, theme, extra) {
-    var f = { scene: scene, theme: theme, iframe: null, ready: false, isApp: false, duration: 0, time: 0, playing: false, title: '', onTime: null, onEnd: null, onReady: null, onPlayState: null };
+    var f = { scene: scene, theme: theme, iframe: null, ready: false, slow: false, slowTimer: 0, isApp: false, duration: 0, time: 0, playing: false, title: '', onTime: null, onEnd: null, onReady: null, onPlayState: null, onSlow: null };
     f.mount = function (parent, title, inert) {
       if (f.iframe) return f.iframe;
       var i = el('iframe', 'demo-frame', { title: title || 'IVE demo', loading: 'lazy' });
@@ -81,6 +82,9 @@
       } else if (d.type === 'playstate') {
         f.playing = !!d.playing;
         if (f.onPlayState) f.onPlayState(f.playing);
+      } else if (d.type === 'error') {
+        f.slow = true;
+        if (f.onSlow) f.onSlow(f);
       }
     };
     return f;
@@ -144,6 +148,7 @@
         frame.onReady = function () { figure.classList.add('is-ready'); if (demo.frame === frame) { renderPlayState(demo); sync(demo.ratio >= 0.5 ? demo : null); } };
         frame.onTime = function (t, d) { if (demo.frame === frame && demo.onTime) demo.onTime(t, d); };
         frame.onPlayState = function () { if (demo.frame === frame) renderPlayState(demo); };
+        frame.onSlow = function () { if (demo.frame === frame) figure.classList.add('show-poster'); };
         frame.onEnd = function () {
           if (demo.frame !== frame) return;
           if (demo.onEnd) { demo.onEnd(demo); return; }
@@ -153,11 +158,24 @@
       }
       frame.iframe.classList.add('is-active');
       figure.classList.toggle('is-ready', frame.ready);
+      figure.classList.toggle('show-poster', frame.slow);
       if (frame.ready) renderPlayState(demo);
+      if (demo.ratio > 0) waitForPaint(demo);
     };
     if (opts.controls !== false) buildControls(demo);
     demos.push(demo);
     return demo;
+  }
+  // the window stays plain until the preview paints; the poster stands in only when a preview
+  // in view takes longer than POSTER_AFTER or fails
+  function waitForPaint(demo) {
+    var f = demo.frame;
+    if (!f || f.ready || f.slow || f.slowTimer) return;
+    f.slowTimer = setTimeout(function () {
+      if (f.ready || f.slow) return;
+      f.slow = true;
+      if (f.onSlow) f.onSlow(f);
+    }, POSTER_AFTER);
   }
   function wantsPlay(demo) {
     if (document.hidden || demo.userPaused) return false;
@@ -205,6 +223,7 @@
           if (d.figure !== e.target) return;
           var was = d.ratio;
           d.ratio = e.isIntersecting ? e.intersectionRatio : 0;
+          if (d.ratio > 0) waitForPaint(d);
           // leaving view ends a visitor's pause: coming back the preview plays again
           if (was >= 0.5 && d.ratio < 0.5 && d.userPaused) { d.userPaused = false; renderPlayState(d); }
         });

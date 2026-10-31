@@ -4,7 +4,9 @@
    iframe, the controls and the scrubber. Loaded after site.css (and home.css).
    ═══════════════════════════════════════════════════════════════ */
 
-/* the demo fills the frame; the poster stays until the first frame is painted */
+/* the demo fills the frame and fades in over the window's plain ground once painted; the poster
+   (a fixed-size still that never matches the live layout) shows only without JS or when demo.js
+   marks a preview as slow or failed (.show-poster) */
 .frame-media > .demo-frame {
   position: absolute; inset: 0; z-index: 1;
   width: 100%; height: 100%;
@@ -17,6 +19,7 @@
 .frame-media > .demo-frame.is-active { display: block; }
 .frame.is-ready .frame-media > .demo-frame.is-active { opacity: 1; }
 .frame.is-ready .frame-poster { opacity: 0; transition: opacity var(--t-med) ease; }
+.frame.demo:not(.show-poster) .frame-poster { display: none; }
 /* dark app window: the inset ground; light: white */
 .frame.demo .frame-media { background: #0E1014; }
 .frame.demo.is-light .frame-media { background: #FFFFFF; }
