@@ -47,6 +47,10 @@ applicable. This is a website change only.
   first, then big, then unfolding). The name intro starts under the canvas 70svh before
   the prologue ends (58svh on phones); with a prologue it skips its zoom and begins the unfold where the
   prologue's travel ends.
+  While the page still loads (scripts, the prompt's mono), a small mono "Loading" status
+  with three pulsing blocks stands in the markup where the prompt will appear, so the dark
+  ground reads as loading, not as broken (owner, 2026-10-31). It is pure CSS, appears only
+  after 0.4 s, and goes with the canvas's first drawn frame. The prompt's mono is preloaded.
   Reduced motion and no-JS: no prologue, the name as before.
   The linked "made by AIFOREU" signature appears as the name finishes unfolding.
   Reduced motion and no-JS show the full name and signature without a pinned scene.

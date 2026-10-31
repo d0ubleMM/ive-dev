@@ -73,7 +73,7 @@
   function seg(p, r) { return clamp((p - r[0]) / (r[1] - r[0])); }
 
   var W = 0, H = 0, dpr = 1, narrow = false, board, G, layouts, travel = 1, top0 = 0, letterP = .8;
-  var fontsReady = false, typed = 0, typeTimer = 0, visible = true, drawn = '';
+  var fontsReady = false, typed = 0, typeTimer = 0, visible = true, drawn = '', drawing = false;
   var mono = null, geom = null, geomReady = false;
   // compared with the element itself: name-intro.js wipes the name intro's inline style on a
   // reduced-motion change, so a shadow cache would go stale
@@ -253,6 +253,8 @@
     if (letters) ctx.clearRect(0, 0, W, H);
     else { ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H); }
     if (!fontsReady) return;
+    // the first frame with the fonts: the loading status in the markup goes
+    if (!drawing) { drawing = true; section.classList.add('is-drawing'); }
     var L = monoLayout();
     var n = board.counts[board.counts.length - 1];
 

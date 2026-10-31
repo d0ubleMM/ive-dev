@@ -26,13 +26,14 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/archivo-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/source-sans-3-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/ibm-plex-mono-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts.css?v=20261023a">
 <link rel="stylesheet" href="site.css?v=20261024b-4ddf3867f9d4">
 <link rel="stylesheet" href="home.css?v=20261023g">
 <link rel="stylesheet" href="demo.css?v=20261031a">
 <link rel="stylesheet" href="workspace.css?v=20261025-097c4f74a991">
 <link rel="stylesheet" href="name-intro.css?v=20261025-19bd4fc61064">
-<link rel="stylesheet" href="cursor-intro.css?v=20261031-423a1f027fba">
+<link rel="stylesheet" href="cursor-intro.css?v=20261031-499472a66b9c">
 </head>
 <body class="workspace-home" id="top">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -62,6 +63,7 @@
 <section class="cursor-intro" data-cursor-intro>
   <div class="cursor-intro-pin" data-cursor-pin>
     <canvas class="cursor-intro-canvas" aria-hidden="true" data-cursor-canvas></canvas>
+    <p class="cursor-intro-loading" aria-hidden="true">Loading<span class="cursor-intro-loading-dots"><span></span><span></span><span></span></span></p>
     <div class="name-intro-bottom"><span class="name-intro-hint" aria-hidden="true">Scroll</span><a class="name-intro-link" href="#hero">Explore IVE <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.75v10.5M3.75 9 8 13.25 12.25 9"/></svg></a></div>
   </div>
 </section>
@@ -219,7 +221,7 @@
 <script src="demo.js?v=20261031-eb196078a068" defer></script>
 <script src="workspace.js?v=20261025-aae0d094b51e" defer></script>
 <script src="madeby.js?v=20261023a" defer></script>
-<script src="cursor-intro.js?v=20261031-941ad5230433" defer></script>
+<script src="cursor-intro.js?v=20261031-5bfe2c886387" defer></script>
 <script src="name-intro.js?v=20261031-0fdf950fa51f" defer></script>
 </body>
 </html>
