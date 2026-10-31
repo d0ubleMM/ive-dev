@@ -483,7 +483,7 @@ html[data-theme="light"] .theme-icon-moon { display: block; }
    whenever a filled button of the page is on screen. Pages with such buttons carry html.cta-quiet
    in their markup for the first paint; site.js keeps it current. Pages without them, and the
    no-JS case, show the pop. The switch rides on .btn's --t-fast background transition. */
-html.cta-quiet .nav-cta { background: var(--accent-fill); color: var(--on-accent); }
+html.cta-quiet .nav-cta { background: var(--accent-fill); color: var(--on-accent); box-shadow: none; } /* no pink hairline on the quiet fill */
 html.cta-quiet .nav-cta:hover { background: var(--accent-fill-hover); }
 /* the theme switch needs JS; without it the page stays dark */
 html.no-js [data-theme-toggle] { display: none; }
