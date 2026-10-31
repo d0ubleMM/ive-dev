@@ -91,13 +91,23 @@
     var pageCtas = document.querySelectorAll('main .btn-fill');
     if (pageCtas.length) {
       var firstCta = pageCtas[0];
+      var navCta = header.querySelector('.nav-cta');
       var measureCtas = function () {
         var vh = window.innerHeight, onScreen = false;
         forEach(pageCtas, function (b) {
           var r = b.getBoundingClientRect();
           if (r.width && r.bottom > 0 && r.top < vh) onScreen = true;
         });
-        root.classList.toggle('cta-quiet', onScreen || firstCta.getBoundingClientRect().bottom > 0);
+        var quiet = onScreen || firstCta.getBoundingClientRect().bottom > 0;
+        if (root.classList.contains('cta-quiet') !== quiet) {
+          // the scroll-driven flip is a cut, not a fade: outline and pink would interpolate through
+          // a half-pink with grey ink for a few frames; hover keeps .btn's fade
+          var cut = !header.classList.contains('is-switching');
+          if (cut) header.classList.add('is-switching');
+          root.classList.toggle('cta-quiet', quiet);
+          if (navCta) void getComputedStyle(navCta).backgroundColor; // commit the new colours with transitions off
+          if (cut) header.classList.remove('is-switching');
+        }
       };
       measureCtas();
       // measured on scroll, not with an IntersectionObserver: a jump that passes every button
@@ -141,8 +151,28 @@
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && header.classList.contains('is-open')) setMenu(false, true);
       });
+      // disclosure pattern: the panel sits before the button in the DOM, so Tab on the open button
+      // enters the panel, Shift+Tab on its first control returns, and Tab off its last control
+      // closes it (focus back on the button, the next Tab continues into main)
+      header.addEventListener('keydown', function (e) {
+        if (e.key !== 'Tab' || !narrowQuery.matches || !header.classList.contains('is-open')) return;
+        var controls = menu.querySelectorAll('a[href], button:not([disabled])');
+        if (!controls.length) return;
+        var first = controls[0], last = controls[controls.length - 1];
+        if (e.target === menuBtn && !e.shiftKey) { e.preventDefault(); first.focus(); }
+        else if (e.target === first && e.shiftKey) { e.preventDefault(); menuBtn.focus(); }
+        else if (e.target === last && !e.shiftKey) { e.preventDefault(); setMenu(false, true); }
+      });
       document.addEventListener('click', function (e) {
         if (header.classList.contains('is-open') && !header.contains(e.target)) setMenu(false, false);
+      });
+      // focus leaving the header by any other route (Shift+Tab from the button, a click into the
+      // page, a script moving focus) closes the panel too, without pulling focus back
+      header.addEventListener('focusout', function (e) {
+        if (!header.classList.contains('is-open')) return;
+        if (e.relatedTarget && header.contains(e.relatedTarget)) return;
+        if (!e.relatedTarget) return; // focus lost to the document (tab switch, scrollbar): keep it open
+        setMenu(false, false);
       });
       forEach(menu.querySelectorAll('a'), function (a) {
         a.addEventListener('click', function () { setMenu(false, false); });

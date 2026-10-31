@@ -48,7 +48,7 @@ html[data-theme="light"] {
   --line-strong: rgba(16, 18, 22, 0.18);
   --text-1: #15171A;
   --text-2: #3E434A;
-  --text-3: #5F656E; /* 4.75:1 on the frame shadow ground #E6E7E8 under the captions (was #646A73, 4.40:1) */
+  --text-3: #5A6069; /* 4.84:1 on the darkest caption ground: --bg-inset under the frame shadow composites to #DFE1E3 beneath the Inside IVE captions (5.16:1 on the hero/Why ground #E6E7E8, 5.91:1 on --bg); was #5F656E, 4.48:1 there */
   /* brief value #7C828B gave 3.61:1 on --bg; lifted in QA round 1 and again on 2026-10-31 */
   --text-4: #646A73; /* 4.77:1 on --bg-inset (was #686E77, 4.499:1) */
   --accent: #216C63;
@@ -243,15 +243,11 @@ h3, .t-h3 {
   line-height: 1.4;
   color: var(--text-4);
 }
-.kicker {
-  display: block;
-  font-family: var(--mono);
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.4;
-  letter-spacing: normal;
-  color: var(--text-4);
-}
+/* one kicker setting site-wide, the homepage's (.ws-kicker in workspace.css): mono 11, uppercase,
+   .12em, mint; the gap under it comes from the heading margins, not from the kicker */
+.kicker { display: block; font: 500 11px/1.5 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+/* page-head kickers neutral, like .ws-hero .ws-kicker: the first view keeps one hue beside the pink dot and button */
+.arch-hero .kicker, .legal-head .kicker { color: var(--text-3); }
 :not(pre) > code,
 kbd {
   font-size: 0.9em;
@@ -338,13 +334,20 @@ kbd {
 /* primary outlined: header, Get IVE Mac panel */
 .btn-outline { border-color: var(--line-strong); background: transparent; }
 .btn-outline:hover { background: var(--bg-raised); border-color: var(--text-4); }
-/* primary filled: the pop, with dark ink in both themes (ACCENT-BRIEF, Where 2); it no longer
-   follows --accent-fill/--on-accent, which the pinned header block in name-intro.css overrides */
+/* primary filled: the pop, with dark ink in both themes (ACCENT-BRIEF, Where 2); it does not
+   use --accent-fill/--on-accent */
 .btn-fill { background: var(--pop); color: var(--pop-ink); }
 .btn-fill:hover { background: var(--pop-hover); }
+/* selected label on the fill keeps the ink: the global ::selection would paint --text-1 (2.76:1 in dark) */
+.btn-fill::selection, .btn-fill *::selection {
+  color: var(--pop-ink);
+  background: color-mix(in srgb, var(--pop-ink) 10%, transparent); /* #E84A8E on the fill, ink 4.85:1 */
+}
 /* on the light ground the fill alone is 2.86:1 as a shape; a hairline in a deeper pink keeps the
-   button's edge above 3:1 for low vision (the label carries the text contrast either way) */
-html[data-theme="light"] .btn-fill { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--pop) 84%, black); }
+   button's edge above 3:1 for low vision (the label carries the text contrast either way). It rides
+   on .btn's transparent border, which .btn transitions, so it fades with the fill and never rings
+   the header button while that one is quiet (an inset box-shadow would not transition) */
+html[data-theme="light"] .btn-fill { border-color: color-mix(in srgb, var(--pop) 84%, black); }
 /* quiet: no border at rest, hairline on hover; closers */
 .btn-quiet {
   height: 40px;
@@ -479,12 +482,16 @@ html[data-theme="light"] .theme-icon-sun { display: none; }
 html[data-theme="light"] .theme-icon-moon { display: block; }
 .nav-cta { flex: none; }
 /* one coloured call to action per view (ACCENT-BRIEF, Where 2): the header's button is quiet
-   (neutral fill) until the page's first filled button has scrolled above the viewport, and again
-   whenever a filled button of the page is on screen. Pages with such buttons carry html.cta-quiet
-   in their markup for the first paint; site.js keeps it current. Pages without them, and the
-   no-JS case, show the pop. The switch rides on .btn's --t-fast background transition. */
-html.cta-quiet .nav-cta { background: var(--accent-fill); color: var(--on-accent); box-shadow: none; } /* no pink hairline on the quiet fill */
-html.cta-quiet .nav-cta:hover { background: var(--accent-fill-hover); }
+   (outlined, the .btn-outline anatomy, so the header never holds a fill while the page's filled
+   button is on screen) until the page's first filled button has scrolled above the viewport, and
+   again whenever a filled button of the page is on screen. Pages with such buttons carry
+   html.cta-quiet in their markup for the first paint; site.js keeps it current and flips the
+   state as a cut (.site-header.is-switching for one style pass), so no mid-tone shows. Pages
+   without them, and the no-JS case, show the pop. Hover keeps .btn's --t-fast fade. */
+html.cta-quiet .nav-cta { background: transparent; border-color: var(--line-strong); color: var(--text-1); box-shadow: none; }
+html.cta-quiet .nav-cta:hover { background: var(--bg-raised); border-color: var(--text-4); }
+html.cta-quiet .nav-cta::selection { color: var(--text-1); background: color-mix(in srgb, var(--pop) 35%, transparent); } /* outlined: the page's normal selection */
+.site-header.is-switching .nav-cta { transition: none !important; }
 /* the theme switch needs JS; without it the page stays dark */
 html.no-js [data-theme-toggle] { display: none; }
 .menu-btn { display: none; }
@@ -1065,6 +1072,10 @@ html.viewer-open { overflow: hidden; }
 .arch-table-wrap { min-width: 0; overflow-x: auto; }
 .arch-access-table { width: 100%; font-size: 14px; }
 .arch-access-table th, .arch-access-table td { padding: 13px 14px 13px 0; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+/* the last column may wrap and drops its dead right padding, so the table fits 320px, 360px and the
+   318px column of the two-column grid at 720px instead of clipping "Bash allowlist" with no scroll cue */
+.arch-access-table th:last-child, .arch-access-table td:last-child { padding-right: 0; }
+.arch-access-table td:last-child { white-space: normal; }
 .arch-access-table thead th { border-top: 1px solid var(--line-strong); font: 500 12px/1.4 var(--mono); color: var(--text-4); }
 .arch-access-table tbody th { font: 500 13px/1.4 var(--mono); color: var(--text-1); }
 .arch-access-table td { color: var(--text-2); }
@@ -1234,17 +1245,16 @@ html.viewer-open { overflow: hidden; }
 .ph-event-icon { width: 10px; height: 10px; border-radius: 50%; background: #f5a524; box-shadow: 0 0 0 4px rgba(245, 165, 36, .18); flex: none; font-size: 0; }
 @media (prefers-reduced-motion: reduce) { .ph-cursor { animation: none; } }
 
-/* ── "Coming soon to the App Store": a prominent badge, not a link (owner, 2026-10-24). Neutral
-   frame with the waiting dot, so it reads as a status and not as the preferred action beside the
-   outlined demo button (accent review, 2026-10-31) ── */
+/* ── "Coming soon to the App Store": a status chip, not a button (owner, 2026-10-24: the badge, never
+   a link). Sans 500 in --text-2, chip radius, the inline-code fill, no hairline: nothing it shares with
+   .btn-outline, so it no longer reads as a disabled twin of the demo button beside it (audit r1,
+   2026-10-31). The translucent fill stays visible on --bg and on the --bg-raised panels. ── */
 .soon {
   display: inline-flex; align-items: center; gap: 8px;
-  height: 44px; padding: 0 18px;
-  border-radius: var(--r-btn);
-  border: 1px solid var(--line-strong);
-  background: var(--bg-raised);
-  color: var(--text-1);
-  font-family: var(--display); font-weight: 650; font-size: 15px; line-height: 1; white-space: nowrap;
+  height: 32px; padding: 0 12px 0 10px;
+  border-radius: var(--r-chip);
+  background: var(--code-bg);
+  color: var(--text-2);
+  font: 500 14px/1 var(--sans); white-space: nowrap;
 }
-.soon::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--text-3); }
-.panel .soon, .row-text .soon { height: 36px; padding: 0 14px; font-size: 14px; }
+.soon::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--text-3); }

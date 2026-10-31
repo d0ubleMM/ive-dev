@@ -420,6 +420,7 @@ html:not(.no-js) .why:not(.is-near) .why-media img { display: none; }
 .maker-text h2 { font-size: 28px; line-height: 1.15; }
 .maker-text p { margin-top: 10px; font-size: 16px; color: var(--text-3); }
 .maker-text .link { white-space: nowrap; color: var(--text-2); } /* neutral: the footer's pink dot sits right below (jury, 2026-10-31) */
+.maker-text .link:hover { color: var(--text-1); } /* the neutral rule has the specificity of .link:hover and loads later, so it needs its own hover */
 @media (max-width: 719.98px) {
   .maker { padding-block: 56px 72px; }
   .maker-grid { row-gap: 28px; }
@@ -456,7 +457,7 @@ html:not(.no-js) .why:not(.is-near) .why-media img { display: none; }
 .phone-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 28px; margin: 32px 0 0; }
 .phone-facts dt { font-family: var(--display); font-weight: 650; font-size: 15px; color: var(--text-1); }
 .phone-facts dd { margin: 4px 0 0; font-size: 14px; line-height: 1.55; color: var(--text-3); }
-.phone-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.phone-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 32px; } /* centres the 32px status chip on the 44px button */
 .phone-more .caption { margin-top: 14px; }
 .phone-visual { position: relative; }
 @media (max-width: 899.98px) {

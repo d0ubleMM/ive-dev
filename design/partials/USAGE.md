@@ -103,7 +103,7 @@ Arrows, chevrons and icons are inline SVG (`class="icon"`, 16×16 viewBox, strok
 
 | Class | Use |
 |---|---|
-| `.btn .btn-outline` | primary outlined, 44px (header: add `.btn-sm`, 36px) |
+| `.btn .btn-outline` | outlined, 44px; also the header button's quiet state (`.btn-fill.nav-cta` under `html.cta-quiet`, 36px) |
 | `.btn .btn-fill` | primary filled, hero only |
 | `.btn .btn-quiet` | closers ("Get IVE on the Download page →"), no border at rest |
 | `.btn .btn-quiet .btn-line` | quiet with a hairline at rest (Get IVE links row) |

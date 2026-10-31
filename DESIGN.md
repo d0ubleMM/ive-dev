@@ -116,7 +116,8 @@ Bento grids, icon walls, card stacks and repeated split sections are out.
   button with a panel.
 - While the name intro is pinned, `html.name-intro-active` keeps the header dark
   and its wordmark, links and controls visible throughout the zoom and unfold.
-- Footer: IVE and "from AIFOREU" (link to aiforgov.eu), the six links, and the line
+- Footer: IVE and "from AIFOREU" (link to aiforgov.eu), the seven links (Try it yourself
+  first, on every page), and the line
   "EU-based · Open source under the Apache 2.0 license". The 404 keeps only the
   line and the legal links.
 
@@ -184,7 +185,7 @@ IBM Plex Mono (labels, provenance, commands), all self-hosted in `assets/fonts`.
 | Statement pair | Archivo 600, 32px (26): white line, grey line, same size |
 | Lead | Source Sans 3, 20px (18), `--text-2` |
 | Body | 16px, `--text-2`; captions `--text-3` |
-| Mono | IBM Plex Mono 500, 12px labels and provenance, 13px ledgers, 14px terminal boxes |
+| Mono | IBM Plex Mono 500, 11px kickers (uppercase, .12em, one setting on every page and width), 12px labels and provenance, 13px ledgers, 14px terminal boxes |
 
 No faded second headline line. Lines at most 64ch. Arrows, chevrons and icons are
 inline SVG, never font glyphs.
