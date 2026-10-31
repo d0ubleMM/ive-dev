@@ -161,6 +161,9 @@
         var first = controls[0], last = controls[controls.length - 1];
         if (e.target === menuBtn && !e.shiftKey) { e.preventDefault(); first.focus(); }
         else if (e.target === first && e.shiftKey) { e.preventDefault(); menuBtn.focus(); }
+        // backwards off the button: close the panel and let focus move on natively (to the
+        // action button, the icon buttons, the wordmark), instead of cycling through the panel
+        else if (e.target === menuBtn && e.shiftKey) { setMenu(false, false); }
         else if (e.target === last && !e.shiftKey) { e.preventDefault(); setMenu(false, true); }
       });
       document.addEventListener('click', function (e) {

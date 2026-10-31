@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-qFS7eZILz935x6ekROjFtuQlrwNUlvdxFi6sW9J7f30=' 'sha256-VPhnn92xzZIJInS73JazTvuH+FgD6CbgHcuy1uDqDf4='; style-src 'self' 'sha256-LhaONcJ+5V1cOlAX3jAycy3qfbBOHid95rWpFJln8AI='; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-qFS7eZILz935x6ekROjFtuQlrwNUlvdxFi6sW9J7f30=' 'sha256-g4Gru9vMojUrzqpq31X2+VagmjNMb/P5hpKDtp0c/4g='; style-src 'self' 'sha256-LhaONcJ+5V1cOlAX3jAycy3qfbBOHid95rWpFJln8AI='; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#0E1014">
@@ -416,6 +416,7 @@ html.no-js [data-theme-toggle] { display: none; }
         var first = controls[0], last = controls[controls.length - 1];
         if (e.target === menuBtn && !e.shiftKey) { e.preventDefault(); first.focus(); }
         else if (e.target === first && e.shiftKey) { e.preventDefault(); menuBtn.focus(); }
+        else if (e.target === menuBtn && e.shiftKey) { setMenu(false, false); }
         else if (e.target === last && !e.shiftKey) { e.preventDefault(); setMenu(false, true); }
       });
       document.addEventListener('click', function (e) {
