@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-qFS7eZILz935x6ekROjFtuQlrwNUlvdxFi6sW9J7f30=' 'sha256-g4Gru9vMojUrzqpq31X2+VagmjNMb/P5hpKDtp0c/4g='; style-src 'self' 'sha256-cIqr1EYQlb5lwvdLD+gcajY9rRKBghEUK6M/VfjTaS4='; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-qFS7eZILz935x6ekROjFtuQlrwNUlvdxFi6sW9J7f30=' 'sha256-g4Gru9vMojUrzqpq31X2+VagmjNMb/P5hpKDtp0c/4g='; style-src 'self' 'sha256-ASLXRR4/KG3P9Yn/OHubd57eO9Fz++hjOimeLe19VKo='; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#0E1014">
@@ -159,6 +159,7 @@ h1 {
 .btn:active { transform: scale(0.98); }
 .btn-fill { background: var(--pop); color: var(--pop-ink); }
 .btn-fill:hover { background: var(--pop-hover); }
+.btn-fill:focus-visible { outline-color: var(--text-1); } /* a pink ring on the pink fill would vanish */
 .btn-fill::selection, .btn-fill *::selection { color: var(--pop-ink); background: color-mix(in srgb, var(--pop-ink) 10%, transparent); } /* the global selection would paint --text-1 on the fill (2.76:1 in dark) */
 html[data-theme="light"] .btn-fill { border-color: color-mix(in srgb, var(--pop) 84%, black); } /* the fill alone is 2.86:1 on the light ground; on the border so it fades with the fill */
 .btn-outline { border-color: var(--line-strong); background: transparent; }

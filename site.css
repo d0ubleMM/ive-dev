@@ -479,7 +479,11 @@ html.mark-dark .site-header .wordmark { opacity: 0; pointer-events: none; }
    as a fourth control beside the icon buttons and the quiet button, and the raised surface would
    equal the hover (QA round 2, accent-more) */
 .nav-link[aria-current="page"] { color: var(--text-1); font-weight: 600; border-color: transparent; }
-.nav-link[aria-current="page"]::before { content: ''; flex: none; width: 5px; height: 5px; margin-right: 8px; border-radius: 50%; background: var(--pop); }
+.nav-link { position: relative; }
+/* out of the flow, so no label moves between pages: in the link's left padding on the desktop row,
+   in the gutter beside the row in the phone panel (audit 2026-10-31: the in-flow dot shifted the
+   links left of the current page by 13px and indented the phone row) */
+.nav-link[aria-current="page"]::before { content: ''; position: absolute; left: 2px; top: 50%; width: 5px; height: 5px; margin-top: -2.5px; border-radius: 50%; background: var(--pop); }
 .nav-tools { display: flex; align-items: center; gap: 8px; }
 /* a tool is the 36×36 icon button; in the phone panel it shows its name beside it */
 .tool {
@@ -546,6 +550,7 @@ html.no-js [data-theme-toggle] { display: none; }
   }
   .nav-link:hover, .nav-link:focus-visible { background: transparent; color: var(--accent); }
   .nav-link[aria-current="page"] { color: var(--text-1); }
+  .nav-link[aria-current="page"]::before { left: -13px; }
   .nav-tools { gap: 28px; padding-top: 16px; }
   .tool-name { display: inline; }
   /* without JS the panel is a plain list below the header */
