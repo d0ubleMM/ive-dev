@@ -11,7 +11,7 @@
   try { var t = localStorage.getItem('ive-theme'); if (t === 'dark' || t === 'light') theme = t; } catch (e) {}
   root.setAttribute('data-theme', theme);
   var meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute('content', theme === 'dark' ? '#0E1014' : '#FFFFFF');
+  if (meta) meta.setAttribute('content', theme === 'dark' ? '#0E1014' : '#F6F7F8');
   var q = new URLSearchParams(location.search);
   var at = (q.get('at') || 'home').replace(/[^a-z0-9-]/g, '') || 'home';
   var tour = q.get('tour') === '0' ? '0' : '1';
@@ -38,7 +38,7 @@
     if (e.origin !== location.origin || !e.data || e.data.source !== 'ive-demo') return;
     if (e.data.type === 'theme' && (e.data.theme === 'dark' || e.data.theme === 'light')) {
       root.setAttribute('data-theme', e.data.theme);
-      if (meta) meta.setAttribute('content', e.data.theme === 'dark' ? '#0E1014' : '#FFFFFF');
+      if (meta) meta.setAttribute('content', e.data.theme === 'dark' ? '#0E1014' : '#F6F7F8');
       try { localStorage.setItem('ive-theme', e.data.theme); } catch (err) {}
       return;
     }
