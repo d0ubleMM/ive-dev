@@ -56,10 +56,12 @@ above 3:1 against the page. The bright fill is never used on the petrol ground (
    viewport, and quiet again whenever a filled button of the page is on screen (the prologue and
    the hero are the first pop moments, not the nav button; the install section and the product
    page's head and closer never show two pop buttons at once). Implementation (site.js, so it
-   covers every page): `main .btn-fill` observed with an IntersectionObserver, `html.cta-quiet`
-   toggled; pages that have such buttons (index, product, download, story) carry `cta-quiet`
-   statically in their `<html>` class so the first paint is right without waiting for the
-   deferred script. CSS: `html.cta-quiet .nav-cta { background: var(--accent-fill); color:
+   covers every page): the rects of `main .btn-fill` are measured on scroll (rAF-throttled,
+   passive; also on resize, hashchange, pageshow and load, because a hash jump that passes every
+   button at once changes no intersection), `html.cta-quiet` toggled; pages that have such
+   buttons (index, product, download) carry `cta-quiet` statically in their `<html>` class so
+   the first paint is right without waiting for the deferred script. The story page's closer
+   "Explore IVE" is outlined: the pop is the demo action only. CSS: `html.cta-quiet .nav-cta { background: var(--accent-fill); color:
    var(--on-accent); }` with the old hover; the switch rides on the existing `--t-fast`
    background transition. Without JS, pages with the static class keep the quiet header, the
    others show the pop.
