@@ -1,5 +1,10 @@
 # ive.dev redesign brief
 
+> Historical: the starting brief of 2026-10-22. The site has moved on since (the pink accent of
+> 2026-10-31, the one filled "Try it yourself" with a quiet outlined header state, the pink
+> wordmark dot, seven footer links, the lifted light tokens). Where this file differs from
+> `DESIGN.md`, `design/ACCENT-BRIEF.md` and `design/partials/`, those are authoritative.
+
 Lead design, 2026-10-22, tightened the same evening (changelog at the end). Written for the build agents; nothing in here needs a second guess. Inputs: `design/research/01` to `05`, `review/CODEX-CONTENT-REVIEW.txt`, `review/CODEX-BRIEF-READY.txt`, `review/CODEX-COPY-READY.json`, `review/COLLAB-CLAUDE-CODEX.md` (owner inputs of 20:03), the live worktree at `0d2d27a`, the 1.0.17 dark reference stills and the loop smoke-test frames.
 
 Owner decisions that bind this brief: short homepage (5 to 7 sections) plus subpages; dark first with a working light mode; the opening animation (swarm, board, big IVE letters unfolding) and Why IVE stay; the nav wordmark gets smaller and calmer, the big opening letters do not; "in many places far too much text": hard word budgets per section, the real footage carries the message; nothing said twice; every section composed differently in one visual language; the nav in the language of the two buttons he likes (outlined "Install IVE", outlined GitHub icon button), the theme switch as an icon button, fewer and calmer links; Inside IVE reworked around what IVE really does, including its loops and automations, with real recordings.

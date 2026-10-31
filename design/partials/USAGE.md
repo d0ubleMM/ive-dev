@@ -1,6 +1,6 @@
 # Shared foundation: how to use it
 
-Foundation step of build round 1 (2026-10-22). Binding source: `design/REDESIGN-BRIEF.md`. Page builders copy markup from this folder and **do not edit** `site.css`, `site.js`, `home.css`, `home.js`, `opening.css`, `opening.js`, `madeby.js` or `assets/fonts.css`. If something is missing, ask the orchestrator; do not add `style="…"` (the CSP blocks it) or page CSS files.
+Foundation step of build round 1 (2026-10-22). Binding sources: `DESIGN.md` and `design/ACCENT-BRIEF.md` (`design/REDESIGN-BRIEF.md` is the historical starting brief of 2026-10-22). Page builders copy markup from this folder and **do not edit** `site.css`, `site.js`, `home.css`, `home.js`, `opening.css`, `opening.js`, `madeby.js` or `assets/fonts.css`. If something is missing, ask the orchestrator; do not add `style="…"` (the CSP blocks it) or page CSS files.
 
 Files in this folder:
 
