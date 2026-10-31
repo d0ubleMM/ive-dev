@@ -1,9 +1,11 @@
 /* IVE.DEV · cursor-intro.js — before the name. A prompt is typed; scrolling fills the board
    (1, 2, 4, 8, 12 sessions, each split off another), the sessions fold into their cursors,
-   the cursors run together into one block cursor, and that cursor types I, V, E into the
-   name intro's own letters, which then unfold as before. One canvas, drawn over the name
-   intro's pinned letters once they are in view; redrawn only when the scroll position, the
-   typing or a blink changes. No zoom in either direction: the camera never moves. */
+   the cursors run together into one block cursor, and that cursor types "Meet IVE" small,
+   in the prompt's own mono. The typed line then grows: the mono IVE dissolves into the name
+   intro's own letters, which grow with it to their full size and unfold as before. One canvas
+   over the name intro's pinned letters once they are in view; redrawn only when the scroll
+   position, the typing or a blink changes. No zoom in either direction: the camera never
+   moves, only the type grows. */
 (function () {
   'use strict';
   var root = document.documentElement;
@@ -52,10 +54,17 @@
       parents: [0, 0, 0, 1, 2, 3, 2, 3]
     }
   };
-  // the scroll timeline, 0 to 1 over the pinned travel; the typing starts at letterP, where the
-  // name's letters have come into view under the canvas (from the layout, about .8)
-  var T = { hint: [0, .06], morph: [.03, .1], spawn: [.1, .44], fold: [.5, .58], gather: [.56, .72], grow: [.7, .78] };
-  var TYPE = [.012, .046, .08], SOLID_AFTER = .015, FADE = [.95, 1];
+  // the scroll timeline, 0 to 1 over the pinned travel (280svh on desktop, 230svh on phones):
+  // the board takes two thirds, each doubling of the sessions about 28svh (owner: the board
+  // went too fast at half that), the typed line and its growth the last third. The name's
+  // letters come into view under the canvas at letterP (from the layout, .75), just before
+  // the line starts to grow.
+  var T = { hint: [0, .039], morph: [.021, .064], spawn: [.064, .464], fold: [.5, .557], gather: [.543, .664], grow: [.771, .957] };
+  // the typed line: one character per LINE_STEP of travel from LINE_AT on
+  var LINE_TEXT = 'Meet IVE', LINE_AT = .679, LINE_STEP = .0089, SOLID_AFTER = .012;
+  // inside the growth: "Meet" and the block cursor go (MEET, CURSOR), the mono letters move
+  // onto the name's letters (SHUFFLE) and dissolve into them (DISSOLVE)
+  var MEET = [0, .18], CURSOR = [.04, .24], SHUFFLE = [.08, .3], DISSOLVE = [.2, .45];
 
   function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
   function ease(x) { x = clamp(x); return x * x * (3 - 2 * x); }
@@ -65,6 +74,7 @@
 
   var W = 0, H = 0, dpr = 1, narrow = false, board, G, layouts, travel = 1, top0 = 0, letterP = .8;
   var fontsReady = false, typed = 0, typeTimer = 0, visible = true, drawn = '';
+  var mono = null, geom = null, geomReady = false;
   var vars = {};
   function setVar(el, name, val) {
     var k = (el === intro ? 'i' : 's') + name;
@@ -95,16 +105,36 @@
     top0 = section.getBoundingClientRect().top + window.scrollY;
     var introTop = intro.getBoundingClientRect().top + window.scrollY;
     letterP = clamp((introTop - top0) / travel);
-    drawn = '';
+    mono = null; geom = null; drawn = '';
   }
 
-  // the name's three capitals as boxes in the pinned screen: their slot (advance width) and the
-  // cap height over the baseline, from the same font the DOM renders
-  function capBoxes() {
+  // the typed line in the prompt's mono: its size, the character advance, the cap height over
+  // the baseline, where it starts and where its IVE is centred (the anchor the growth works from)
+  function monoLayout() {
+    if (mono) return mono;
+    var size = narrow ? 17 : 26;
+    ctx.font = '400 ' + size + 'px ' + MONO;
+    ctx.textBaseline = 'alphabetic';
+    var m = ctx.measureText('I');
+    var adv = m.width || size * .6, capR = (m.actualBoundingBoxAscent || size * .7) / size;
+    var x0 = W / 2 - (adv * LINE_TEXT.length) / 2, ive = LINE_TEXT.indexOf('IVE');
+    mono = { size: size, adv: adv, capR: capR, x0: x0, cy: H / 2, cx: x0 + (ive + 1.5) * adv, ive: ive };
+    return mono;
+  }
+  // the block cursor of a typed mono line at font size fm: the prompt's proportions
+  function monoBlock(fm, capR) { return { w: .58 * fm, h: 1.1 * fm, top: capR * fm / 2 - .925 * fm }; } // top: from the cap centre
+
+  // the name's three capitals at full size, as boxes in the pinned screen: their slot (advance
+  // width) and the cap height over the baseline, from the same font the DOM renders. Also the
+  // group's centre and the point the letters scale around (flex centres the line; on phones
+  // it sits at the left).
+  function measureCaps() {
     if (!intro.classList.contains('is-ready') || !introPin) return null;
+    setVar(intro, '--pro-scale', '1'); setVar(intro, '--pro-x', '0px'); setVar(intro, '--pro-y', '0px');
     var fs = parseFloat(getComputedStyle(line).fontSize) || 0;
     if (!fs) return null;
-    var pr = introPin.getBoundingClientRect();
+    var pr = introPin.getBoundingClientRect(), lr = line.getBoundingClientRect();
+    if (!pr.width || !lr.width) return null;
     ctx.font = '800 ' + fs + 'px Archivo';
     ctx.textBaseline = 'alphabetic'; // the box metrics are relative to the current baseline
     var m = ctx.measureText('I');
@@ -116,9 +146,19 @@
       var base = r.top - pr.top + (r.height - (asc + desc)) / 2 + asc;
       return { x: r.left - pr.left, right: r.right - pr.left, w: r.width, top: base - capH, h: capH };
     });
-    for (var i = 0; i < boxes.length; i++) if (!boxes[i]) return null;
-    boxes.gap = .02 * fs;
-    return boxes;
+    var gx = 0, gy = 0;
+    for (var i = 0; i < boxes.length; i++) {
+      if (!boxes[i]) return null;
+      gx += boxes[i].x + boxes[i].w / 2; gy += boxes[i].top + boxes[i].h / 2;
+    }
+    return {
+      // the name intro sizes its type to the unfolded words further down: a reading is good
+      // only while the size it was taken at stands
+      nameSize: intro.style.getPropertyValue('--name-size'),
+      boxes: boxes,
+      gc: { x: gx / boxes.length, y: gy / boxes.length },
+      o: { x: narrow ? lr.left - pr.left : lr.left + lr.width / 2 - pr.left, y: lr.top + lr.height / 2 - pr.top }
+    };
   }
 
   function roundRect(x, y, w, h, r) {
@@ -199,23 +239,22 @@
 
   function progress() { return clamp((window.scrollY - top0) / travel); }
 
-  // the slot the merged cursor fills: the I's box, or a stand-in until the name is measured
-  function firstSlot(boxes) {
-    if (boxes) return boxes[0];
-    var h = H * .3, w = h * .62;
-    return { x: W / 2 - w / 2, right: W / 2 + w / 2, w: w, top: H / 2 - h / 2, h: h };
+  function restName() {
+    setVar(intro, '--pro-scale', '1'); setVar(intro, '--pro-x', '0px'); setVar(intro, '--pro-y', '0px');
+  }
+  function showCaps(a) {
+    for (var j = 0; j < CAP_VARS.length; j++) setVar(intro, CAP_VARS[j], a);
   }
 
   function draw(p, now) {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.globalAlpha = 1;
-    var letters = p >= letterP;
+    // once the name's letters stand under the canvas (and are measured), the ground goes
+    var letters = p >= letterP && geom;
     if (letters) ctx.clearRect(0, 0, W, H);
     else { ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H); }
     if (!fontsReady) return;
-    var boxes = capBoxes();
-    if (letters) { drawTyping(p, now, boxes); return; }
-    var slot = firstSlot(boxes);
+    var L = monoLayout();
     var n = board.counts[board.counts.length - 1];
 
     // the board: layout between two wave counts
@@ -261,7 +300,7 @@
     // the prompt, typed, then moving into the first session's title
     if (morph < 1) {
       var M0 = metrics(tiles[0].x, tiles[0].y, tw, th);
-      var size = narrow ? 17 : 26;
+      var size = L.size;
       ctx.font = '400 ' + size + 'px ' + MONO; ctx.textBaseline = 'middle';
       var pre = '> ', preW = ctx.measureText(pre).width, full = ctx.measureText(PROMPT_TEXT).width;
       var startX = W / 2 - (preW + full + size * .7) / 2;
@@ -284,11 +323,11 @@
       cursors[0] = null;
     }
 
-    // the cursors: blinking in their sessions, then running together into one small block at
-    // the first letter's place, which grows into that letter's slot
-    var gatherRaw = seg(p, T.gather), grow = inOut(seg(p, T.grow));
-    var cw2 = narrow ? 6 : 8, ch2 = narrow ? 12 : 16;
-    var tx2 = slot.x + slot.w / 2, ty2 = slot.top + slot.h / 2;
+    // the cursors: blinking in their sessions, then running together into the one block cursor
+    // that stands where the line will be typed
+    var gatherRaw = seg(p, T.gather);
+    var B0 = monoBlock(L.size, L.capR);
+    var tx2 = L.x0 + 2 + B0.w / 2, ty2 = L.cy + B0.top + B0.h / 2;
     var merged = false;
     for (i = 0; i < n; i++) {
       var c = cursors[i];
@@ -296,45 +335,84 @@
       var delay = (i / Math.max(1, n - 1)) * .35;
       var g = inOut(clamp((gatherRaw - delay) / .65));
       if (g >= 1) { merged = true; continue; }
-      var w = lerp(c.w, cw2, g), h = lerp(c.h, ch2, g);
+      var w = lerp(c.w, B0.w, g), h = lerp(c.h, B0.h, g);
       var x = lerp(c.x + c.w / 2, tx2, g) - w / 2, y = lerp(c.y + c.h / 2, ty2, g) - h / 2;
       block(x, y, w, h, c.a * (g > 0 || blinkOn(i, now) ? 1 : 0));
     }
-    if (merged || grow > 0) {
-      // the block stands solid from the moment it grows until the first letter is typed:
-      // alone on the dark ground, a blink would leave the screen empty
-      var bw = lerp(cw2, slot.w, grow), bh = lerp(ch2, slot.h, grow);
-      block(tx2 - bw / 2, ty2 - bh / 2, bw, bh, grow > 0 || blinkOn(0, now) ? 1 : 0);
-    }
+    if (merged) drawLine(p, now, L);
+    else { showCaps('0'); if (geom) restName(); }
   }
 
-  // the typing: each letter of the name appears in the block's place and the block moves on
-  function drawTyping(p, now, boxes) {
-    var k = 0;
-    for (var j = 0; j < TYPE.length; j++) if (p >= letterP + TYPE[j]) k = j + 1;
-    for (j = 0; j < CAP_VARS.length; j++) setVar(intro, CAP_VARS[j], j < k ? '1' : '0');
-    if (!boxes) return;
-    var b = k < boxes.length
-      ? boxes[k]
-      : { x: boxes[2].right + boxes.gap, w: boxes[0].w, top: boxes[2].top, h: boxes[2].h };
-    var since = k > 0 ? p - (letterP + TYPE[k - 1]) : 0;
-    var on = since < SOLID_AFTER || blinkOn(0, now);
-    block(b.x, b.top, b.w, b.h, on ? 1 - seg(p, FADE) : 0);
+  // the line "Meet IVE", typed by the one block cursor, then growing: "Meet" and the cursor
+  // go, the mono IVE moves onto the name's letters and dissolves into them while they grow to
+  // full size
+  function drawLine(p, now, L) {
+    var k = p < LINE_AT ? 0 : Math.min(LINE_TEXT.length, Math.floor((p - LINE_AT) / LINE_STEP) + 1);
+    var t = seg(p, T.grow), e = ease(t);
+    var gro = t > 0 && geom; // the growth needs the name's measure
+    var s0 = geom ? (L.capR * L.size) / geom.boxes[0].h : 1; // the name's scale at the line's size
+    var sig = gro ? Math.pow(s0, 1 - e) : s0;                 // the name's scale now
+    var q = gro ? sig / s0 : 1;                                // the line's scale now
+    var fm = L.size * q, capH = L.capR * fm;
+    var u = gro ? ease(seg(t, SHUFFLE)) : 0, d = gro ? ease(seg(t, DISSOLVE)) : 0, meetA = gro ? 1 - ease(seg(t, MEET)) : 1;
+    // the anchor: the IVE's centre, moving from the typed line to the name's letters
+    var ax = L.cx, ay = L.cy;
+    if (gro) { ax = lerp(L.cx, geom.gc.x, e); ay = lerp(L.cy, geom.gc.y, e); }
+
+    ctx.font = '400 ' + fm + 'px ' + MONO; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle = INK;
+    for (var j = 0; j < k; j++) {
+      var mx = ax + (L.x0 + (j + .5) * L.adv - L.cx) * q, my = ay, a = 1, i = j - L.ive;
+      if (i < 0) a = meetA;
+      else if (gro) {
+        var b = geom.boxes[i];
+        mx = lerp(mx, ax + (b.x + b.w / 2 - geom.gc.x) * sig, u);
+        my = lerp(my, ay + (b.top + b.h / 2 - geom.gc.y) * sig, u);
+        a = 1 - d;
+      }
+      if (a <= 0) continue;
+      ctx.globalAlpha = a;
+      ctx.fillText(LINE_TEXT[j], mx, my + capH / 2);
+    }
+    ctx.globalAlpha = 1; ctx.textAlign = 'left';
+
+    // the name's own letters: scaled to the line and shifted so their group sits on the anchor
+    if (geom) {
+      var dx = ax - geom.o.x - (geom.gc.x - geom.o.x) * sig, dy = ay - geom.o.y - (geom.gc.y - geom.o.y) * sig;
+      setVar(intro, '--pro-scale', sig.toFixed(5));
+      setVar(intro, '--pro-x', dx.toFixed(2) + 'px'); setVar(intro, '--pro-y', dy.toFixed(2) + 'px');
+    }
+    showCaps(d.toFixed(3));
+
+    // the block cursor after the typed text; it goes as the type starts to grow (owner: no
+    // cursor next to the big letters)
+    var cursorA = gro ? 1 - ease(seg(t, CURSOR)) : 1;
+    if (cursorA <= 0) return;
+    var B = monoBlock(fm, L.capR);
+    var bx = ax + (L.x0 + k * L.adv + 2 - L.cx) * q, by = ay + B.top;
+    // solid while it goes, right after a keystroke, and alone on the dark ground before the
+    // typing (a blink would leave the screen empty)
+    var since = k > 0 ? p - (LINE_AT + (k - 1) * LINE_STEP) : 0;
+    var solid = p < LINE_AT || since < SOLID_AFTER || t > 0;
+    block(bx, by, B.w, B.h, solid || blinkOn(0, now) ? cursorA : 0);
   }
 
   function frame(now) {
     if (!visible) { raf = 0; return; }
     var p = progress();
     var done = p >= 1;
+    var ready = intro.classList.contains('is-ready');
+    if (ready !== geomReady) { geomReady = ready; geom = null; drawn = ''; }
+    if (geom && intro.style.getPropertyValue('--name-size') !== geom.nameSize) { geom = null; drawn = ''; }
+    var key = p.toFixed(4) + '|' + typed + '|' + blinkKey(now) + '|' + fontsReady + '|' + ready;
+    // measured only before the unfold, where the name stands at the size the line grows into
+    if (!geom && !done && ready && fontsReady && key !== drawn) geom = measureCaps();
     section.classList.toggle('is-done', done);
-    section.classList.toggle('is-letters', p >= letterP);
+    section.classList.toggle('is-letters', p >= letterP && !!geom);
     setVar(section, '--name-hint', (1 - seg(p, T.hint)).toFixed(3));
     if (done) {
-      for (var j = 0; j < CAP_VARS.length; j++) setVar(intro, CAP_VARS[j], '1');
-    } else {
-      var key = p.toFixed(4) + '|' + typed + '|' + blinkKey(now) + '|' + fontsReady + '|' + intro.classList.contains('is-ready');
-      if (key !== drawn) { drawn = key; draw(p, now); }
-    }
+      restName(); showCaps('1');
+    } else if (key !== drawn) { drawn = key; draw(p, now); }
     raf = requestAnimationFrame(frame);
   }
   var raf = 0;

@@ -1,14 +1,15 @@
 /* Before the name: one prompt, the board filling up, the cursors running together into one
-   block cursor that types I, V, E into the name intro's own letters. Drawn on one canvas by
+   block cursor that types "Meet IVE" small; the line grows and its IVE dissolves into the
+   name intro's own letters, which grow with it to full size. Drawn on one canvas by
    cursor-intro.js. The name intro begins under the canvas before the prologue ends, so its
-   letters stand there when the canvas clears; the camera never moves. */
+   letters stand there when the canvas clears; the camera never moves, only the type grows. */
 .cursor-intro { display: none; }
 .name-intro-live .cursor-intro {
   display: block;
   position: relative;
   z-index: 2;
-  height: 280vh;
-  height: 280svh;
+  height: 380vh;
+  height: 380svh;
 }
 .cursor-intro-pin {
   position: sticky;
@@ -25,17 +26,25 @@
 .cursor-intro.is-letters .cursor-intro-pin { background: transparent; pointer-events: none; }
 .cursor-intro.is-letters .name-intro-bottom { opacity: 0; }
 .cursor-intro.is-done .cursor-intro-pin { visibility: hidden; }
-/* the name intro starts 36svh before the prologue's travel ends and keeps its own 100svh of travel */
-.name-intro-live .cursor-intro + .name-intro { margin-top: -136vh; margin-top: -136svh; height: 236vh; height: 236svh; }
-/* the capitals appear as the cursor types them (cursor-intro.js sets the variables) */
+/* the name intro starts 70svh before the prologue's travel ends (its letters are in place
+   as the typed line starts to grow) and keeps its own 100svh of travel */
+.name-intro-live .cursor-intro + .name-intro { margin-top: -170vh; margin-top: -170svh; height: 270vh; height: 270svh; }
+/* the capitals dissolve in while the typed line grows (cursor-intro.js sets the variables) */
 html.cursor-intro-on .name-intro-word:nth-child(1) .name-intro-cap { opacity: var(--cap-i, 0); }
 html.cursor-intro-on .name-intro-word:nth-child(2) .name-intro-cap { opacity: var(--cap-v, 0); }
 html.cursor-intro-on .name-intro-word:nth-child(3) .name-intro-cap { opacity: var(--cap-e, 0); }
+/* while the line grows, the name's letters grow with it: the type itself is scaled (sharp
+   edges, as the original zoom does it) and the line is shifted onto the typed IVE; after
+   the prologue the name intro's own transform is the identity, so it is replaced here */
+html.cursor-intro-on.name-intro-live .name-intro-line {
+  font-size: calc(var(--name-size) * var(--pro-scale, 1));
+  transform: translate(var(--pro-x, 0px), var(--pro-y, 0px));
+}
 /* no canvas: no prologue, the name intro as on its own */
 html.cursor-intro-off .cursor-intro { display: none; }
 html.cursor-intro-off .cursor-intro + .name-intro { margin-top: 0; height: 200vh; height: 200svh; }
 @media (max-width: 720px) {
-  .name-intro-live .cursor-intro { height: 240vh; height: 240svh; }
-  .name-intro-live .cursor-intro + .name-intro { margin-top: -128vh; margin-top: -128svh; height: 208vh; height: 208svh; }
+  .name-intro-live .cursor-intro { height: 330vh; height: 330svh; }
+  .name-intro-live .cursor-intro + .name-intro { margin-top: -158vh; margin-top: -158svh; height: 258vh; height: 258svh; }
   html.cursor-intro-off .cursor-intro + .name-intro { margin-top: 0; height: 180vh; height: 180svh; }
 }
