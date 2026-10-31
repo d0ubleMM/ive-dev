@@ -166,7 +166,7 @@ html.no-js .why-try { display: none; }
 }
 .try-brand { display: inline-flex; align-items: center; gap: 8px; color: var(--text-1); text-decoration: none; }
 .try-brand .wordmark-text { font-family: var(--display); font-weight: 800; font-size: 16px; letter-spacing: 0.04em; }
-.try-brand .wordmark-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.try-brand .wordmark-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pop); }
 .try-title { margin-left: 6px; font-family: var(--mono); font-size: 12px; color: var(--text-4); }
 .try-guide { display: flex; align-items: center; gap: 10px; margin-left: auto; margin-right: 16px; font-family: var(--mono); font-size: 12px; color: var(--text-3); white-space: nowrap; }
 .try-guide-text:empty { display: none; }

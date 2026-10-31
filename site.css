@@ -63,6 +63,63 @@ html[data-theme="light"] {
   --frame-highlight: inset 0 0 0 0 transparent;
   --code-bg: rgba(16, 18, 22, 0.06);
 }
+/* The pop (design/ACCENT-BRIEF.md, 2026-10-31): one unexpected accent in very few places, the
+   colour of the cursor at the moment it matters. --pop is the fill (filled button, wordmark dot,
+   the prologue's merged cursor, the hero light's base) and is the same in both themes; --pop-ink
+   is the text on that fill (dark in both themes, white fails on every hue); --pop-text-dark and
+   --pop-text-light are the hue as text or line on dark and light grounds, --pop-text the theme's
+   pick; --pop-glow the hero light at its peak; --pop-hover the filled button's hover.
+   Comparison phase: html[data-pop="pink|rose|tangerine"] picks the hue (set only by the render
+   script, no attribute = pink). After the decision the losing hues go and the winner becomes the
+   plain tokens. The status tokens above stay what they are. */
+:root,
+html[data-pop="pink"] {
+  --pop: #FF4F9B;
+  --pop-ink: #17191C;        /* 5.74:1 on the fill */
+  --pop-text-dark: #FF6FB0;  /* 7.39:1 on --bg, 6.91:1 on --bg-raised, 4.88:1 on petrol #1D3835 */
+  --pop-text-light: #9E255C; /* 6.81:1 on --bg, 6.40:1 on --bg-inset */
+  --pop-glow: rgba(255, 79, 155, 0.24);
+}
+html[data-theme="light"],
+html[data-theme="light"][data-pop="pink"] { --pop-glow: rgba(255, 79, 155, 0.12); }
+html[data-pop="rose"] {
+  --pop: #F28BB2;
+  --pop-ink: #17191C;        /* 7.64:1 */
+  --pop-text-dark: #F28BB2;  /* 8.26:1 on --bg, 5.46:1 on petrol */
+  --pop-text-light: #A12B5A; /* 6.51:1 on --bg */
+  --pop-glow: rgba(242, 139, 178, 0.24);
+}
+html[data-theme="light"][data-pop="rose"] { --pop-glow: rgba(242, 139, 178, 0.12); }
+html[data-pop="tangerine"] {
+  --pop: #FF8A3D;
+  --pop-ink: #17191C;        /* 7.51:1 */
+  --pop-text-dark: #FF9A5C;  /* 9.09:1 on --bg, 6.01:1 on petrol */
+  --pop-text-light: #9C450B; /* 5.99:1 on --bg */
+  --pop-glow: rgba(255, 138, 61, 0.24);
+}
+html[data-theme="light"][data-pop="tangerine"] { --pop-glow: rgba(255, 138, 61, 0.12); }
+/* per theme: the pop as text, and the filled button's hover (lighter on dark, deeper on light);
+   surfaces that are dark in both themes keep the dark pair */
+:root,
+.ink-dark,
+[data-mark] {
+  --pop-text: var(--pop-text-dark);
+  --pop-hover: color-mix(in srgb, var(--pop) 86%, white);
+}
+html[data-theme="light"] {
+  --pop-text: var(--pop-text-light);
+  --pop-hover: color-mix(in srgb, var(--pop) 90%, black);
+}
+/* Extent "replace" (comparison phase): the mint/petrol --accent family moves onto the pop as
+   text: kickers, link hover, focus ring, selected-tab bar, selection, the architecture lines,
+   the "soon" chip, the FAQ links. Extent "join" (the default) leaves --accent alone. Surfaces
+   that are dark in both themes take the dark text variant: the petrol trust ground (its pale
+   mint stays in join; the bright fill is only 4.10:1 there), the dark stills, the viewer. */
+html[data-pop-extent="replace"],
+html[data-pop-extent="replace"][data-theme="light"] { --accent: var(--pop-text); }
+html[data-pop-extent="replace"] .ink-dark,
+html[data-pop-extent="replace"] [data-mark],
+html[data-pop-extent="replace"] .ws-ownership { --accent: var(--pop-text-dark); }
 :root {
   /* the page ground of the active theme, also inside dark-scoped surfaces */
   --page-bg: var(--bg);
@@ -320,9 +377,10 @@ kbd {
 /* primary outlined: header, Get IVE Mac panel */
 .btn-outline { border-color: var(--line-strong); background: transparent; }
 .btn-outline:hover { background: var(--bg-raised); border-color: var(--text-4); }
-/* primary filled: hero only */
-.btn-fill { background: var(--accent-fill); color: var(--on-accent); }
-.btn-fill:hover { background: var(--accent-fill-hover); }
+/* primary filled: the pop, with dark ink in both themes (ACCENT-BRIEF, Where 2); it no longer
+   follows --accent-fill/--on-accent, which the pinned header block in name-intro.css overrides */
+.btn-fill { background: var(--pop); color: var(--pop-ink); }
+.btn-fill:hover { background: var(--pop-hover); }
 /* quiet: no border at rest, hairline on hover; closers */
 .btn-quiet {
   height: 40px;
@@ -411,7 +469,7 @@ html.mark-dark .site-header.is-open { background: var(--bg); border-bottom-color
 .wordmark-dot {
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--pop); /* the dot is the cursor (ACCENT-BRIEF, Where 1) */
 }
 html.mark-dark .site-header .wordmark { opacity: 0; pointer-events: none; }
 
@@ -456,6 +514,12 @@ html.mark-dark .site-header .wordmark { opacity: 0; pointer-events: none; }
 html[data-theme="light"] .theme-icon-sun { display: none; }
 html[data-theme="light"] .theme-icon-moon { display: block; }
 .nav-cta { flex: none; }
+/* one coloured call to action per view (ACCENT-BRIEF, Where 2): workspace.js sets
+   html.hero-cta-ahead while the hero's own buttons are ahead of or inside the viewport, so the
+   header button stays neutral until they have passed; without JS, and on every other page, it
+   is pop. The switch rides on .btn's --t-fast background transition. */
+html.hero-cta-ahead .nav-cta { background: var(--accent-fill); color: var(--on-accent); }
+html.hero-cta-ahead .nav-cta:hover { background: var(--accent-fill-hover); }
 /* the theme switch needs JS; without it the page stays dark */
 html.no-js [data-theme-toggle] { display: none; }
 .menu-btn { display: none; }

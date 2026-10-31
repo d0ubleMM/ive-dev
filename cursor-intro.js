@@ -1,7 +1,8 @@
 /* IVE.DEV · cursor-intro.js — before the name. A prompt is typed; scrolling fills the board
    (1, 2, 4, 8, 12 sessions, each split off another), the sessions fold into their cursors,
-   the cursors run together into one block cursor, and that cursor types "Meet IVE" small,
-   in the prompt's own mono. The typed line then grows: the mono IVE dissolves into the name
+   the cursors run together into one block cursor, turning the site's pop colour as they
+   arrive, and that cursor types "Meet IVE" small, in the prompt's own mono (the text stays
+   ink). The typed line then grows: the mono IVE dissolves into the name
    intro's own letters, which grow with it to their full size and unfold as before. One canvas
    over the name intro's pinned letters once they are in view; redrawn only when the scroll
    position, the typing or a blink changes. No zoom in either direction: the camera never
@@ -71,6 +72,22 @@
   function inOut(x) { x = clamp(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
   function lerp(a, b, t) { return a + (b - a) * t; }
   function seg(p, r) { return clamp((p - r[0]) / (r[1] - r[0])); }
+  // '#RGB' or '#RRGGBB' to [r, g, b] (null for anything else), and the blend of two such triples
+  function hexRgb(s) {
+    var m = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(s || '');
+    if (!m) return null;
+    var n = parseInt(m[1].length === 3 ? m[1].replace(/./g, '$&$&') : m[1], 16);
+    return [n >> 16 & 255, n >> 8 & 255, n & 255];
+  }
+  function mix(a, b, t) {
+    return 'rgb(' + Math.round(lerp(a[0], b[0], t)) + ',' + Math.round(lerp(a[1], b[1], t)) + ',' + Math.round(lerp(a[2], b[2], t)) + ')';
+  }
+  // the pop (design/ACCENT-BRIEF.md): the cursor's colour at the moment it matters. The gathering
+  // cursors tint from INK to it as they arrive, the merged cursor types "Meet IVE" in it; nothing
+  // else on the canvas uses it. Read from the site's --pop token in measure(); the fallback
+  // stands until the token exists or when it is not a hex colour
+  var POP_FALLBACK = '#FF4F9B', INK_RGB = hexRgb(INK), POP_RGB = hexRgb(POP_FALLBACK);
+  function pop(t) { return mix(INK_RGB, POP_RGB, t); }
 
   var W = 0, H = 0, dpr = 1, narrow = false, board, G, layouts, travel = 1, top0 = 0, letterP = .8;
   var fontsReady = false, typed = 0, typeTimer = 0, visible = true, drawn = '', drawing = false;
@@ -104,6 +121,7 @@
     top0 = section.getBoundingClientRect().top + window.scrollY;
     var introTop = intro.getBoundingClientRect().top + window.scrollY;
     letterP = clamp((introTop - top0) / travel);
+    POP_RGB = hexRgb(getComputedStyle(root).getPropertyValue('--pop').trim()) || hexRgb(POP_FALLBACK);
     mono = null; geom = null; drawn = '';
   }
 
@@ -226,9 +244,10 @@
     ctx.globalAlpha = 1;
     return M;
   }
-  function block(x, y, w, h, a) {
+  // a block cursor, INK unless a colour is given (the gathering and the merged cursor: the pop)
+  function block(x, y, w, h, a, colour) {
     if (a <= 0) return;
-    ctx.globalAlpha = a; ctx.fillStyle = INK;
+    ctx.globalAlpha = a; ctx.fillStyle = colour || INK;
     ctx.fillRect(x, y, w, h);
     ctx.globalAlpha = 1;
   }
@@ -338,7 +357,8 @@
       if (g >= 1) { merged = true; continue; }
       var w = lerp(c.w, B0.w, g), h = lerp(c.h, B0.h, g);
       var x = lerp(c.x + c.w / 2, tx2, g) - w / 2, y = lerp(c.y + c.h / 2, ty2, g) - h / 2;
-      block(x, y, w, h, c.a * (g > 0 || blinkOn(i, now) ? 1 : 0));
+      // the colour follows the same eased progress as the position: ink at rest, pop on arrival
+      block(x, y, w, h, c.a * (g > 0 || blinkOn(i, now) ? 1 : 0), pop(g));
     }
     if (merged) drawLine(p, now, L);
     else { showCaps('0'); if (geom) restName(); }
@@ -395,7 +415,7 @@
     // typing (a blink would leave the screen empty)
     var since = k > 0 ? p - (LINE_AT + (k - 1) * LINE_STEP) : 0;
     var solid = p < LINE_AT || since < SOLID_AFTER || t > 0;
-    block(bx, by, B.w, B.h, solid || blinkOn(0, now) ? cursorA : 0);
+    block(bx, by, B.w, B.h, solid || blinkOn(0, now) ? cursorA : 0, pop(1));
   }
 
   function frame(now) {

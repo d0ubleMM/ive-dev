@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-qFS7eZILz935x6ekROjFtuQlrwNUlvdxFi6sW9J7f30=' 'sha256-P84/ainHxRYwzNUl+2vFJoqV5vmyYCatgx5WhUYq3Sc='; style-src 'self' 'sha256-c/fyuc1tKXSnRUXY4UgRy6JU1tK8/aJDJ7bdA2yGFJ4='; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-qFS7eZILz935x6ekROjFtuQlrwNUlvdxFi6sW9J7f30=' 'sha256-P84/ainHxRYwzNUl+2vFJoqV5vmyYCatgx5WhUYq3Sc='; style-src 'self' 'sha256-+Z0odOlsZYsMEOZRVei8sPr1b8kHmeb7MXnCMs7ddIw='; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#0E1014">
@@ -32,6 +32,10 @@
   --accent-fill: #E7E9EC;
   --accent-fill-hover: #FFFFFF;
   --on-accent: #17191C;
+  /* the pop (design/ACCENT-BRIEF.md): the dot and the filled button, as site.css */
+  --pop: #FF4F9B;
+  --pop-ink: #17191C;
+  --pop-hover: color-mix(in srgb, var(--pop) 86%, white);
   --display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
   --sans: 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
@@ -57,6 +61,7 @@ html[data-theme="light"] {
   --accent-fill: #272A2E;
   --accent-fill-hover: #17191C;
   --on-accent: #FFFFFF;
+  --pop-hover: color-mix(in srgb, var(--pop) 90%, black);
 }
 @media (max-width: 1023.98px) {
   :root { --gutter: 32px; }
@@ -153,8 +158,8 @@ h1 {
   transition: background-color var(--t-fast) ease, border-color var(--t-fast) ease, color var(--t-fast) ease, transform var(--t-fast) ease;
 }
 .btn:active { transform: scale(0.98); }
-.btn-fill { background: var(--accent-fill, var(--accent)); color: var(--on-accent, #fff); }
-.btn-fill:hover { background: var(--accent-fill-hover, var(--accent)); }
+.btn-fill { background: var(--pop); color: var(--pop-ink); }
+.btn-fill:hover { background: var(--pop-hover); }
 .btn-outline { border-color: var(--line-strong); background: transparent; }
 .btn-outline:hover { background: var(--bg-raised); border-color: var(--text-4); }
 .btn-quiet {
@@ -215,7 +220,7 @@ h1 {
   line-height: 22px;
   letter-spacing: 0.01em;
 }
-.wordmark-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.wordmark-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pop); }
 .site-menu, .nav-links, .nav-tools { display: flex; align-items: center; gap: 8px; }
 .nav-link {
   display: inline-flex; align-items: center;
