@@ -24,15 +24,20 @@
     // the header (sub-pixel layout) does not keep it dark over the light page
     var h = headerBar ? headerBar.offsetHeight : 64;
     var over = function (r) { return r.top < h - 1 && r.bottom > h + 1; };
-    var on = over(intro.getBoundingClientRect());
+    var rect = intro.getBoundingClientRect();
+    var on = over(rect);
     if (!on && prologue) on = over(prologue.getBoundingClientRect());
-    if (on === root.classList.contains('name-intro-active')) return;
+    // after the hand-over the intro's last header height still stands under the header (the hero
+    // lands with its top at the header's bottom): the header is opaque until the intro has left
+    var under = !on && rect.bottom > 1 && rect.bottom <= h + 1;
+    if (on === root.classList.contains('name-intro-active') && under === root.classList.contains('name-intro-under')) return;
     // the hand-over is a cut: the header's hover transitions (220 ms glass, 120 ms links and
     // button, instant ink) would otherwise fade the palette inversion at three speeds and leave
     // the light theme's header unreadable for about 100 ms. The class is lifted two frames
     // later; the token keeps a second switch within those frames from lifting it early
     if (headerBar) headerBar.classList.add('is-switching');
     root.classList.toggle('name-intro-active', on);
+    root.classList.toggle('name-intro-under', under);
     if (!headerBar) return;
     var id = ++switchId;
     requestAnimationFrame(function () {

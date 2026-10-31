@@ -112,6 +112,18 @@ html.name-intro-active .site-header.is-scrolled {
   background: rgba(14,16,20,.85);
   border-color: rgba(255,255,255,.08);
 }
+/* the skip link lands at top: 12px, inside the header band, over the same dark ground: the dark
+   set while the intro is in view (the light theme's pill would be 1.06:1 on #0E1014) */
+html.name-intro-active .skip-link { --text-1: #F2F3F5; --bg: #0E1014; --accent: #8EC6BC; }
+/* after the hand-over the intro's last header height still stands under the header (the hero
+   lands with its top at the header's bottom): the header is opaque until the intro has left, else
+   the light glass shows the dark remnant through as a grey band (name-intro.js sets the class) */
+html.name-intro-under .site-header,
+html.name-intro-under .site-header.is-scrolled {
+  background: var(--bg);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
 /* the hand-over to and from the dark intro palette is a cut (name-intro.js sets the class for
    two frames); the is-scrolled glass fade and the hover fades stay */
 .site-header.is-switching, .site-header.is-switching * { transition: none !important; }

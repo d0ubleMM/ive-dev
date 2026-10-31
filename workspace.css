@@ -227,7 +227,6 @@ html.no-js .ws-hero-explorer .frame-media { border-radius: 8px; }
   .ws-hero-aside { margin-top: 26px; }
   .ws-hero-aside .ws-lead { font-size: 18px; max-width: 35ch; }
   .ws-actions { margin-top: 22px; }
-  .ws-actions .btn { font-size: 14px; padding-inline: 15px; }
   .ws-agent-strip { margin-top: 32px; padding-block: 19px; gap: 14px; flex-wrap: wrap; }
   .ws-agent-intro { flex-basis: 100%; }
   .ws-agent { font-size: 14px; }
@@ -275,7 +274,8 @@ html.no-js .ws-hero-explorer .frame-media { border-radius: 8px; }
   .ws-faq p { font-size: 15px; }
 }
 @media (max-width: 359.98px) {
-  /* the hero pair keeps one row on 320px phones (the header uses the same breakpoint) */
+  /* from 360px up the pair is 15px/18px like every other 44px button (Product, Download, 404); on
+     320px phones it keeps one row only at this step (the header uses the same breakpoint) */
   .ws-actions { gap: 8px; }
   .ws-actions .btn { font-size: 13px; padding-inline: 12px; }
 }

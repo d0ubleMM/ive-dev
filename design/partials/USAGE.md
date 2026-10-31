@@ -60,17 +60,18 @@ Copy `nav.html` verbatim, then only these edits:
 
 | Page | Edit |
 |---|---|
-| index.html | wordmark `href="index.html"` becomes `href="#top"` |
-| product.html | `aria-current="page"` on the Product `.nav-link` |
-| download.html | `aria-current="page"` on the Download `.nav-link` |
+| index.html | wordmark `href="index.html"` becomes `href="#top"`; `cta-quiet` in the `<html>` class list |
+| product.html | `aria-current="page"` on the Product `.nav-link`; `cta-quiet` in the `<html>` class list |
+| download.html | `aria-current="page"` on the Download `.nav-link`; `cta-quiet` in the `<html>` class list |
 | architecture.html | `aria-current="page"` on the Architecture `.nav-link` |
+| story.html | none |
 | imprint.html | none |
 | privacy.html | `aria-label="IVE, Startseite"` on the wordmark; nav `aria-label="Hauptnavigation"`; theme button `aria-label="Zum hellen Design wechseln"` and its `.tool-name` text `Design`; GitHub `aria-label="IVE auf GitHub (öffnet in neuem Tab)"`; menu button `aria-label="Menü"`; skip link text `Zum Inhalt springen`. site.js switches the theme labels to German by itself when `<html lang="de">` |
 | 404.html | see section 9 |
 
 `site.js` also sets `aria-current` by file name if the markup has none (safety net only).
 
-The header's primary button (`[data-mac-download]`) needs no per-page edit: site.js points it to `#install` when the page has an element with `id="install"` (the homepage), to `#terminal` when the page has that id (the download page), otherwise to `download.html#terminal`. `download.html` must therefore have `id="terminal"` on the terminal panel, and no element with `id="install"`.
+The header's button is `btn btn-fill btn-sm nav-cta` to `try.html` on every page (404: `/try.html`); no per-page edit. Pages whose `<main>` contains a `.btn-fill` (index, product, download) add `cta-quiet` to the `<html>` class list so the first paint is outlined; site.js keeps it current (one coloured call to action per view, ACCENT-BRIEF).
 
 Footer: `footer.html` verbatim on every page except 404. Optional: `aria-current="page"` on the footer link of the current page.
 
@@ -104,13 +105,13 @@ Arrows, chevrons and icons are inline SVG (`class="icon"`, 16×16 viewBox, strok
 | Class | Use |
 |---|---|
 | `.btn .btn-outline` | outlined, 44px; also the header button's quiet state (`.btn-fill.nav-cta` under `html.cta-quiet`, 36px) |
-| `.btn .btn-fill` | primary filled, hero only |
+| `.btn .btn-fill` | the pink "Try it yourself" (hero, install section, page heads of Product and Download, Product closer, and the header once no other filled button is in view), with the arrow icon on page level |
 | `.btn .btn-quiet` | closers ("Get IVE on the Download page →"), no border at rest |
 | `.btn .btn-quiet .btn-line` | quiet with a hairline at rest (Get IVE links row) |
 | `.btn-block` | full width |
 | `.icon-btn` | 36×36 icon button (put `aria-label` on it) |
 
-**Download buttons.** OS-aware: add `data-mac-download` and wrap the label in `<span data-mac-download-label>Download for Mac</span>`; href is the DMG `https://github.com/michael-ra/ive/releases/latest/download/IVE-macOS-arm64.dmg`. Optional: `data-install-label="…"` (default "Install IVE"), `data-install-label-narrow="Get IVE"` (used below 720px, hero only), `data-install-href` (override target), `[data-mac-download-icon]` child (removed on conversion). An Apple-silicon-only note gets `data-mac-download-note` (hidden when the button converts). Plain DMG links (Get IVE Mac panel, download.html) have **no** `data-mac-download`.
+**Download buttons.** OS-aware: add `data-mac-download` and wrap the label in `<span data-mac-download-label>Download for Mac</span>`; href is the DMG `https://github.com/michaelAGI/ive/releases/latest/download/IVE-macOS-arm64.dmg`. Optional: `data-install-label="…"` (default "Install IVE"), `data-install-label-narrow="Get IVE"` (used below 720px, hero only), `data-install-href` (override target), `[data-mac-download-icon]` child (removed on conversion). An Apple-silicon-only note gets `data-mac-download-note` (hidden when the button converts). Plain DMG links (Get IVE Mac panel, download.html) have **no** `data-mac-download`.
 
 ## 6. Terminal box with Copy
 
@@ -176,7 +177,7 @@ Scenes (`assets/demo/r5/scenes/`, the previews' runtime; `r9/` is the app's and 
 **Download panels**:
 ```html
 <div class="wrap"><div class="stack">
-  <section class="panel panel-lg" aria-labelledby="mac-title"><span class="label" id="mac-title">Mac app</span><a class="btn btn-outline" href="DMG">Download for Mac</a><p class="facts">Apple silicon (M1 or newer) · macOS 13.5 or newer</p><p class="body">…</p><a class="arrow-link" href="https://github.com/michael-ra/ive/releases" target="_blank" rel="noopener">Release notes on GitHub ARROW-NE SVG</a></section>
+  <section class="panel panel-lg" aria-labelledby="mac-title"><span class="label" id="mac-title">Mac app</span><a class="btn btn-outline" href="DMG">Download for Mac</a><p class="facts">Apple silicon (M1 or newer) · macOS 13.5 or newer</p><p class="body">…</p><a class="arrow-link" href="https://github.com/michaelAGI/ive/releases" target="_blank" rel="noopener">Release notes on GitHub ARROW-NE SVG</a></section>
   <section class="panel panel-lg" id="terminal" …><span class="label">Terminal</span> TERM BOX <p class="body">…</p><p class="facts">Requirements: …</p></section>
   <section class="panel panel-lg" …><span class="label">From source</span><div class="term term-multi" data-copy-box>… four .term-line …</div><p class="body">Add <code>--plan</code> …</p></section>
 </div></div>
@@ -191,7 +192,7 @@ Panel children are spaced 16px apart by `.stack .panel > * + *`.
 
 ## 9. 404 page
 
-GitHub Pages serves `404.html` for any missing path, also nested ones (`/a/b/c`), so relative URLs break there. Recommended: load the shared files with **root-absolute** URLs (`/assets/fonts.css?v=20261023a`, `/site.css?v=20261023a`, `/site.js?v=20261023a`, favicon `/assets/favicon.svg`) and write every link root-absolute (`/`, `/product.html`, `/download.html`, `/architecture.html`, `/imprint.html`, `/privacy.html`). Its inline boot script is the generic one (same hash); no inline style is needed. Use `nav.html` with those root-absolute hrefs (wordmark `href="/"`). Body: `<main id="main" class="wrap nf-main"><div><h1>Not found.</h1><p class="lead">This page does not exist. The homepage has everything that does.</p><div class="nf-actions"><a class="btn btn-outline" href="/">Go to the homepage</a><a class="btn btn-quiet" href="/download.html">Download IVE</a></div></div></main>`. Reduced footer:
+GitHub Pages serves `404.html` for any missing path, also nested ones (`/a/b/c`), so relative URLs break there. Recommended: load the shared files with **root-absolute** URLs (`/assets/fonts.css?v=20261023a`, `/site.css?v=20261023a`, `/site.js?v=20261023a`, favicon `/assets/favicon.svg`) and write every link root-absolute (`/`, `/product.html`, `/download.html`, `/architecture.html`, `/imprint.html`, `/privacy.html`). Its inline boot script is the generic one (same hash); its hashed inline `<style>` carries its own copy of the tokens and button rules (recompute the style-src hash after any change). Use `nav.html` with those root-absolute hrefs (wordmark `href="/"`). Body: `<main id="main" class="wrap nf-main"><div><h1>Not found.</h1><p class="lead">This page does not exist. The homepage has everything that does.</p><div class="nf-actions"><a class="btn btn-outline" href="/">Go to the homepage</a><a class="btn btn-quiet" href="/download.html">Download IVE</a></div></div></main>`. Reduced footer:
 
 ```html
 <footer class="site-footer is-reduced"><div class="wrap"><div class="footer-row"><nav aria-label="Footer"><ul class="footer-links"><li><a href="/imprint.html">Imprint</a></li><li><a href="/privacy.html">Privacy</a></li></ul></nav></div><p class="footer-line">EU-based · Open source under the Apache 2.0 license</p></div></footer>

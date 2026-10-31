@@ -325,6 +325,7 @@
       tiles[i] = { a: a, x: lerp(from.x, to.x, wf), y: lerp(from.y, to.y, wf) };
     }
     // new sessions under their parents, so each one slides out from under the session it split off
+    var gatherRaw = seg(p, T.gather);
     var cursors = [];
     for (i = n - 1; i >= 0; i--) {
       var t = tiles[i];
@@ -332,6 +333,12 @@
       var frameA = t.a * (i === 0 ? morph : 1) * (1 - fold);
       var M = drawTile(i, t.x, t.y, tw, th, frameA, frameA, i === 0 && morph < 1 ? 0 : frameA);
       cursors[i] = { x: M.cx, y: M.cy - M.ch / 2, w: M.cw, h: M.ch, a: t.a };
+      // before the gather a cursor is drawn with its tile, in the tile order: a session that is
+      // still sliding out from under its parent keeps its cursor under the parent's box too
+      if (gatherRaw <= 0 && !(i === 0 && morph < 1)) {
+        block(M.cx, M.cy - M.ch / 2, M.cw, M.ch, t.a * (blinkOn(i, now) ? 1 : 0));
+        cursors[i].drawn = true;
+      }
     }
 
     // the running count above the board
@@ -376,14 +383,13 @@
     }
 
     // the cursors: blinking in their sessions, then running together into the one block cursor
-    // that stands where the line will be typed
-    var gatherRaw = seg(p, T.gather);
+    // that stands where the line will be typed (on the top layer only once the gather runs)
     var B0 = monoBlock(L.size, L.capR);
     var tx2 = L.x0 + 2 + B0.w / 2, ty2 = L.cy + B0.top + B0.h / 2;
     var merged = false;
     for (i = n - 1; i >= 0; i--) { // the lead last, so it lies on top of the cursors reaching it
       var c = cursors[i];
-      if (!c) continue;
+      if (!c || c.drawn) continue;
       var delay = (i / Math.max(1, n - 1)) * .35;
       var g = inOut(clamp((gatherRaw - delay) / .65));
       if (g >= 1) { merged = true; continue; }

@@ -84,13 +84,18 @@ html.cursor-intro-on.name-intro-live .name-intro-line {
   font-size: calc(var(--name-size) * var(--pro-scale, 1));
   transform: translate(var(--pro-x, 0px), var(--pro-y, 0px));
 }
-/* home page with the prologue: the header's dot is ink until the merged cursor hands its colour
-   over (cursor-intro.js drives --dot-pop from 0 to 1; unset = pink, as on every other page).
-   Guarded, so a browser without calc() percentages in color-mix keeps the plain pink dot */
+/* home page with the prologue: the header's dot is ink from the first paint until the merged
+   cursor hands its colour over (cursor-intro.js drives --dot-pop from 0 to 1). Keyed on the
+   page's static has-prologue class and on name-intro-live, which the inline boot script sets
+   before the first paint, so the dot is never pink in the window before the deferred
+   cursor-intro.js runs (unset = ink). Without a canvas (cursor-intro-off) the plain pink dot
+   returns, as on every other page and with reduced motion. Guarded, so a browser without
+   calc() percentages in color-mix keeps the plain pink dot */
 @supports (background: color-mix(in srgb, red calc(1 * 100%), blue)) {
-  html.cursor-intro-on.name-intro-live .site-header .wordmark-dot {
-    background: color-mix(in srgb, var(--pop) calc(var(--dot-pop, 1) * 100%), var(--text-1));
+  html.has-prologue.name-intro-live .site-header .wordmark-dot {
+    background: color-mix(in srgb, var(--pop) calc(var(--dot-pop, 0) * 100%), var(--text-1));
   }
+  html.has-prologue.cursor-intro-off .site-header .wordmark-dot { background: var(--pop); }
 }
 /* no canvas: no prologue, the name intro as on its own */
 html.cursor-intro-off .cursor-intro { display: none; }

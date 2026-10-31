@@ -107,7 +107,8 @@ Bento grids, icon walls, card stacks and repeated split sections are out.
 - Header on every page: fixed, 64px (56px below 720px), transparent until 8px of
   scroll, then glass with a hairline. Left the wordmark "IVE" at 22px with the pink
   dot, no by-line. Right, all in one button family (36px, 6px radius): the quiet
-  links Product, Download, Architecture; the theme switch as an icon button
+  links Product, Download, Architecture (the current page in `--text-1` at 600,
+  no box); the theme switch as an icon button
   (sun in dark, moon in light, the label names the action); the GitHub icon button;
   the primary action "Try it yourself". One coloured call to action per view: the
   header's button is quiet (outlined, the hairline family of the icon buttons beside
@@ -150,7 +151,7 @@ Dark is the default (also without JS); `html[data-theme="light"]` overrides.
 --pop-glow       rgba(255,64,118,.24)  rgba(255,64,118,.18)  (the hero light; a touch warmer than the fill)
 --running        #5B8CFF               #1647FF    (running and thinking states)
 --done           #7DCE82               #087A4B
---waiting        #E0A54A               #B7791F
+--waiting        #E0A54A               #946015    (light: 4.66:1 on --bg-inset for the 12px status word; was #B7791F, 3.19:1)
 --attention      #F2545B               #C83B24
 ```
 

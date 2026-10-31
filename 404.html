@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-qFS7eZILz935x6ekROjFtuQlrwNUlvdxFi6sW9J7f30=' 'sha256-g4Gru9vMojUrzqpq31X2+VagmjNMb/P5hpKDtp0c/4g='; style-src 'self' 'sha256-LhaONcJ+5V1cOlAX3jAycy3qfbBOHid95rWpFJln8AI='; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-qFS7eZILz935x6ekROjFtuQlrwNUlvdxFi6sW9J7f30=' 'sha256-g4Gru9vMojUrzqpq31X2+VagmjNMb/P5hpKDtp0c/4g='; style-src 'self' 'sha256-h33tDaZarcB7NH8w6l/k/u1cBCatg+QDmbRgunoaEHI='; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#0E1014">
@@ -292,6 +292,7 @@ html.no-js [data-theme-toggle] { display: none; }
   h1 { font-size: 40px; }
   .lead { font-size: 18px; }
   .nf-main { padding-block: calc(var(--header-h) + 40px) 64px; }
+  .nf-actions .btn-outline { font-size: 14px; padding-inline: 15px; } /* one row on 360px phones: 164 + 12 + 136 of the 320px row (179 at 15px wraps the pair) */
   .menu-btn { display: inline-grid; }
   .site-menu {
     position: absolute;
