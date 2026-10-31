@@ -27,8 +27,9 @@ applicable. This is a website change only.
 - Use one bounded petrol surface for local execution, CLI accounts and review.
   Retain the phone visual and its coming-soon status, followed by installation
   and short practical questions.
-- Graphite/Petrol stays the palette. New bounded trust ground: `#1D3835`, ink
-  `#EFF6F4`, secondary `#D4E3DF`, labels `#B2CAC3`. Status colors keep their roles.
+- Graphite/Petrol stays the base palette; since 2026-10-31 one pink accent sits on it
+  (see Tokens). New bounded trust ground: `#1D3835`, ink `#EFF6F4`, secondary
+  `#D4E3DF`, labels `#B2CAC3`. Status colors keep their roles.
 - The hero heading scales from 38–62px on phones to 88px on desktop. Existing
   Archivo, Source Sans 3 and IBM Plex Mono remain self-hosted.
 - `name-intro.css` and `name-intro.js` retain the original measured font sizing,
@@ -39,7 +40,8 @@ applicable. This is a website change only.
 - On Home a prologue precedes the name (`cursor-intro.css`, `cursor-intro.js`, one
   canvas, 2026-10-31): a prompt is typed, the board fills with 1, 2, 4, 8, 12 sessions
   (8 on phones), the sessions fold into their cursors, the cursors run together into one
-  block cursor, and that cursor types "Meet IVE" small, in the prompt's mono. The typed
+  block cursor and turn pink as they arrive (the pop, see Tokens; the typed text stays
+  ink), and that cursor types "Meet IVE" small, in the prompt's mono. The typed
   line then grows: "Meet" goes, the mono IVE moves onto the name intro's own letters and
   dissolves into them, and they grow with the line to full size (the type itself is
   scaled, not a transform), then unfold as before. No zoom in either direction (owner:
@@ -101,12 +103,16 @@ Bento grids, icon walls, card stacks and repeated split sections are out.
 ## Navigation and footer
 
 - Header on every page: fixed, 64px (56px below 720px), transparent until 8px of
-  scroll, then glass with a hairline. Left the wordmark "IVE" at 22px with the petrol
+  scroll, then glass with a hairline. Left the wordmark "IVE" at 22px with the pink
   dot, no by-line. Right, all in one button family (36px, 6px radius): the quiet
   links Product, Download, Architecture; the theme switch as an icon button
   (sun in dark, moon in light, the label names the action); the GitHub icon button;
-  the outlined primary action (Download for Mac or Install IVE). Below 720px:
-  wordmark, primary action, Menu button with a panel.
+  the filled primary action "Try it yourself". One coloured call to action per view:
+  the header's button is quiet (neutral fill, `html.cta-quiet`, set in the markup of
+  pages that have their own filled button and kept current by site.js) until the
+  page's first filled button has scrolled above the viewport, and again whenever a
+  filled button of the page is on screen. Below 720px: wordmark, primary action,
+  Menu button with a panel.
 - While the name intro is pinned, `html.name-intro-active` keeps the header dark
   and its wordmark, links and controls visible throughout the zoom and unfold.
 - Footer: IVE and "from AIFOREU" (link to aiforgov.eu), the six links, and the line
@@ -129,20 +135,41 @@ Dark is the default (also without JS); `html[data-theme="light"]` overrides.
 --text-2         #C6CAD1               #3E434A
 --text-3         #8B919B               #5F656E    (light lifted 2026-10-31: 4.75:1 on the frame-shadow ground under captions)
 --text-4         #7C828C               #646A73    (lifted in QA round 1 and on 2026-10-31: 4.77:1 on --bg-inset)
---accent         #8EC6BC               #216C63    (links, focus, the wordmark dot)
---accent-fill    #E7E9EC               #272A2E    (primary buttons)
+--accent         #8EC6BC               #216C63    (links, kickers, focus, selected tabs, diagram lines)
+--accent-fill    #E7E9EC               #272A2E    (the header button while it is quiet)
 --accent-fill-hover #FFFFFF            #17191C
---on-accent      #17191C               #FFFFFF    (button text: at least 14.4:1)
+--on-accent      #17191C               #FFFFFF    (text on the quiet fill: at least 14.4:1)
+--pop            #FF4F9B               #FF4F9B    (the one unexpected accent: filled buttons, the wordmark dot,
+                                                   the prologue's merged cursor, the selection, the intro link's hover)
+--pop-ink        #17191C               #17191C    (text on the pop: 5.74:1; white would be 3.07:1)
+--pop-hover      pop 86% + white       same       (#FF68A9, ink 6.55:1)
+--pop-glow       rgba(255,64,118,.24)  rgba(255,64,118,.18)  (the hero light; a touch warmer than the fill)
 --running        #5B8CFF               #1647FF    (running and thinking states)
 --done           #7DCE82               #087A4B
 --waiting        #E0A54A               #B7791F
 --attention      #F2545B               #C83B24
 ```
 
-Owner-approved palette, 2026-10-24: graphite primary actions in light mode,
-light neutral primary actions in dark mode, and petrol for links, focus and the
-wordmark dot. Running states keep their blue; product demos retain the app's
-own colors. No purple, no neon, no glows.
+Owner-approved palette, 2026-10-24: graphite and petrol, running states keep
+their blue, product demos retain the app's own colors. No purple, no neon.
+
+Owner decision 2026-10-31 (from a design reel: "a calm two-colour palette plus one
+accent colour that catches you off guard", and "pink is a cool accent colour"):
+the pop above is that accent. It is the colour of the cursor at the moment it
+matters and appears only where listed: the filled "Try it yourself" buttons (the
+header's while no other filled button is in view), the wordmark dot (header,
+footer, try bar, 404, Open Graph image), the prologue's cursors as they run
+together and type "Meet IVE", a soft light behind the hero frame with a quieter
+echo behind the install button (the one exception to "no glows", asked for by
+the owner), the text selection, and the hover of the intro's "Explore IVE". Mint
+stays the colour of kickers, links, focus and the petrol trust ground; the hero's
+own kicker and tab underline are neutral so the first view holds exactly one
+hue. Status colours keep their roles and the pop never stands for a state. Text
+on the pop is dark in both themes; in the light theme the filled button carries
+a hairline in a deeper pink so its shape stays above 3:1. Pink, rose and
+tangerine were compared in a three-lens jury on 2026-10-31 (brand, craft,
+system): pink won on all three; replacing mint everywhere lost to keeping it.
+Details and the places list: `design/ACCENT-BRIEF.md`.
 
 ## Type
 
