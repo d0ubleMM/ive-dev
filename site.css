@@ -63,23 +63,27 @@ html[data-theme="light"] {
   --frame-highlight: inset 0 0 0 0 transparent;
   --code-bg: rgba(16, 18, 22, 0.06);
 }
-/* The pop (design/ACCENT-BRIEF.md, 2026-10-31): one unexpected accent, pink, in very few places,
-   the colour of the cursor at the moment it matters: the filled button, the wordmark dot, the
-   prologue's cursors as they run together, the light behind the hero frame, the selection. Same
-   in both themes. --pop-ink is the text on the fill (dark in both themes: white would be 3.07:1),
-   --pop-hover the filled button's hover (lighter in both themes, ink 6.55:1), --pop-glow the
-   hero light at its peak: a touch warmer than the fill, so its falloff on the cool graphite does
-   not drift towards violet (brand review, 2026-10-31). The mint --accent family above stays the
-   colour of kickers, links, focus and the petrol ground; the status tokens keep their roles.
-   Pink, rose and tangerine were compared in a three-lens jury on 2026-10-31: pink won on all
-   three; the restrained extent (mint kept) beat replacing mint everywhere. */
+/* The pop (design/ACCENT-BRIEF.md, 2026-10-31): one unexpected accent, pink, the colour of the
+   cursor at the moment it matters, used as the owner's reference reel uses its accent: one light,
+   one button, a few small marks. --pop is every fill and shape (the filled button, the wordmark
+   and nav dots, the kicker cursor, the hero's full stop, the prologue's merged cursor, the
+   selection), the same in both themes; --pop-ink is the text on it (dark in both themes: white
+   would be 3.07:1), --pop-hover the filled button's hover (lighter, ink 6.55:1), --pop-glow the
+   peak of the lights (hero, closing call to action, Product head) in the fill's own hue (the
+   earlier warmer value read as wine at low alpha). --accent above is the pop as text and lines
+   (links, hovers, focus, selected-tab bars, the architecture path), deeper in the light theme;
+   mint and petrol are retired (owner, 2026-10-31). The status tokens keep their roles and the pop
+   never stands for a state. */
 :root {
   --pop: #FF4F9B;
   --pop-ink: #17191C;                                      /* 5.74:1 on the fill */
   --pop-hover: color-mix(in srgb, var(--pop) 86%, white); /* #FF68A9, ink 6.55:1 */
   --pop-glow: rgba(255, 79, 155, 0.5);
+  /* the outer part of a light: a touch warmer, so the faint fringe on the cool graphite stays pink
+     and does not drift towards plum (audit 2026-10-31) */
+  --pop-glow-edge: rgba(255, 64, 118, 0.5);
 }
-html[data-theme="light"] { --pop-glow: rgba(255, 79, 155, 0.3); }
+html[data-theme="light"] { --pop-glow: rgba(255, 79, 155, 0.3); --pop-glow-edge: rgba(255, 64, 118, 0.3); }
 :root {
   /* the page ground of the active theme, also inside dark-scoped surfaces */
   --page-bg: var(--bg);
@@ -143,8 +147,10 @@ table { border-collapse: collapse; }
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
-/* on the pink fill a pink ring would read as part of the button: the ring there is the text colour */
+/* on the pink fill a pink ring would read as part of the button: the ring there is the text colour;
+   the header's button while it is quiet (outlined, see .nav-cta) keeps the pink ring */
 .btn-fill:focus-visible { outline-color: var(--text-1); }
+html.cta-quiet .nav-cta:focus-visible { outline-color: var(--accent); }
 
 .sr-only {
   position: absolute !important;
@@ -851,15 +857,16 @@ html.viewer-open { overflow: hidden; }
 .page-head { padding-top: calc(var(--header-h) + 128px); padding-bottom: 64px; }
 /* the Product head's light (.page-head-lit): the homepage's hero light at about two thirds of its
    peak, rising from behind the first app frame, whose top edge is the head's bottom edge (the frame
-   holds the right eight columns from 1024px, the full width below). The box reaches 320px below
-   the head (the rows have no ground of its own) and the light ends before the head's text column;
-   the frame hides its core. Download has no frame to light, so it has none (jury 2026-10-31).
-   Tablet and desktop only. */
+   holds the right eight columns from 1024px, the full width below). The box spans the head (which
+   is full width) and reaches 320px below it (the rows have no ground of their own); the frame
+   hides its core. From 1024px the light ends before the head's text column; on tablets it rises
+   centred behind the head's buttons, which stay at 8.8:1 or better. Download has no frame to
+   light, so it has none (jury 2026-10-31). Tablet and desktop only. */
 @media (min-width: 720px) {
   .page-head-lit { position: relative; isolation: isolate; --head-cx: 50%; --head-rx: calc(min(100vw - 2 * var(--gutter), var(--maxw)) * .55); }
   .page-head-lit::before {
     content: ''; position: absolute; z-index: -1; pointer-events: none;
-    left: calc(50% - 50vw); right: calc(50% - 50vw); top: 0; bottom: -320px;
+    left: 0; right: 0; top: 0; bottom: -320px;
     background: radial-gradient(var(--head-rx) 210px at var(--head-cx) calc(100% - 280px),
       color-mix(in srgb, var(--pop-glow) 66%, transparent) 0%,
       color-mix(in srgb, var(--pop-glow) calc(66% * .98), transparent) 10%,
@@ -867,10 +874,10 @@ html.viewer-open { overflow: hidden; }
       color-mix(in srgb, var(--pop-glow) calc(66% * .83), transparent) 30%,
       color-mix(in srgb, var(--pop-glow) calc(66% * .71), transparent) 40%,
       color-mix(in srgb, var(--pop-glow) calc(66% * .56), transparent) 50%,
-      color-mix(in srgb, var(--pop-glow) calc(66% * .41), transparent) 60%,
-      color-mix(in srgb, var(--pop-glow) calc(66% * .26), transparent) 70%,
-      color-mix(in srgb, var(--pop-glow) calc(66% * .13), transparent) 80%,
-      color-mix(in srgb, var(--pop-glow) calc(66% * .04), transparent) 90%,
+      color-mix(in srgb, var(--pop-glow-edge) calc(66% * .41), transparent) 60%,
+      color-mix(in srgb, var(--pop-glow-edge) calc(66% * .26), transparent) 70%,
+      color-mix(in srgb, var(--pop-glow-edge) calc(66% * .13), transparent) 80%,
+      color-mix(in srgb, var(--pop-glow-edge) calc(66% * .04), transparent) 90%,
       transparent 100%);
   }
 }
@@ -1079,10 +1086,6 @@ html.viewer-open { overflow: hidden; }
 .arch-event-path { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line-strong); }
 .arch-event-path li { display: grid; gap: 4px; padding: 22px 20px 24px; border-left: 1px solid var(--line); }
 .arch-event-path li:first-child { border-left: 0; padding-left: 0; }
-/* the one pink in the event figure: a bar over step 01, where the event lands in SQLite (the pink
-   store of the process figure above), drawn like the selected-tab bar */
-.arch-event-path li { position: relative; }
-.arch-event-path li:first-child::before { content: ''; position: absolute; left: 0; right: 20px; top: -1px; height: 2px; background: var(--accent); }
 .arch-step { font: 500 12px/1.4 var(--mono); color: var(--text-3); }
 .arch-event-path strong { font: 600 17px/1.3 var(--sans); }
 .arch-event-path code { justify-self: start; }

@@ -149,7 +149,7 @@ Dark is the default (also without JS); `html[data-theme="light"]` overrides.
                                                    the prologue's merged cursor, the selection, the intro link's hover)
 --pop-ink        #17191C               #17191C    (text on the pop: 5.74:1; white would be 3.07:1)
 --pop-hover      pop 86% + white       same       (#FF68A9, ink 6.55:1)
---pop-glow       rgba(255,79,155,.5)   rgba(255,79,155,.3)   (the peak of the hero light; the echo and the Product head take 66 %)
+--pop-glow       rgba(255,79,155,.5)   rgba(255,79,155,.3)   (the peak of the hero light; the Product head takes 66 %, the echo 66 % dark, 50 % light)
 --running        #5B8CFF               #1647FF    (running and thinking states)
 --done           #7DCE82               #087A4B
 --waiting        #E0A54A               #946015    (light: 4.66:1 on --bg-inset for the 12px status word; was #B7791F, 3.19:1)
@@ -168,12 +168,13 @@ The light rises from behind the hero's app frame (the frame is the source; the c
 call to action and the Product head get it at a lower level, Download has none). The
 filled "Try it yourself" buttons are pink (the header's only while no other filled
 button is in view). The small marks: the wordmark dot, a cursor block after the first
-kicker of a page (on Home it blinks three times when the hero takes over, never under
-reduced motion), the pink full stop of the hero headline, a dot before the current
+kicker of the homepage hero, Architecture and the legal pages (on Home it blinks three
+times when the hero takes over, never under reduced motion), the pink full stop of the hero headline, a dot before the current
 page in the nav, selected-tab bars. `--accent` carries the pop as text and lines
 (links, hovers, focus, the architecture path); in the light theme it is the deeper
-`#BE2D6C`, while every fill and shape stays `#FF4F9B`. Small text that sits on a light
-reads in `--text-2`. Status colours keep their roles and the pop never stands for a
+`#BE2D6C`, while every fill and shape stays `#FF4F9B`. Small text that would drop below
+4.5:1 on a light reads in `--text-2` (the hero's unselected tabs, the note under the
+closing button); focus rings on a light are the text colour. Status colours keep their roles and the pop never stands for a
 state; section kickers, numbers, card borders and body text stay neutral. Pink,
 rose and tangerine were compared in a three-lens jury, a second jury set the amount.
 Details and the places list: `design/ACCENT-BRIEF.md`.
