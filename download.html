@@ -28,7 +28,7 @@
 <link rel="preload" href="assets/fonts/archivo-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/source-sans-3-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts.css?v=20261023a">
-<link rel="stylesheet" href="site.css?v=20261031-c48a786b09d0">
+<link rel="stylesheet" href="site.css?v=20261031-7d52df6e2eb0">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -69,10 +69,12 @@
         <h2 class="label" id="mac-title">Mac app</h2>
         <a class="btn btn-outline" href="https://github.com/michaelAGI/ive/releases/latest/download/IVE-macOS-arm64.dmg">Download for Mac</a>
         <p class="facts">Apple silicon (M1 or newer) · macOS 13.5 or newer</p>
+        <details class="more"><summary>How it works<svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.75 6l4.25 4.25L12.25 6"/></svg></summary><div>
         <p class="body">Open the disk image and drag IVE into Applications. The app runs its own local service in the background: no terminal window, no browser tab, one app in the Dock. You need at least one coding CLI you are signed in to: Claude Code, Codex or Gemini (Antigravity&nbsp;CLI). The app is signed by AIFOREU GmbH and notarized by Apple. The SHA-256 is on the releases page.</p>
         <p class="body">Open a Terminal directly or choose an agent Session. In the Mac app, <kbd>⌘T</kbd> opens a new IVE tab; the <strong>+</strong> button works too. Your terminals keep running when you switch tabs.</p>
         <p class="body">To update, quit IVE, download the current disk image and replace IVE in Applications. Your workspaces, sessions and settings stay on your Mac.</p>
         <p><a class="arrow-link" href="https://github.com/michaelAGI/ive/releases" target="_blank" rel="noopener">Release notes on GitHub<svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.75 11.25l6.5-6.5M5.75 4.75h5.5v5.5"/></svg><span class="sr-only"> (opens in a new tab)</span></a></p>
+        </div></details>
       </section>
 
       <section class="panel panel-lg" id="terminal" aria-labelledby="terminal-title">
@@ -82,9 +84,11 @@
           <button class="term-copy" type="button" data-copy="curl -fsSL https://ive.dev/install.sh | bash" aria-label="Copy the install command" hidden><svg class="icon icon-copy" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.25" y="5.25" width="8" height="8" rx="1.5"/><path d="M10.75 5.25V3.75a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h1.5"/></svg><svg class="icon icon-check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.25 8.5l3 3 6.5-7"/></svg><span data-copy-label>Copy</span></button>
           <span class="sr-only" role="status" aria-live="polite" data-copy-status></span>
         </div>
+        <p class="facts">Requirements: macOS or Linux · Python 3.11+ · Node.js 22.12+ with npm · Git · at least one coding CLI: Claude Code, Codex or Gemini (Antigravity&nbsp;CLI)</p>
+        <details class="more"><summary>After the install<svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.75 6l4.25 4.25L12.25 6"/></svg></summary><div>
         <p class="body">Then start IVE with <code>ive</code>. It runs in the background and opens http://127.0.0.1:5111; you can close the terminal. <code>ive stop</code> stops it; <code>ive status</code>, <code>ive logs</code> and <code>ive update</code> do what they say; <code>ive uninstall</code> removes it. The installer puts the code in <code>~/.ive</code>, installs its dependencies, builds the app and adds the <code>ive</code> command to <code>~/.local/bin</code>. It does not use sudo.</p>
         <p><a class="arrow-link" href="https://github.com/michaelAGI/ive/blob/main/get.sh" target="_blank" rel="noopener">Read the script first on GitHub<svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.75 11.25l6.5-6.5M5.75 4.75h5.5v5.5"/></svg><span class="sr-only"> (opens in a new tab)</span></a></p>
-        <p class="facts">Requirements: macOS or Linux · Python 3.11+ · Node.js 22.12+ with npm · Git · at least one coding CLI: Claude Code, Codex or Gemini (Antigravity&nbsp;CLI)</p>
+        </div></details>
       </section>
 
       <section class="panel panel-lg" id="source" aria-labelledby="source-title">
@@ -99,7 +103,9 @@
       <section class="panel panel-lg" id="iphone" aria-labelledby="iphone-title">
         <h2 class="label" id="iphone-title">iPhone app</h2>
         <p><span class="soon">Coming soon to the App Store</span></p>
+        <details class="more"><summary>About the iPhone app<svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.75 6l4.25 4.25L12.25 6"/></svg></summary><div>
         <p class="body">IVE for iPhone pairs with the Mac app and shows your sessions on the phone: the terminal with its key bar, the Overview, permission questions, Stop, a push notification when an agent needs you, Face ID if you want it. The agents keep running on the Mac. See it in the demo under <a class="link" href="try.html?at=phone">Phone</a>.</p>
+        </div></details>
       </section>
     </div>
 

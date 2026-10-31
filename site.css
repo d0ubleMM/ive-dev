@@ -996,6 +996,15 @@ html.viewer-open { overflow: hidden; }
   color: var(--text-3);
 }
 
+/* "more" rows in the download panels: the action stays in view, the explanation folds away
+   (owner, 2026-10-31: too much text; download here, paste the command, the rest on request) */
+.more { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 14px; }
+.more summary { display: inline-flex; align-items: center; gap: 8px; list-style: none; cursor: pointer; font: 500 14px/1.4 var(--sans); color: var(--text-2); transition: color var(--t-fast); }
+.more summary::-webkit-details-marker { display: none; }
+.more summary .icon { width: 14px; height: 14px; color: var(--text-3); transition: transform var(--t-med) var(--ease); }
+.more[open] summary .icon { transform: rotate(180deg); }
+.more summary:hover { color: var(--text-1); }
+.more > div { padding-top: 4px; }
 /* questions: native <details> rows */
 .qa { max-width: 800px; border-top: 1px solid var(--line); }
 .qa details { border-bottom: 1px solid var(--line); }
