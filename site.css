@@ -25,8 +25,8 @@ html.mark-dark .site-header {
   --text-3: #8B919B;
   /* brief value #6B717B gives 3.87:1 on --bg; #7C828C is at least 4.6:1 on all three grounds (QA round 1) */
   --text-4: #7C828C;
-  /* Graphite actions and petrol brand accents (2026-10-24). */
-  --accent: #8EC6BC;
+  /* Graphite actions; --accent is the pop as text and lines (2026-10-31: mint retired, see the pop below) */
+  --accent: #FF4F9B;
   --accent-fill: #E7E9EC;
   --accent-fill-hover: #FFFFFF;
   --running: #5B8CFF;
@@ -51,7 +51,7 @@ html[data-theme="light"] {
   --text-3: #5A6069; /* 4.84:1 on the darkest caption ground: --bg-inset under the frame shadow composites to #DFE1E3 beneath the Inside IVE captions (5.16:1 on the hero/Why ground #E6E7E8, 5.91:1 on --bg); was #5F656E, 4.48:1 there */
   /* brief value #7C828B gave 3.61:1 on --bg; lifted in QA round 1 and again on 2026-10-31 */
   --text-4: #646A73; /* 4.77:1 on --bg-inset (was #686E77, 4.499:1) */
-  --accent: #216C63;
+  --accent: #BE2D6C; /* the pop as text and thin lines on light grounds: 5.18:1 on --bg, 5.55:1 on --bg-raised, 4.86:1 on --bg-inset (jury 2026-10-31: #AD1A5E read as raspberry beside the fill) */
   --accent-fill: #272A2E;
   --accent-fill-hover: #17191C;
   --running: #1647FF;
@@ -77,9 +77,9 @@ html[data-theme="light"] {
   --pop: #FF4F9B;
   --pop-ink: #17191C;                                      /* 5.74:1 on the fill */
   --pop-hover: color-mix(in srgb, var(--pop) 86%, white); /* #FF68A9, ink 6.55:1 */
-  --pop-glow: rgba(255, 64, 118, 0.24);
+  --pop-glow: rgba(255, 79, 155, 0.5);
 }
-html[data-theme="light"] { --pop-glow: rgba(255, 64, 118, 0.18); }
+html[data-theme="light"] { --pop-glow: rgba(255, 79, 155, 0.3); }
 :root {
   /* the page ground of the active theme, also inside dark-scoped surfaces */
   --page-bg: var(--bg);
@@ -143,6 +143,8 @@ table { border-collapse: collapse; }
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+/* on the pink fill a pink ring would read as part of the button: the ring there is the text colour */
+.btn-fill:focus-visible { outline-color: var(--text-1); }
 
 .sr-only {
   position: absolute !important;
@@ -247,6 +249,17 @@ h3, .t-h3 {
    .12em, quiet grey (owner, 2026-10-31: no green beside the pink); the gap under it comes from the
    heading margins, not from the kicker */
 .kicker { display: block; font: 500 11px/1.5 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-3); }
+/* the first kicker of a page ends in the IVE cursor: a pop block one mono cell wide, the cursor of
+   the prologue that types "Meet IVE" (owner 2026-10-31, more accent as in the reel). Only the page's
+   head carries it (Architecture, the legal pages; the homepage hero in workspace.css), never the
+   section kickers, so it stays a moment and not a bullet (jury 2026-10-31). Decorative. */
+.arch-hero .kicker::after,
+.legal-head .kicker::after {
+  content: ''; display: inline-block;
+  width: .62em; height: 1.12em;
+  margin-left: .4em; vertical-align: -.22em;
+  background: var(--pop);
+}
 :not(pre) > code,
 kbd {
   font-size: 0.9em;
@@ -456,9 +469,11 @@ html.mark-dark .site-header .wordmark { opacity: 0; pointer-events: none; }
   transition: background-color var(--t-fast) ease, color var(--t-fast) ease, border-color var(--t-fast) ease;
 }
 .nav-link:hover, .nav-link:focus-visible { color: var(--text-1); background: var(--bg-raised); }
-/* the current page by ink alone: a hairline box read as a fourth control beside the icon buttons
-   and the quiet button, and the raised surface would equal the hover (QA round 2) */
+/* the current page by ink alone plus the wordmark's dot in front of its name: a hairline box read
+   as a fourth control beside the icon buttons and the quiet button, and the raised surface would
+   equal the hover (QA round 2, accent-more) */
 .nav-link[aria-current="page"] { color: var(--text-1); font-weight: 600; border-color: transparent; }
+.nav-link[aria-current="page"]::before { content: ''; flex: none; width: 5px; height: 5px; margin-right: 8px; border-radius: 50%; background: var(--pop); }
 .nav-tools { display: flex; align-items: center; gap: 8px; }
 /* a tool is the 36×36 icon button; in the phone panel it shows its name beside it */
 .tool {
@@ -834,10 +849,36 @@ html.viewer-open { overflow: hidden; }
 /* ── 11 · subpage scaffolds: page head, product rows, stills,
         three columns, closer, download stack, questions (3.2, 3.3) ─ */
 .page-head { padding-top: calc(var(--header-h) + 128px); padding-bottom: 64px; }
-.page-head h1 { grid-column: 1 / 8; }
-.page-head .lead { grid-column: 1 / 8; margin-top: 20px; }
-.page-head > .wrap > * + * { margin-top: 20px; }
-.page-head-text { max-width: 720px; }
+/* the Product head's light (.page-head-lit): the homepage's hero light at about two thirds of its
+   peak, rising from behind the first app frame, whose top edge is the head's bottom edge (the frame
+   holds the right eight columns from 1024px, the full width below). The box reaches 320px below
+   the head (the rows have no ground of its own) and the light ends before the head's text column;
+   the frame hides its core. Download has no frame to light, so it has none (jury 2026-10-31).
+   Tablet and desktop only. */
+@media (min-width: 720px) {
+  .page-head-lit { position: relative; isolation: isolate; --head-cx: 50%; --head-rx: calc(min(100vw - 2 * var(--gutter), var(--maxw)) * .55); }
+  .page-head-lit::before {
+    content: ''; position: absolute; z-index: -1; pointer-events: none;
+    left: calc(50% - 50vw); right: calc(50% - 50vw); top: 0; bottom: -320px;
+    background: radial-gradient(var(--head-rx) 210px at var(--head-cx) calc(100% - 280px),
+      color-mix(in srgb, var(--pop-glow) 66%, transparent) 0%,
+      color-mix(in srgb, var(--pop-glow) calc(66% * .98), transparent) 10%,
+      color-mix(in srgb, var(--pop-glow) calc(66% * .92), transparent) 20%,
+      color-mix(in srgb, var(--pop-glow) calc(66% * .83), transparent) 30%,
+      color-mix(in srgb, var(--pop-glow) calc(66% * .71), transparent) 40%,
+      color-mix(in srgb, var(--pop-glow) calc(66% * .56), transparent) 50%,
+      color-mix(in srgb, var(--pop-glow) calc(66% * .41), transparent) 60%,
+      color-mix(in srgb, var(--pop-glow) calc(66% * .26), transparent) 70%,
+      color-mix(in srgb, var(--pop-glow) calc(66% * .13), transparent) 80%,
+      color-mix(in srgb, var(--pop-glow) calc(66% * .04), transparent) 90%,
+      transparent 100%);
+  }
+}
+/* from 1024px the first frame holds the right eight of twelve columns: its centre sits a sixth of
+   the content width right of the page's centre, and it is two thirds of the content wide */
+@media (min-width: 1024px) {
+  .page-head-lit { --head-cx: calc(50% + min(100vw - 2 * var(--gutter), var(--maxw)) / 6); --head-rx: calc(min(100vw - 2 * var(--gutter), var(--maxw)) * .37); }
+}
 @media (max-width: 719.98px) {
   .page-head { padding-top: calc(var(--header-h) + 72px); padding-bottom: 40px; }
 }
@@ -1031,14 +1072,18 @@ html.viewer-open { overflow: hidden; }
 .arch-branch span::after { content: ''; position: absolute; left: calc(50% - 2px); bottom: -2px; width: 5px; height: 5px; border-radius: 50%; background: var(--line-strong); }
 .arch-branch span:last-child::before, .arch-branch span:last-child::after { background: var(--accent); }
 .arch-process-lanes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-.arch-node-store { box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 50%, var(--line)); }
+.arch-node-store { box-shadow: 0 0 0 1px var(--accent); }
 .arch-process-diagram figcaption, .arch-event-figure figcaption { padding-top: 20px; font: 500 12px/1.4 var(--mono); color: var(--text-4); }
 
 .arch-event-figure { margin: 64px 0 0; }
-.arch-event-path { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--accent); }
+.arch-event-path { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line-strong); }
 .arch-event-path li { display: grid; gap: 4px; padding: 22px 20px 24px; border-left: 1px solid var(--line); }
 .arch-event-path li:first-child { border-left: 0; padding-left: 0; }
-.arch-step { font: 500 12px/1.4 var(--mono); color: var(--accent); }
+/* the one pink in the event figure: a bar over step 01, where the event lands in SQLite (the pink
+   store of the process figure above), drawn like the selected-tab bar */
+.arch-event-path li { position: relative; }
+.arch-event-path li:first-child::before { content: ''; position: absolute; left: 0; right: 20px; top: -1px; height: 2px; background: var(--accent); }
+.arch-step { font: 500 12px/1.4 var(--mono); color: var(--text-3); }
 .arch-event-path strong { font: 600 17px/1.3 var(--sans); }
 .arch-event-path code { justify-self: start; }
 .arch-event-kinds { display: flex; flex-wrap: wrap; margin-top: 32px; border-block: 1px solid var(--line); }

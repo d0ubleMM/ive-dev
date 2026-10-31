@@ -67,8 +67,8 @@
   color: var(--name-cue, #A7B0BB);
   font: 400 12px/1.5 var(--mono);
   /* the intro grounds are dark in both themes, so the row keeps the dark set's accent (the
-     page's light-theme petrol would sit on #0E1014) */
-  --accent: #8EC6BC;
+     page's light-theme pop text, the deep pink, would sit on #0E1014) */
+  --accent: #FF4F9B;
 }
 .name-intro-hint { display: none; }
 /* the padding and the negative margins give the link a 44px-tall target without moving its text
@@ -104,7 +104,7 @@ html.name-intro-active .site-header.is-scrolled {
   --text-1: #F2F3F5;
   --text-2: #C6CAD1;
   --text-3: #8B919B;
-  --accent: #8EC6BC;
+  --accent: #FF4F9B;
   --accent-fill: #E7E9EC;
   --accent-fill-hover: #FFFFFF;
   --on-accent: #17191C;
@@ -114,7 +114,7 @@ html.name-intro-active .site-header.is-scrolled {
 }
 /* the skip link lands at top: 12px, inside the header band, over the same dark ground: the dark
    set while the intro is in view (the light theme's pill would be 1.06:1 on #0E1014) */
-html.name-intro-active .skip-link { --text-1: #F2F3F5; --bg: #0E1014; --accent: #8EC6BC; }
+html.name-intro-active .skip-link { --text-1: #F2F3F5; --bg: #0E1014; --accent: #FF4F9B; }
 /* after the hand-over the intro's last header height still stands under the header (the hero
    lands with its top at the header's bottom): the header is opaque until the intro has left, else
    the light glass shows the dark remnant through as a grey band (name-intro.js sets the class) */

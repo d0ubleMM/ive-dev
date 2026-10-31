@@ -28,10 +28,9 @@ applicable. This is a website change only.
   2026-10-31 a raised graphite band (`--bg-raised`, hairlines), no longer petrol.
   Retain the phone visual and its coming-soon status, followed by installation
   and short practical questions.
-- Graphite stays the base palette, petrol/mint only for links, focus and selected
-  tabs; since 2026-10-31 one pink accent sits on it (see Tokens). The petrol trust
-  ground `#1D3835` is retired (owner: it clashed with the pink); the trust section
-  sits on `--bg-raised`. Status colors keep their roles.
+- Graphite is the base palette and pink the one accent on it (see Tokens); mint and
+  petrol are retired since 2026-10-31 (owner: "the green does not fit at all"), the
+  trust section sits on `--bg-raised`. Status colors keep their roles.
 - The hero heading scales from 38–62px on phones to 88px on desktop. Existing
   Archivo, Source Sans 3 and IBM Plex Mono remain self-hosted.
 - `name-intro.css` and `name-intro.js` retain the original measured font sizing,
@@ -140,15 +139,17 @@ Dark is the default (also without JS); `html[data-theme="light"]` overrides.
 --text-2         #C6CAD1               #3E434A
 --text-3         #8B919B               #5A6069    (light lifted twice on 2026-10-31: 4.84:1 on the shadowed inset ground under the Inside IVE captions)
 --text-4         #7C828C               #646A73    (lifted in QA round 1 and on 2026-10-31: 4.77:1 on --bg-inset)
---accent         #8EC6BC               #216C63    (links, focus, selected tabs, diagram lines; kickers are --text-3)
+--accent         #FF4F9B               #BE2D6C    (the pop as text and lines: links, hovers, focus, selected-tab bars,
+                                                   the architecture path; light 5.18:1 on --bg, 4.86:1 on --bg-inset)
 --accent-fill    #E7E9EC               #272A2E    (no longer used by a button since 2026-10-31; kept
 --accent-fill-hover #FFFFFF            #17191C     for the pinned header block and the 404 page)
 --on-accent      #17191C               #FFFFFF
---pop            #FF4F9B               #FF4F9B    (the one unexpected accent: filled buttons, the wordmark dot,
+--pop            #FF4F9B               #FF4F9B    (the one unexpected accent as a fill or shape: filled buttons, the
+                                                   wordmark and nav dots, the kicker cursor, the hero's full stop,
                                                    the prologue's merged cursor, the selection, the intro link's hover)
 --pop-ink        #17191C               #17191C    (text on the pop: 5.74:1; white would be 3.07:1)
 --pop-hover      pop 86% + white       same       (#FF68A9, ink 6.55:1)
---pop-glow       rgba(255,64,118,.24)  rgba(255,64,118,.18)  (the hero light; a touch warmer than the fill)
+--pop-glow       rgba(255,79,155,.5)   rgba(255,79,155,.3)   (the peak of the hero light; the echo and the Product head take 66 %)
 --running        #5B8CFF               #1647FF    (running and thinking states)
 --done           #7DCE82               #087A4B
 --waiting        #E0A54A               #946015    (light: 4.66:1 on --bg-inset for the 12px status word; was #B7791F, 3.19:1)
@@ -158,22 +159,23 @@ Dark is the default (also without JS); `html[data-theme="light"]` overrides.
 Owner-approved palette, 2026-10-24: graphite and petrol, running states keep
 their blue, product demos retain the app's own colors. No purple, no neon.
 
-Owner decision 2026-10-31 (from a design reel: "a calm two-colour palette plus one
-accent colour that catches you off guard", and "pink is a cool accent colour"):
-the pop above is that accent. It is the colour of the cursor at the moment it
-matters and appears only where listed: the filled "Try it yourself" buttons (the
-header's while no other filled button is in view), the wordmark dot (header,
-footer, try bar, 404, Open Graph image), the prologue's cursors as they run
-together and type "Meet IVE", a soft light behind the hero frame with a quieter
-echo behind the install button (the one exception to "no glows", asked for by
-the owner), the text selection, and the hover of the intro's "Explore IVE". Mint
-stays the colour of links, focus and selected tabs; every kicker is quiet grey
-(`--text-3`) and the trust section is a graphite band, so no green stands beside
-the pink (owner, 2026-10-31); the hero's tab underline is neutral as well. Status colours keep their roles and the pop never stands for a state. Text
-on the pop is dark in both themes; in the light theme the filled button carries
-a hairline in a deeper pink so its shape stays above 3:1. Pink, rose and
-tangerine were compared in a three-lens jury on 2026-10-31 (brand, craft,
-system): pink won on all three; replacing mint everywhere lost to keeping it.
+Owner decisions 2026-10-31 (from a design reel: "a calm two-colour palette plus one
+accent colour that catches you off guard", then "pink is a cool accent colour", "the
+green does not fit at all" and "a bit more accent colour, as explained in the video"):
+the pop is that accent and mint is gone. It is the colour of the cursor at the moment
+it matters, used as the reel uses its accent: one light, one button, a few small marks.
+The light rises from behind the hero's app frame (the frame is the source; the closing
+call to action and the Product head get it at a lower level, Download has none). The
+filled "Try it yourself" buttons are pink (the header's only while no other filled
+button is in view). The small marks: the wordmark dot, a cursor block after the first
+kicker of a page (on Home it blinks three times when the hero takes over, never under
+reduced motion), the pink full stop of the hero headline, a dot before the current
+page in the nav, selected-tab bars. `--accent` carries the pop as text and lines
+(links, hovers, focus, the architecture path); in the light theme it is the deeper
+`#BE2D6C`, while every fill and shape stays `#FF4F9B`. Small text that sits on a light
+reads in `--text-2`. Status colours keep their roles and the pop never stands for a
+state; section kickers, numbers, card borders and body text stay neutral. Pink,
+rose and tangerine were compared in a three-lens jury, a second jury set the amount.
 Details and the places list: `design/ACCENT-BRIEF.md`.
 
 ## Type
