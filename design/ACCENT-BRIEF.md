@@ -66,8 +66,9 @@ its shape stays above 3:1 against the page. The bright fill is never used on the
    buttons (index, product, download) carry `cta-quiet` statically in their `<html>` class so
    the first paint is right without waiting for the deferred script. The story page's closer
    "Explore IVE" is outlined: the pop is the demo action only. CSS: `html.cta-quiet .nav-cta`
-   with the `.btn-outline` anatomy and hover; the switch rides on the existing `--t-fast`
-   transitions of `.btn`. Without JS, pages with the static class keep the quiet header, the
+   with the `.btn-outline` anatomy and hover; the switch between the two states is a cut
+   (`is-switching` suspends the button's transitions for that frame, so no half-way colours
+   appear; the hover keeps its fade). Without JS, pages with the static class keep the quiet header, the
    others show the pop. The story page keeps the pop header over its own opening scene
    (accepted: the page is unlinked and has no filled button of its own).
 3. The hero light (workspace.css): a soft radial light of `--pop-glow` behind the hero's explorer

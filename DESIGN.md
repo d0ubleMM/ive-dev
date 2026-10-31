@@ -135,7 +135,7 @@ Dark is the default (also without JS); `html[data-theme="light"]` overrides.
 --line-strong    rgba(255,255,255,.16) rgba(16,18,22,.18)
 --text-1         #F2F3F5               #15171A
 --text-2         #C6CAD1               #3E434A
---text-3         #8B919B               #5F656E    (light lifted 2026-10-31: 4.75:1 on the frame-shadow ground under captions)
+--text-3         #8B919B               #5A6069    (light lifted twice on 2026-10-31: 4.84:1 on the shadowed inset ground under the Inside IVE captions)
 --text-4         #7C828C               #646A73    (lifted in QA round 1 and on 2026-10-31: 4.77:1 on --bg-inset)
 --accent         #8EC6BC               #216C63    (links, kickers, focus, selected tabs, diagram lines)
 --accent-fill    #E7E9EC               #272A2E    (no longer used by a button since 2026-10-31; kept
