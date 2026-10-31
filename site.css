@@ -48,9 +48,9 @@ html[data-theme="light"] {
   --line-strong: rgba(16, 18, 22, 0.18);
   --text-1: #15171A;
   --text-2: #3E434A;
-  --text-3: #646A73;
-  /* brief value #7C828B gives 3.61:1 on --bg; #686E77 is at least 4.5:1 on all three grounds (QA round 1) */
-  --text-4: #686E77;
+  --text-3: #5F656E; /* 4.75:1 on the frame shadow ground #E6E7E8 under the captions (was #646A73, 4.40:1) */
+  /* brief value #7C828B gave 3.61:1 on --bg; lifted in QA round 1 and again on 2026-10-31 */
+  --text-4: #646A73; /* 4.77:1 on --bg-inset (was #686E77, 4.499:1) */
   --accent: #216C63;
   --accent-fill: #272A2E;
   --accent-fill-hover: #17191C;
@@ -63,63 +63,23 @@ html[data-theme="light"] {
   --frame-highlight: inset 0 0 0 0 transparent;
   --code-bg: rgba(16, 18, 22, 0.06);
 }
-/* The pop (design/ACCENT-BRIEF.md, 2026-10-31): one unexpected accent in very few places, the
-   colour of the cursor at the moment it matters. --pop is the fill (filled button, wordmark dot,
-   the prologue's merged cursor, the hero light's base) and is the same in both themes; --pop-ink
-   is the text on that fill (dark in both themes, white fails on every hue); --pop-text-dark and
-   --pop-text-light are the hue as text or line on dark and light grounds, --pop-text the theme's
-   pick; --pop-glow the hero light at its peak; --pop-hover the filled button's hover.
-   Comparison phase: html[data-pop="pink|rose|tangerine"] picks the hue (set only by the render
-   script, no attribute = pink). After the decision the losing hues go and the winner becomes the
-   plain tokens. The status tokens above stay what they are. */
-:root,
-html[data-pop="pink"] {
+/* The pop (design/ACCENT-BRIEF.md, 2026-10-31): one unexpected accent, pink, in very few places,
+   the colour of the cursor at the moment it matters: the filled button, the wordmark dot, the
+   prologue's cursors as they run together, the light behind the hero frame, the selection. Same
+   in both themes. --pop-ink is the text on the fill (dark in both themes: white would be 3.07:1),
+   --pop-hover the filled button's hover (lighter in both themes, ink 6.55:1), --pop-glow the
+   hero light at its peak: a touch warmer than the fill, so its falloff on the cool graphite does
+   not drift towards violet (brand review, 2026-10-31). The mint --accent family above stays the
+   colour of kickers, links, focus and the petrol ground; the status tokens keep their roles.
+   Pink, rose and tangerine were compared in a three-lens jury on 2026-10-31: pink won on all
+   three; the restrained extent (mint kept) beat replacing mint everywhere. */
+:root {
   --pop: #FF4F9B;
-  --pop-ink: #17191C;        /* 5.74:1 on the fill */
-  --pop-text-dark: #FF6FB0;  /* 7.39:1 on --bg, 6.91:1 on --bg-raised, 4.88:1 on petrol #1D3835 */
-  --pop-text-light: #9E255C; /* 6.81:1 on --bg, 6.40:1 on --bg-inset */
-  --pop-glow: rgba(255, 79, 155, 0.24);
+  --pop-ink: #17191C;                                      /* 5.74:1 on the fill */
+  --pop-hover: color-mix(in srgb, var(--pop) 86%, white); /* #FF68A9, ink 6.55:1 */
+  --pop-glow: rgba(255, 64, 118, 0.24);
 }
-html[data-theme="light"],
-html[data-theme="light"][data-pop="pink"] { --pop-glow: rgba(255, 79, 155, 0.12); }
-html[data-pop="rose"] {
-  --pop: #F28BB2;
-  --pop-ink: #17191C;        /* 7.64:1 */
-  --pop-text-dark: #F28BB2;  /* 8.26:1 on --bg, 5.46:1 on petrol */
-  --pop-text-light: #A12B5A; /* 6.51:1 on --bg */
-  --pop-glow: rgba(242, 139, 178, 0.24);
-}
-html[data-theme="light"][data-pop="rose"] { --pop-glow: rgba(242, 139, 178, 0.12); }
-html[data-pop="tangerine"] {
-  --pop: #FF8A3D;
-  --pop-ink: #17191C;        /* 7.51:1 */
-  --pop-text-dark: #FF9A5C;  /* 9.09:1 on --bg, 6.01:1 on petrol */
-  --pop-text-light: #9C450B; /* 5.99:1 on --bg */
-  --pop-glow: rgba(255, 138, 61, 0.24);
-}
-html[data-theme="light"][data-pop="tangerine"] { --pop-glow: rgba(255, 138, 61, 0.12); }
-/* per theme: the pop as text, and the filled button's hover (lighter on dark, deeper on light);
-   surfaces that are dark in both themes keep the dark pair */
-:root,
-.ink-dark,
-[data-mark] {
-  --pop-text: var(--pop-text-dark);
-  --pop-hover: color-mix(in srgb, var(--pop) 86%, white);
-}
-html[data-theme="light"] {
-  --pop-text: var(--pop-text-light);
-  --pop-hover: color-mix(in srgb, var(--pop) 90%, black);
-}
-/* Extent "replace" (comparison phase): the mint/petrol --accent family moves onto the pop as
-   text: kickers, link hover, focus ring, selected-tab bar, selection, the architecture lines,
-   the "soon" chip, the FAQ links. Extent "join" (the default) leaves --accent alone. Surfaces
-   that are dark in both themes take the dark text variant: the petrol trust ground (its pale
-   mint stays in join; the bright fill is only 4.10:1 there), the dark stills, the viewer. */
-html[data-pop-extent="replace"],
-html[data-pop-extent="replace"][data-theme="light"] { --accent: var(--pop-text); }
-html[data-pop-extent="replace"] .ink-dark,
-html[data-pop-extent="replace"] [data-mark],
-html[data-pop-extent="replace"] .ws-ownership { --accent: var(--pop-text-dark); }
+html[data-theme="light"] { --pop-glow: rgba(255, 64, 118, 0.18); }
 :root {
   /* the page ground of the active theme, also inside dark-scoped surfaces */
   --page-bg: var(--bg);
@@ -175,7 +135,8 @@ button { background: none; border: 0; cursor: pointer; -webkit-tap-highlight-col
 summary { cursor: pointer; }
 table { border-collapse: collapse; }
 [hidden] { display: none !important; }
-::selection { background: color-mix(in srgb, var(--accent) 35%, transparent); color: var(--text-1); }
+/* selecting text is the one place the pop appears without being placed: rare and user-made */
+::selection { background: color-mix(in srgb, var(--pop) 35%, transparent); color: var(--text-1); }
 
 :focus { outline: none; }
 :focus-visible {
@@ -381,6 +342,9 @@ kbd {
    follows --accent-fill/--on-accent, which the pinned header block in name-intro.css overrides */
 .btn-fill { background: var(--pop); color: var(--pop-ink); }
 .btn-fill:hover { background: var(--pop-hover); }
+/* on the light ground the fill alone is 2.86:1 as a shape; a hairline in a deeper pink keeps the
+   button's edge above 3:1 for low vision (the label carries the text contrast either way) */
+html[data-theme="light"] .btn-fill { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--pop) 78%, black); }
 /* quiet: no border at rest, hairline on hover; closers */
 .btn-quiet {
   height: 40px;
@@ -1282,5 +1246,5 @@ html.viewer-open { overflow: hidden; }
   color: var(--text-1);
   font-family: var(--display); font-weight: 650; font-size: 15px; line-height: 1; white-space: nowrap;
 }
-.soon::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--waiting); }
+.soon::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--text-3); }
 .panel .soon, .row-text .soon { height: 36px; padding: 0 14px; font-size: 14px; }

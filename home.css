@@ -419,7 +419,7 @@ html:not(.no-js) .why:not(.is-near) .why-media img { display: none; }
 .maker-text { grid-column: 7 / 13; }
 .maker-text h2 { font-size: 28px; line-height: 1.15; }
 .maker-text p { margin-top: 10px; font-size: 16px; color: var(--text-3); }
-.maker-text .link { white-space: nowrap; }
+.maker-text .link { white-space: nowrap; color: var(--text-2); } /* neutral: the footer's pink dot sits right below (jury, 2026-10-31) */
 @media (max-width: 719.98px) {
   .maker { padding-block: 56px 72px; }
   .maker-grid { row-gap: 28px; }

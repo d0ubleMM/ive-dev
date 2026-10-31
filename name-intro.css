@@ -70,10 +70,10 @@
      page's light-theme petrol would sit on #0E1014) */
   --accent: #8EC6BC;
 }
-html[data-pop-extent="replace"] .name-intro-bottom { --accent: var(--pop-text-dark); }
 .name-intro-hint { display: none; }
 .name-intro-link { display: inline-flex; align-items: center; gap: 12px; color: var(--name-link-cue, #DCE4EA); text-decoration: none; margin-left: auto; }
-.name-intro-link:hover { color: var(--accent); }
+/* the one pop hover: it lives inside the intro, where the colour is born, and only on hover */
+.name-intro-link:hover { color: var(--pop); }
 .name-intro-link .icon { width: 15px; height: 15px; }
 .name-intro-live .name-intro { height: 200vh; height: 200svh; --name-reveal: 0; --name-alpha: 0; --name-gap: .02em; }
 .name-intro-live .name-intro-pin { position: sticky; top: 0; height: 100vh; height: 100svh; min-height: 0; padding-block: 0; }
@@ -110,10 +110,6 @@ html.name-intro-active .site-header.is-scrolled {
   background: rgba(14,16,20,.85);
   border-color: rgba(255,255,255,.08);
 }
-/* extent "replace" (design/ACCENT-BRIEF.md): the pinned header stays dark in both themes, so its
-   accent takes the pop's dark text variant; the neutral fill tokens above stay for the header CTA */
-html[data-pop-extent="replace"].name-intro-active .site-header,
-html[data-pop-extent="replace"].name-intro-active .site-header.is-scrolled { --accent: var(--pop-text-dark); }
 @media (max-width: 720px) {
   .name-intro { --name-size: clamp(26px,8.3vw,58px); }
   .name-intro-pin { align-items: flex-start; min-height: 64svh; }
