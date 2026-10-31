@@ -52,8 +52,8 @@ text and lines (`#AD1A5E`, first chosen, read as raspberry beside the fill). The
 1px light-theme hairline `color-mix(in srgb, var(--pop) 84%, black)` (= `#D64282`, 3.95:1 on
 `#F6F7F8`) stays on the button's own border so its shape stays above 3:1. A selected label on the
 fill keeps the ink (`.btn-fill::selection`, 10 % ink wash). The dark scopes (`.ink-dark`,
-`[data-mark]`, `html.mark-dark .site-header`, and in name-intro.css the intro's link row and
-`html.name-intro-active .site-header`) carry the dark value `#FF4F9B`.
+`[data-mark]`, `html.mark-dark .site-header`, and in name-intro.css the whole `.name-intro`,
+the intro's link row and `html.name-intro-active .site-header`) carry the dark value `#FF4F9B`.
 
 ## Where the pop goes
 
@@ -108,9 +108,11 @@ fill keeps the ink (`.btn-fill::selection`, 10 % ink wash). The dark scopes (`.i
    three times at the terminal rate (1.06 s, `steps(1)`) when the hero takes over from the intro
    (`html.name-intro-live:not(.name-intro-active)`, so it plays on arrival, again on a return,
    and on a deep link), never under reduced motion or without the live intro.
-8. The hero headline ends on the dot: `One workspace<span class="pop-stop" aria-hidden="true">.`
-   in `--pop` in both themes, a decorative mark like the wordmark dot it echoes; the sentence
-   reads complete without it. Only the hero headline.
+8. The hero headline ends on the dot: `One workspace<span class="pop-stop">.</span>`, the full
+   stop in `--pop`; in the light theme a hair deeper (`--pop` with 10 % black, `#E6478C`, 3.48:1)
+   because it is real punctuation and large text needs 3:1. Screen readers read "One workspace."
+   (it was aria-hidden at first, which dropped the stop from the heading's name). Only the hero
+   headline.
 9. The current page in the nav: a 5px pop dot before its name (`.nav-link[aria-current]::before`,
    absolutely placed: in the link's left padding on the desktop row, in the gutter in the phone
    panel, so no label moves between pages), with the current page's ink and 600 weight, like the

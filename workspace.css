@@ -95,10 +95,12 @@
 .ws-hero-explorer .ws-tab:focus-visible, .ws-hero-explorer .ws-tab-panel:focus-visible { outline-color: var(--text-1); }
 .ws-hero-copy { display: grid; grid-template-columns: 1.55fr 1fr; gap: 64px; align-items: end; }
 .ws-hero h1 { font-size: clamp(58px, 5.9vw, 88px); line-height: 1.03; letter-spacing: -.055em; font-stretch: 112%; font-weight: 650; }
-/* the headline ends on the wordmark's dot: its full stop is the fill in both themes, like the dot it
-   echoes (jury 2026-10-31). It is a decorative mark (aria-hidden in the markup); the sentence reads
-   complete without it */
+/* the headline ends on the wordmark's dot: its full stop in the pop. It is real punctuation (screen
+   readers read "One workspace."), so it keeps the 3:1 of large text: the fill in the dark theme,
+   the fill with 10 % black in the light one (#E6478C, 3.48:1 on --bg, 3.3:1 on the light's faint
+   tint), indistinguishable from the dot at this size */
 .pop-stop { color: var(--pop); }
+html[data-theme="light"] .pop-stop { color: color-mix(in srgb, var(--pop) 90%, black); }
 .ws-hero-aside { padding-bottom: 3px; }
 .ws-hero-aside .ws-lead { max-width: 31ch; font-size: 20px; }
 .ws-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 12px; }

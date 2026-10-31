@@ -1,5 +1,7 @@
 /* Zoom out of the V, then unfold I / V / E. No tunnel or agent swarm. */
 .name-intro {
+  /* dark in both themes: links inside (the maker link's focus ring) take the dark set's pink */
+  --accent: #FF4F9B;
   --name-size: clamp(24px, 3.55vw, 60px);
   --name-gap: .24em;
   --name-reveal: 1;
