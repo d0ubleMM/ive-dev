@@ -236,6 +236,7 @@ html.no-js .ws-hero-explorer .frame-media { border-radius: 8px; }
   .ws-hero-aside { margin-top: 26px; }
   .ws-hero-aside .ws-lead { font-size: 18px; max-width: 35ch; }
   .ws-actions { margin-top: 22px; }
+  .ws-actions .btn { padding-inline: 15px; } /* 15px type with 15px padding: the pair fits one row at 360px (18px would not) */
   .ws-agent-strip { margin-top: 32px; padding-block: 19px; gap: 14px; flex-wrap: wrap; }
   .ws-agent-intro { flex-basis: 100%; }
   .ws-agent { font-size: 14px; }
