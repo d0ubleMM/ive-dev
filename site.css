@@ -860,6 +860,10 @@ html.viewer-open { overflow: hidden; }
 /* ── 11 · subpage scaffolds: page head, product rows, stills,
         three columns, closer, download stack, questions (3.2, 3.3) ─ */
 .page-head { padding-top: calc(var(--header-h) + 128px); padding-bottom: 64px; }
+.page-head h1 { grid-column: 1 / 8; }
+.page-head .lead { grid-column: 1 / 8; margin-top: 20px; }
+.page-head > .wrap > * + * { margin-top: 20px; }
+.page-head-text { max-width: 720px; }
 /* the Product head's light (.page-head-lit): the homepage's hero light at about two thirds of its
    peak, rising from behind the first app frame, whose top edge is the head's bottom edge (the frame
    holds the right eight columns from 1024px, the full width below). The box spans the head (which
