@@ -123,6 +123,16 @@
     letterP = clamp((introTop - top0) / travel);
     POP_RGB = hexRgb(getComputedStyle(root).getPropertyValue('--pop').trim()) || hexRgb(POP_FALLBACK);
     mono = null; geom = null; drawn = '';
+    // the CSS loading status stands on the prompt's left edge, so it becomes the prompt instead
+    // of jumping (before the fonts are in, the fallback mono's width is close enough)
+    setVar(section, '--prompt-x', promptX().toFixed(1) + 'px');
+  }
+  // the typed prompt's left edge: the whole line (prefix, text, a .7 em tail) is centred on the
+  // pin at the mono's size; draw() types it there and measure() hands it to the loading status
+  function promptX() {
+    var size = narrow ? 17 : 26;
+    ctx.font = '400 ' + size + 'px ' + MONO;
+    return W / 2 - (ctx.measureText('> ').width + ctx.measureText(PROMPT_TEXT).width + size * .7) / 2;
   }
 
   // the typed line in the prompt's mono: its size, the character advance, the cap height over
@@ -322,8 +332,8 @@
       var M0 = metrics(tiles[0].x, tiles[0].y, tw, th);
       var size = L.size;
       ctx.font = '400 ' + size + 'px ' + MONO; ctx.textBaseline = 'middle';
-      var pre = '> ', preW = ctx.measureText(pre).width, full = ctx.measureText(PROMPT_TEXT).width;
-      var startX = W / 2 - (preW + full + size * .7) / 2;
+      var pre = '> ', preW = ctx.measureText(pre).width;
+      var startX = promptX();
       var text = PROMPT_TEXT.slice(0, p > .02 ? PROMPT_TEXT.length : typed);
       var fs = lerp(size, M0.titleSize, morph);
       var tx = lerp(startX + preW, M0.titleX, morph), ty = lerp(G.cy, M0.titleY, morph);
@@ -349,13 +359,16 @@
     var B0 = monoBlock(L.size, L.capR);
     var tx2 = L.x0 + 2 + B0.w / 2, ty2 = L.cy + B0.top + B0.h / 2;
     var merged = false;
-    for (i = 0; i < n; i++) {
+    for (i = n - 1; i >= 0; i--) { // the lead last, so it lies on top of the cursors reaching it
       var c = cursors[i];
       if (!c) continue;
       var delay = (i / Math.max(1, n - 1)) * .35;
       var g = inOut(clamp((gatherRaw - delay) / .65));
       if (g >= 1) { merged = true; continue; }
-      var w = lerp(c.w, B0.w, g), h = lerp(c.h, B0.h, g);
+      // only the lead (0, first to arrive) grows into the block; the others keep their tile size
+      // and slide under it, so the block keeps a clean edge while they arrive
+      var sz = i === 0 ? g : 0;
+      var w = lerp(c.w, B0.w, sz), h = lerp(c.h, B0.h, sz);
       var x = lerp(c.x + c.w / 2, tx2, g) - w / 2, y = lerp(c.y + c.h / 2, ty2, g) - h / 2;
       // the colour follows the same eased progress as the position: ink at rest, pop on arrival
       block(x, y, w, h, c.a * (g > 0 || blinkOn(i, now) ? 1 : 0), pop(g));
@@ -419,9 +432,13 @@
   }
 
   function frame(now) {
-    if (!visible) { raf = 0; return; }
     var p = progress();
     var done = p >= 1;
+    // the hand-over (ACCENT-BRIEF story): the header's dot takes the pop as the merged cursor
+    // goes (1 - cursorA in drawLine), 1 once the prologue lies above. Set before the loop may
+    // stop, so a page that opens or is restored below the prologue ends at 1 as well
+    setVar(root, '--dot-pop', done ? '1' : ease(seg(seg(p, T.grow), CURSOR)).toFixed(3));
+    if (!visible) { raf = 0; return; }
     var ready = intro.classList.contains('is-ready');
     if (ready !== geomReady) { geomReady = ready; geom = null; drawn = ''; }
     if (geom && intro.style.getPropertyValue('--name-size') !== geom.nameSize) { geom = null; drawn = ''; }

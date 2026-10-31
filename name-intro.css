@@ -71,7 +71,9 @@
   --accent: #8EC6BC;
 }
 .name-intro-hint { display: none; }
-.name-intro-link { display: inline-flex; align-items: center; gap: 12px; color: var(--name-link-cue, #DCE4EA); text-decoration: none; margin-left: auto; }
+/* the padding and the negative margins give the link a 44px-tall target without moving its text
+   or the row; margin-left stays auto, so it keeps the right edge when the hint is hidden */
+.name-intro-link { display: inline-flex; align-items: center; gap: 12px; color: var(--name-link-cue, #DCE4EA); text-decoration: none; padding: 13px 12px; margin: -13px -12px -13px auto; transition: color var(--t-fast); }
 /* the one pop hover: it lives inside the intro, where the colour is born, and only on hover */
 .name-intro-link:hover { color: var(--pop); }
 .name-intro-link .icon { width: 15px; height: 15px; }
@@ -110,13 +112,15 @@ html.name-intro-active .site-header.is-scrolled {
   background: rgba(14,16,20,.85);
   border-color: rgba(255,255,255,.08);
 }
+/* the hand-over to and from the dark intro palette is a cut (name-intro.js sets the class for
+   two frames); the is-scrolled glass fade and the hover fades stay */
+.site-header.is-switching, .site-header.is-switching * { transition: none !important; }
 @media (max-width: 720px) {
   .name-intro { --name-size: clamp(26px,8.3vw,58px); }
   .name-intro-pin { align-items: flex-start; min-height: 64svh; }
   .name-intro-line { flex-direction: column; align-items: flex-start; gap: .06em; }
   .name-intro-live .name-intro { height: 180svh; --name-size: min(56vw,19svh); }
   .name-intro + .ws-hero { padding-top: 64px; }
-  .name-intro-bottom { font-size: 10px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .name-intro, .name-intro * { scroll-behavior: auto !important; transition: none !important; }

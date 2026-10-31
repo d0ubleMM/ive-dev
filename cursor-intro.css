@@ -26,9 +26,13 @@
    with the canvas's first drawn frame (cursor-intro.js sets is-drawing) */
 .cursor-intro-loading {
   position: absolute;
-  left: 50%;
+  /* on the prompt's left edge, so it becomes the prompt instead of jumping aside: cursor-intro.js
+     sets --prompt-x from the prompt's own layout in measure(); the fallback is the design-time
+     value for Plex Mono, half of (2 + 22 chars) x .6 em + a .7 em tail = 196.3 px at 26 px
+     (128.4 px at the phone's 17 px); it moves with PROMPT_TEXT, the sizes or the tail there */
+  left: var(--prompt-x, calc(50% - 196px));
   top: calc(64px + (100% - 64px) * .52);
-  transform: translate(-50%, -50%);
+  transform: translateY(-50%);
   margin: 0;
   display: flex;
   align-items: center;
@@ -50,12 +54,21 @@
 .cursor-intro.is-drawing .cursor-intro-loading { display: none; }
 @keyframes cursor-intro-loading-in { to { opacity: 1; } }
 @keyframes cursor-intro-loading-dot { 0%, 60%, 100% { opacity: .15; } 20% { opacity: 1; } }
-.cursor-intro .name-intro-bottom { transition: opacity var(--t-med) ease; }
+/* the prologue's bottom row: visibility rides the fade (visible until the fade-out ends, visible
+   at once on the way back), so the faded row also leaves the tab order */
+.cursor-intro .name-intro-bottom { transition: opacity var(--t-med) ease, visibility var(--t-med); }
 /* the name's letters are in view under the canvas: the ground goes, the name intro's own
    bottom row takes over, clicks reach it */
 .cursor-intro.is-letters .cursor-intro-pin { background: transparent; pointer-events: none; }
-.cursor-intro.is-letters .name-intro-bottom { opacity: 0; }
+/* the section itself overlaps the name intro by 170svh: once the letters stand (and when done) it must
+   let taps and clicks through to the name intro's own "Explore IVE" row */
+.cursor-intro.is-letters, .cursor-intro.is-done { pointer-events: none; }
+.cursor-intro.is-letters .name-intro-bottom { opacity: 0; visibility: hidden; }
 .cursor-intro.is-done .cursor-intro-pin { visibility: hidden; }
+/* the name intro's row stays out of the tab order while the prologue's pin still covers it; not
+   in the done state, where a deep link to #hero never measures the letters and is-letters is
+   never set */
+html.cursor-intro-on.name-intro-live .cursor-intro:not(.is-letters):not(.is-done) + .name-intro .name-intro-bottom { visibility: hidden; }
 /* the name intro starts 70svh before the prologue's travel ends (its letters are in place
    as the typed line starts to grow) and keeps its own 100svh of travel */
 .name-intro-live .cursor-intro + .name-intro { margin-top: -170vh; margin-top: -170svh; height: 270vh; height: 270svh; }
@@ -71,11 +84,19 @@ html.cursor-intro-on.name-intro-live .name-intro-line {
   font-size: calc(var(--name-size) * var(--pro-scale, 1));
   transform: translate(var(--pro-x, 0px), var(--pro-y, 0px));
 }
+/* home page with the prologue: the header's dot is ink until the merged cursor hands its colour
+   over (cursor-intro.js drives --dot-pop from 0 to 1; unset = pink, as on every other page).
+   Guarded, so a browser without calc() percentages in color-mix keeps the plain pink dot */
+@supports (background: color-mix(in srgb, red calc(1 * 100%), blue)) {
+  html.cursor-intro-on.name-intro-live .site-header .wordmark-dot {
+    background: color-mix(in srgb, var(--pop) calc(var(--dot-pop, 1) * 100%), var(--text-1));
+  }
+}
 /* no canvas: no prologue, the name intro as on its own */
 html.cursor-intro-off .cursor-intro { display: none; }
 html.cursor-intro-off .cursor-intro + .name-intro { margin-top: 0; height: 200vh; height: 200svh; }
 @media (max-width: 720px) {
-  .cursor-intro-loading { top: calc(56px + (100% - 56px) * .52); font-size: 12px; }
+  .cursor-intro-loading { left: var(--prompt-x, calc(50% - 128px)); top: calc(56px + (100% - 56px) * .52); font-size: 12px; }
   .name-intro-live .cursor-intro { height: 330vh; height: 330svh; }
   .name-intro-live .cursor-intro + .name-intro { margin-top: -158vh; margin-top: -158svh; height: 258vh; height: 258svh; }
   html.cursor-intro-off .cursor-intro + .name-intro { margin-top: 0; height: 180vh; height: 180svh; }

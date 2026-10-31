@@ -17,6 +17,7 @@
   function clamp(x) { return Math.max(0, Math.min(1, x)); }
   function ease(x) { x = clamp(x); return x * x * (3 - 2 * x); }
   var headerBar = document.querySelector('[data-header]');
+  var switchId = 0;
   function header() {
     // the header is dark while it stands over the dark intro ground: measured against the real
     // header height, with a pixel of tolerance so a deep link that lands the hero exactly under
@@ -25,7 +26,18 @@
     var over = function (r) { return r.top < h - 1 && r.bottom > h + 1; };
     var on = over(intro.getBoundingClientRect());
     if (!on && prologue) on = over(prologue.getBoundingClientRect());
+    if (on === root.classList.contains('name-intro-active')) return;
+    // the hand-over is a cut: the header's hover transitions (220 ms glass, 120 ms links and
+    // button, instant ink) would otherwise fade the palette inversion at three speeds and leave
+    // the light theme's header unreadable for about 100 ms. The class is lifted two frames
+    // later; the token keeps a second switch within those frames from lifting it early
+    if (headerBar) headerBar.classList.add('is-switching');
     root.classList.toggle('name-intro-active', on);
+    if (!headerBar) return;
+    var id = ++switchId;
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { if (id === switchId) headerBar.classList.remove('is-switching'); });
+    });
   }
   function measure() {
     root.classList.toggle('name-intro-live', !motion.matches);
