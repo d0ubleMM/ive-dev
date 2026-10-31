@@ -24,12 +24,14 @@ applicable. This is a website change only.
   code review. They show existing dark IVE DOM demos, with explicit Pause/Play.
 - Show the moment a session needs attention using the existing light permission
   scene, then let visitors choose task, check or pipeline in a second explorer.
-- Use one bounded petrol surface for local execution, CLI accounts and review.
+- One bounded trust surface for local execution, CLI accounts and review: since
+  2026-10-31 a raised graphite band (`--bg-raised`, hairlines), no longer petrol.
   Retain the phone visual and its coming-soon status, followed by installation
   and short practical questions.
-- Graphite/Petrol stays the base palette; since 2026-10-31 one pink accent sits on it
-  (see Tokens). New bounded trust ground: `#1D3835`, ink `#EFF6F4`, secondary
-  `#D4E3DF`, labels `#B2CAC3`. Status colors keep their roles.
+- Graphite stays the base palette, petrol/mint only for links, focus and selected
+  tabs; since 2026-10-31 one pink accent sits on it (see Tokens). The petrol trust
+  ground `#1D3835` is retired (owner: it clashed with the pink); the trust section
+  sits on `--bg-raised`. Status colors keep their roles.
 - The hero heading scales from 38–62px on phones to 88px on desktop. Existing
   Archivo, Source Sans 3 and IBM Plex Mono remain self-hosted.
 - `name-intro.css` and `name-intro.js` retain the original measured font sizing,
@@ -137,7 +139,7 @@ Dark is the default (also without JS); `html[data-theme="light"]` overrides.
 --text-2         #C6CAD1               #3E434A
 --text-3         #8B919B               #5A6069    (light lifted twice on 2026-10-31: 4.84:1 on the shadowed inset ground under the Inside IVE captions)
 --text-4         #7C828C               #646A73    (lifted in QA round 1 and on 2026-10-31: 4.77:1 on --bg-inset)
---accent         #8EC6BC               #216C63    (links, kickers, focus, selected tabs, diagram lines)
+--accent         #8EC6BC               #216C63    (links, focus, selected tabs, diagram lines; kickers are --text-3)
 --accent-fill    #E7E9EC               #272A2E    (no longer used by a button since 2026-10-31; kept
 --accent-fill-hover #FFFFFF            #17191C     for the pinned header block and the 404 page)
 --on-accent      #17191C               #FFFFFF
@@ -164,9 +166,9 @@ footer, try bar, 404, Open Graph image), the prologue's cursors as they run
 together and type "Meet IVE", a soft light behind the hero frame with a quieter
 echo behind the install button (the one exception to "no glows", asked for by
 the owner), the text selection, and the hover of the intro's "Explore IVE". Mint
-stays the colour of kickers, links, focus and the petrol trust ground; the hero's
-own kicker and tab underline are neutral so the first view holds exactly one
-hue. Status colours keep their roles and the pop never stands for a state. Text
+stays the colour of links, focus and selected tabs; every kicker is quiet grey
+(`--text-3`) and the trust section is a graphite band, so no green stands beside
+the pink (owner, 2026-10-31); the hero's tab underline is neutral as well. Status colours keep their roles and the pop never stands for a state. Text
 on the pop is dark in both themes; in the light theme the filled button carries
 a hairline in a deeper pink so its shape stays above 3:1. Pink, rose and
 tangerine were compared in a three-lens jury on 2026-10-31 (brand, craft,

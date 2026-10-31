@@ -244,10 +244,9 @@ h3, .t-h3 {
   color: var(--text-4);
 }
 /* one kicker setting site-wide, the homepage's (.ws-kicker in workspace.css): mono 11, uppercase,
-   .12em, mint; the gap under it comes from the heading margins, not from the kicker */
-.kicker { display: block; font: 500 11px/1.5 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
-/* page-head kickers neutral, like .ws-hero .ws-kicker: the first view keeps one hue beside the pink dot and button */
-.arch-hero .kicker, .legal-head .kicker { color: var(--text-3); }
+   .12em, quiet grey (owner, 2026-10-31: no green beside the pink); the gap under it comes from the
+   heading margins, not from the kicker */
+.kicker { display: block; font: 500 11px/1.5 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-3); }
 :not(pre) > code,
 kbd {
   font-size: 0.9em;

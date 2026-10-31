@@ -4,8 +4,9 @@ Owner's ask: apply the idea from a design reel ("the secret to a memorable UI: o
 that catches you off guard") to ive.dev and turn it into a UI redesign, colours first. The owner
 added: "I also think pink is a cool accent colour in general." No push without the owner's word.
 
-Decision (2026-10-31): pink `#FF4F9B`, with the mint accent family kept for kickers, links,
-focus and the petrol ground ("join"). Three hues (pink, rose `#F28BB2`, tangerine `#FF8A3D`) and
+Decision (2026-10-31): pink `#FF4F9B`, with the mint accent family kept for links,
+focus and selected tabs ("join"; kickers went grey and the petrol ground graphite on the owner's
+word later that day: no green beside the pink). Three hues (pink, rose `#F28BB2`, tangerine `#FF8A3D`) and
 two extents (mint kept vs mint replaced everywhere) were built behind `html[data-pop]` attributes,
 rendered on every page in both themes and judged by three independent lenses (brand and
 surprise, craft and accessibility, system and consistency). Pink with mint kept won on all three
@@ -20,7 +21,7 @@ An independent colour and contrast concept (Codex, read-only) is in
 
 A calm two-colour base plus ONE unexpected accent, used in very few places so it stays a surprise.
 The base stays what it is: graphite surfaces (`--bg` family), the petrol/mint `--accent` family
-for small typographic accents, and the petrol trust ground. The new colour is the "pop".
+for links, focus and selected tabs, grey kickers, and a raised graphite trust band. The new colour is the "pop".
 
 Story for IVE: the pop is the colour of the cursor at the moment it matters. The block cursors
 of the prologue run together and turn pop as they type "Meet IVE"; the wordmark's dot is that
@@ -39,8 +40,7 @@ No pop as text on light grounds (the fill is 2.86:1 on `#F6F7F8`); the only pop 
 hover of the intro's "Explore IVE" on the dark intro ground (6.2:1). The light theme's filled
 button carries a 1px hairline in `color-mix(in srgb, var(--pop) 84%, black)` (= `#D64282`,
 3.95:1 on `#F6F7F8`), on the button's own border so no ring appears while it changes state, so
-its shape stays above 3:1 against the page. The bright fill is never used on the petrol ground
-(4.10:1). A selected label on the fill keeps the ink (`.btn-fill::selection`, 10 % ink wash).
+its shape stays above 3:1 against the page. A selected label on the fill keeps the ink (`.btn-fill::selection`, 10 % ink wash).
 
 ## Where the pop goes
 
@@ -92,9 +92,9 @@ its shape stays above 3:1 against the page. The bright fill is never used on the
    status stay as they are.
 5. `::selection` in the pop at 35 %: the one place the colour appears without being placed.
 6. The hero's own kicker and the hero explorer's selected-tab underline are neutral (`--text-3`,
-   `--text-2`) so the first view holds exactly one hue: dot, one filled button, the light. Mint
-   kickers and tab bars stay everywhere else, in one setting on every page (`.kicker` and
-   `.ws-kicker`: mono 11 px, uppercase, .12em, mint). The "Coming soon to the App Store" badge is
+   `--text-2`) so the first view holds exactly one hue: dot, one filled button, the light. Kickers are
+   quiet grey everywhere, in one setting on every page (`.kicker` and `.ws-kicker`: mono 11 px,
+   uppercase, .12em, `--text-3`); mint tab bars and links stay. The "Coming soon to the App Store" badge is
    a status chip (sans in `--text-2`, chip radius, the inline-code fill, a grey dot), nothing of
    the button anatomy, so it never reads as a twin of the demo button beside it; the maker
    strip's aiforgov.eu link is neutral because the footer's pink dot sits right below it.
@@ -104,8 +104,7 @@ its shape stays above 3:1 against the page. The bright fill is never used on the
    prologue, reduced motion and the restored-below case show the pink dot from the start.
 
 Not pop, ever: the status colours (`--running`, `--done`, `--waiting`, `--attention`) and their
-dots, the app demos and their posters, the petrol trust ground's surface and its pale mint
-kicker, the "Waiting" badge of the phone mock, body text, headings, borders, dividers, the
+dots, the app demos and their posters, the trust band's surface, the "Waiting" badge of the phone mock, body text, headings, borders, dividers, the
 focus ring (mint, so it stays visible around the pink button), the architecture diagram.
 
 Rule of thumb for any viewport: the dot, one filled button, and the ambient light. If a view

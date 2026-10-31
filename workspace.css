@@ -3,7 +3,9 @@
 .workspace-home [hidden] { display: none !important; }
 /* safety net for the hero light: clip, not hidden, so the prologue's sticky pins keep the viewport as their scroller */
 .workspace-home main { overflow-x: clip; }
-.ws-kicker { margin: 0 0 22px; font: 500 11px/1.5 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+/* kickers are quiet grey, on every page (owner, 2026-10-31: no green next to the pink); mint stays
+   for links, focus and selected tabs */
+.ws-kicker { margin: 0 0 22px; font: 500 11px/1.5 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-3); }
 .ws-lead { font-size: 21px; line-height: 1.55; color: var(--text-2); max-width: 43ch; }
 .ws-small { font: 400 12px/1.6 var(--mono); color: var(--text-3); }
 .ws-text-link { display: inline-flex; align-items: center; gap: 10px; color: var(--text-1); font-size: 15px; font-weight: 600; text-decoration: none; }
@@ -67,7 +69,6 @@
 }
 /* one hue in the hero's first view: the kicker and the selected tab's bar are neutral here, so the
    dot and the filled button are the only colour; section kickers further down stay mint */
-.ws-hero .ws-kicker { color: var(--text-3); }
 .ws-hero-copy { display: grid; grid-template-columns: 1.55fr 1fr; gap: 64px; align-items: end; }
 .ws-hero h1 { font-size: clamp(58px, 5.9vw, 88px); line-height: 1.03; letter-spacing: -.055em; font-stretch: 112%; font-weight: 650; }
 .ws-hero-aside { padding-bottom: 3px; }
@@ -120,7 +121,9 @@
 .ws-flow-explorer .ws-tab small { font-size: 15px; margin-top: 8px; }
 .ws-flow-explorer .ws-tab[aria-selected="true"]::before { left: 0; right: 24px; top: -1px; }
 .ws-flow-explorer .frame-media { aspect-ratio: 2.05; }
-.ws-ownership { padding-block: 88px 38px; background: #1D3835; color: #EFF6F4; --text-1: #EFF6F4; --text-2: #D4E3DF; --text-3: #B2CAC3; --accent: #C2E1D8; --line: rgba(222,244,236,.2); }
+/* the trust ground: a raised graphite band with hairlines (owner, 2026-10-31: the former petrol
+   #1D3835 surface clashed with the pink accent); it keeps the page's own text and accent tokens */
+.ws-ownership { padding-block: 88px 38px; background: var(--bg-raised); border-block: 1px solid var(--line); }
 .ws-ownership-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
 .ws-source-link { display: flex; flex-direction: column; gap: 5px; text-decoration: none; color: var(--text-1); font: 400 12px/1.5 var(--mono); padding-bottom: 5px; }
 /* the second span, not the last: the link ends with an sr-only span */
