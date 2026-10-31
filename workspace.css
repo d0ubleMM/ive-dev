@@ -19,6 +19,10 @@
 .ws-hero {
   position: relative; isolation: isolate;
   padding-top: clamp(128px, 13vh, 184px); padding-bottom: 0;
+  /* the page's scroll padding is the header plus 16px (site.css); the hero brings its own room, so
+     a deep link (#hero, the intro's "Explore IVE") lands its top right under the header and no strip
+     of the dark intro ground stays in view above it */
+  scroll-margin-top: -16px;
   --halo-frame-w: min(100vw - 2 * var(--gutter), var(--maxw));
   --halo-frame-h: calc(var(--halo-frame-w) / 2.1);
   --halo-edge: 151px;

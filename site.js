@@ -83,6 +83,39 @@
     window.addEventListener('scroll', onScrollHeader, { passive: true });
     onScrollHeader();
 
+    /* The header's filled button (design/ACCENT-BRIEF.md, Where 2): one coloured call to action
+       per view. It takes the accent only after the page's first filled button has scrolled above
+       the viewport, and hands it back while any filled button of the page is on screen. Pages
+       with such buttons start with html.cta-quiet in their markup, so the first paint is right
+       before this runs; pages without them show the accent from the start. */
+    var pageCtas = document.querySelectorAll('main .btn-fill');
+    if (pageCtas.length) {
+      var firstCta = pageCtas[0];
+      var measureCtas = function () {
+        var vh = window.innerHeight, onScreen = false;
+        forEach(pageCtas, function (b) {
+          var r = b.getBoundingClientRect();
+          if (r.width && r.bottom > 0 && r.top < vh) onScreen = true;
+        });
+        root.classList.toggle('cta-quiet', onScreen || firstCta.getBoundingClientRect().bottom > 0);
+      };
+      measureCtas();
+      if ('IntersectionObserver' in window) {
+        // fires whenever a button enters or leaves the viewport (also upwards), which covers
+        // both halves of the rule; the measure itself stays a handful of rect reads
+        var ctaObserver = new IntersectionObserver(measureCtas, { threshold: 0 });
+        forEach(pageCtas, function (b) { ctaObserver.observe(b); });
+      } else {
+        var ctaQueued = false;
+        window.addEventListener('scroll', function () {
+          if (ctaQueued) return;
+          ctaQueued = true;
+          requestAnimationFrame(function () { ctaQueued = false; measureCtas(); });
+        }, { passive: true });
+      }
+      window.addEventListener('resize', measureCtas);
+    }
+
     // Safety net: mark the current page when the markup does not.
     var navLinks = header.querySelectorAll('.nav-link');
     if (!header.querySelector('.nav-link[aria-current]')) {

@@ -26,30 +26,4 @@
       });
     });
   });
-
-  /* Header CTA (design/ACCENT-BRIEF.md, Where 2): one coloured call to action per view. While the
-     hero's own buttons (.ws-actions) are ahead of or inside the viewport, html.hero-cta-ahead keeps
-     the header button neutral; once they have scrolled above the viewport it turns pop, and back
-     again on the way up. Pages without .ws-actions are left alone; without JS the header is pop. */
-  var actions = document.querySelector('.ws-actions');
-  if (actions) {
-    var root = document.documentElement;
-    var setAhead = function (ahead) { root.classList.toggle('hero-cta-ahead', ahead); };
-    // first state before the first frame (deferred scripts run before paint), no flash of pop
-    setAhead(actions.getBoundingClientRect().bottom > 0);
-    if ('IntersectionObserver' in window) {
-      // the root is extended far below the viewport, so "intersecting" means "not yet above its top edge";
-      // the observer also follows layout shifts (the intro's measured heights) without a scroll event
-      new IntersectionObserver(function (entries) {
-        setAhead(entries[entries.length - 1].isIntersecting);
-      }, { rootMargin: '0px 0px 100000px 0px', threshold: 0 }).observe(actions);
-    } else {
-      var queued = false;
-      window.addEventListener('scroll', function () {
-        if (queued) return;
-        queued = true;
-        requestAnimationFrame(function () { queued = false; setAhead(actions.getBoundingClientRect().bottom > 0); });
-      }, { passive: true });
-    }
-  }
 })();

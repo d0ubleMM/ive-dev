@@ -16,10 +16,15 @@
   var GAP0 = .02, GAP1 = .24;
   function clamp(x) { return Math.max(0, Math.min(1, x)); }
   function ease(x) { x = clamp(x); return x * x * (3 - 2 * x); }
+  var headerBar = document.querySelector('[data-header]');
   function header() {
-    var rect = intro.getBoundingClientRect();
-    var on = rect.top < 64 && rect.bottom > 64;
-    if (!on && prologue) { var pr = prologue.getBoundingClientRect(); on = pr.top < 64 && pr.bottom > 64; }
+    // the header is dark while it stands over the dark intro ground: measured against the real
+    // header height, with a pixel of tolerance so a deep link that lands the hero exactly under
+    // the header (sub-pixel layout) does not keep it dark over the light page
+    var h = headerBar ? headerBar.offsetHeight : 64;
+    var over = function (r) { return r.top < h - 1 && r.bottom > h + 1; };
+    var on = over(intro.getBoundingClientRect());
+    if (!on && prologue) on = over(prologue.getBoundingClientRect());
     root.classList.toggle('name-intro-active', on);
   }
   function measure() {

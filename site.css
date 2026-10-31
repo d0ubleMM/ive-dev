@@ -514,12 +514,13 @@ html.mark-dark .site-header .wordmark { opacity: 0; pointer-events: none; }
 html[data-theme="light"] .theme-icon-sun { display: none; }
 html[data-theme="light"] .theme-icon-moon { display: block; }
 .nav-cta { flex: none; }
-/* one coloured call to action per view (ACCENT-BRIEF, Where 2): workspace.js sets
-   html.hero-cta-ahead while the hero's own buttons are ahead of or inside the viewport, so the
-   header button stays neutral until they have passed; without JS, and on every other page, it
-   is pop. The switch rides on .btn's --t-fast background transition. */
-html.hero-cta-ahead .nav-cta { background: var(--accent-fill); color: var(--on-accent); }
-html.hero-cta-ahead .nav-cta:hover { background: var(--accent-fill-hover); }
+/* one coloured call to action per view (ACCENT-BRIEF, Where 2): the header's button is quiet
+   (neutral fill) until the page's first filled button has scrolled above the viewport, and again
+   whenever a filled button of the page is on screen. Pages with such buttons carry html.cta-quiet
+   in their markup for the first paint; site.js keeps it current. Pages without them, and the
+   no-JS case, show the pop. The switch rides on .btn's --t-fast background transition. */
+html.cta-quiet .nav-cta { background: var(--accent-fill); color: var(--on-accent); }
+html.cta-quiet .nav-cta:hover { background: var(--accent-fill-hover); }
 /* the theme switch needs JS; without it the page stays dark */
 html.no-js [data-theme-toggle] { display: none; }
 .menu-btn { display: none; }
@@ -1269,15 +1270,17 @@ html.viewer-open { overflow: hidden; }
 .ph-event-icon { width: 10px; height: 10px; border-radius: 50%; background: #f5a524; box-shadow: 0 0 0 4px rgba(245, 165, 36, .18); flex: none; font-size: 0; }
 @media (prefers-reduced-motion: reduce) { .ph-cursor { animation: none; } }
 
-/* ── "Coming soon to the App Store": a prominent badge, not a link (owner, 2026-10-24) ── */
+/* ── "Coming soon to the App Store": a prominent badge, not a link (owner, 2026-10-24). Neutral
+   frame with the waiting dot, so it reads as a status and not as the preferred action beside the
+   outlined demo button (accent review, 2026-10-31) ── */
 .soon {
   display: inline-flex; align-items: center; gap: 8px;
   height: 44px; padding: 0 18px;
   border-radius: var(--r-btn);
-  border: 1px solid var(--accent);
-  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  border: 1px solid var(--line-strong);
+  background: var(--bg-raised);
   color: var(--text-1);
   font-family: var(--display); font-weight: 650; font-size: 15px; line-height: 1; white-space: nowrap;
 }
-.soon::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.soon::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--waiting); }
 .panel .soon, .row-text .soon { height: 36px; padding: 0 14px; font-size: 14px; }
