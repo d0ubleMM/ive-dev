@@ -75,11 +75,10 @@
   var W = 0, H = 0, dpr = 1, narrow = false, board, G, layouts, travel = 1, top0 = 0, letterP = .8;
   var fontsReady = false, typed = 0, typeTimer = 0, visible = true, drawn = '';
   var mono = null, geom = null, geomReady = false;
-  var vars = {};
+  // compared with the element itself: name-intro.js wipes the name intro's inline style on a
+  // reduced-motion change, so a shadow cache would go stale
   function setVar(el, name, val) {
-    var k = (el === intro ? 'i' : 's') + name;
-    if (vars[k] === val) return;
-    vars[k] = val;
+    if (el.style.getPropertyValue(name) === val) return;
     el.style.setProperty(name, val);
   }
 
@@ -432,6 +431,13 @@
   }
   window.addEventListener('resize', function () { measure(); start(); });
   window.addEventListener('pageshow', function () { measure(); start(); });
+  // a jump back into the scene from far below (scrollbar, Home key): the observer answers only
+  // after the paint, so the loop is resumed in the scroll step and draws before it
+  window.addEventListener('scroll', function () {
+    if (visible || raf) return;
+    var r = section.getBoundingClientRect();
+    if (r.bottom > 0 && r.top < window.innerHeight) { visible = true; start(); }
+  }, { passive: true });
   var fontsLoad = document.fonts && document.fonts.load
     ? Promise.all([
         document.fonts.load("400 16px 'IBM Plex Mono'"),

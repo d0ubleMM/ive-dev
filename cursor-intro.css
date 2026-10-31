@@ -29,10 +29,11 @@
 /* the name intro starts 70svh before the prologue's travel ends (its letters are in place
    as the typed line starts to grow) and keeps its own 100svh of travel */
 .name-intro-live .cursor-intro + .name-intro { margin-top: -170vh; margin-top: -170svh; height: 270vh; height: 270svh; }
-/* the capitals dissolve in while the typed line grows (cursor-intro.js sets the variables) */
-html.cursor-intro-on .name-intro-word:nth-child(1) .name-intro-cap { opacity: var(--cap-i, 0); }
-html.cursor-intro-on .name-intro-word:nth-child(2) .name-intro-cap { opacity: var(--cap-v, 0); }
-html.cursor-intro-on .name-intro-word:nth-child(3) .name-intro-cap { opacity: var(--cap-e, 0); }
+/* the capitals dissolve in while the typed line grows (cursor-intro.js sets the variables);
+   with reduced motion switched on later the static name keeps them */
+html.cursor-intro-on.name-intro-live .name-intro-word:nth-child(1) .name-intro-cap { opacity: var(--cap-i, 0); }
+html.cursor-intro-on.name-intro-live .name-intro-word:nth-child(2) .name-intro-cap { opacity: var(--cap-v, 0); }
+html.cursor-intro-on.name-intro-live .name-intro-word:nth-child(3) .name-intro-cap { opacity: var(--cap-e, 0); }
 /* while the line grows, the name's letters grow with it: the type itself is scaled (sharp
    edges, as the original zoom does it) and the line is shifted onto the typed IVE; after
    the prologue the name intro's own transform is the identity, so it is replaced here */

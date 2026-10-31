@@ -12,7 +12,6 @@
   var motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   var narrow = window.matchMedia('(max-width: 720px)');
   var measureData = null;
-  var scheduled = false;
   var fontsReady = !document.fonts || document.fonts.status === 'loaded';
   var GAP0 = .02, GAP1 = .24;
   function clamp(x) { return Math.max(0, Math.min(1, x)); }
@@ -66,7 +65,6 @@
     intro.classList.toggle('is-ready', fontsReady);
   }
   function render() {
-    scheduled = false;
     header();
     if (!measureData || motion.matches) return;
     var m = measureData;
@@ -106,12 +104,9 @@
     intro.style.setProperty('--name-by', by.toFixed(3));
     intro.classList.toggle('has-maker', by > .05);
   }
-  function queue() {
-    if (scheduled) return;
-    scheduled = true;
-    requestAnimationFrame(render);
-  }
-  window.addEventListener('scroll', queue, { passive: true });
+  // rendered in the scroll step itself: that runs before the animation frames, so the
+  // prologue's loop (cursor-intro.js) always reads the size this scroll position gets
+  window.addEventListener('scroll', render, { passive: true });
   window.addEventListener('resize', measure);
   window.addEventListener('pageshow', measure);
   if (motion.addEventListener) motion.addEventListener('change', measure);
