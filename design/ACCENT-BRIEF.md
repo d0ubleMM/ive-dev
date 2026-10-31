@@ -37,8 +37,10 @@ cursor; the one filled button is that colour; a soft light of it sits behind the
 
 No pop as text on light grounds (the fill is 2.86:1 on `#F6F7F8`); the only pop text is the
 hover of the intro's "Explore IVE" on the dark intro ground (6.2:1). The light theme's filled
-button carries a 1px hairline in `color-mix(in srgb, var(--pop) 78%, black)` so its shape stays
-above 3:1 against the page. The bright fill is never used on the petrol ground (4.10:1).
+button carries a 1px hairline in `color-mix(in srgb, var(--pop) 84%, black)` (= `#D64282`,
+3.95:1 on `#F6F7F8`), on the button's own border so no ring appears while it changes state, so
+its shape stays above 3:1 against the page. The bright fill is never used on the petrol ground
+(4.10:1). A selected label on the fill keeps the ink (`.btn-fill::selection`, 10 % ink wash).
 
 ## Where the pop goes
 
@@ -52,7 +54,9 @@ above 3:1 against the page. The bright fill is never used on the petrol ground (
    the install section, the product page's head and closer, the download page's head, the
    header). Download for Mac, Install IVE and Get IVE stay neutral.
    Header rule: one coloured call to action per view, on every page. The header's `.nav-cta`
-   is quiet (the old neutral fill) until the page's first filled button has scrolled above the
+   is quiet (outlined: transparent, `--line-strong` hairline, `--text-1`, the family of the icon
+   buttons beside it; a neutral fill would be a second filled block, louder than the pink one)
+   until the page's first filled button has scrolled above the
    viewport, and quiet again whenever a filled button of the page is on screen (the prologue and
    the hero are the first pop moments, not the nav button; the install section and the product
    page's head and closer never show two pop buttons at once). Implementation (site.js, so it
@@ -61,10 +65,11 @@ above 3:1 against the page. The bright fill is never used on the petrol ground (
    button at once changes no intersection), `html.cta-quiet` toggled; pages that have such
    buttons (index, product, download) carry `cta-quiet` statically in their `<html>` class so
    the first paint is right without waiting for the deferred script. The story page's closer
-   "Explore IVE" is outlined: the pop is the demo action only. CSS: `html.cta-quiet .nav-cta { background: var(--accent-fill); color:
-   var(--on-accent); }` with the old hover; the switch rides on the existing `--t-fast`
-   background transition. Without JS, pages with the static class keep the quiet header, the
-   others show the pop.
+   "Explore IVE" is outlined: the pop is the demo action only. CSS: `html.cta-quiet .nav-cta`
+   with the `.btn-outline` anatomy and hover; the switch rides on the existing `--t-fast`
+   transitions of `.btn`. Without JS, pages with the static class keep the quiet header, the
+   others show the pop. The story page keeps the pop header over its own opening scene
+   (accepted: the page is unlinked and has no filled button of its own).
 3. The hero light (workspace.css): a soft radial light of `--pop-glow` behind the hero's explorer
    frame, its peak inside the frame's upper right so only a halo spills out along the frame's
    top right corner and right edge; the agent strip, the tab row, the caption and the hero copy
@@ -87,9 +92,15 @@ above 3:1 against the page. The bright fill is never used on the petrol ground (
 5. `::selection` in the pop at 35 %: the one place the colour appears without being placed.
 6. The hero's own kicker and the hero explorer's selected-tab underline are neutral (`--text-3`,
    `--text-2`) so the first view holds exactly one hue: dot, one filled button, the light. Mint
-   kickers and tab bars stay everywhere else. The "Coming soon to the App Store" badge is a
-   neutral status (line-strong frame, raised ground, grey dot), not a button; the maker strip's
-   aiforgov.eu link is neutral because the footer's pink dot sits right below it.
+   kickers and tab bars stay everywhere else, in one setting on every page (`.kicker` and
+   `.ws-kicker`: mono 11 px, uppercase, .12em, mint). The "Coming soon to the App Store" badge is
+   a status chip (sans in `--text-2`, chip radius, the inline-code fill, a grey dot), nothing of
+   the button anatomy, so it never reads as a twin of the demo button beside it; the maker
+   strip's aiforgov.eu link is neutral because the footer's pink dot sits right below it.
+7. The wordmark dot during the prologue: ink until the merged cursor has typed "Meet IVE" and
+   fades out; the dot takes the pop as the cursor goes (`--dot-pop`, set by cursor-intro.js),
+   so the colour is born once, in the prologue, and then lives in the dot. Pages without the
+   prologue, reduced motion and the restored-below case show the pink dot from the start.
 
 Not pop, ever: the status colours (`--running`, `--done`, `--waiting`, `--attention`) and their
 dots, the app demos and their posters, the petrol trust ground's surface and its pale mint

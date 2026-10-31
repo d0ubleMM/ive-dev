@@ -107,12 +107,13 @@ Bento grids, icon walls, card stacks and repeated split sections are out.
   dot, no by-line. Right, all in one button family (36px, 6px radius): the quiet
   links Product, Download, Architecture; the theme switch as an icon button
   (sun in dark, moon in light, the label names the action); the GitHub icon button;
-  the filled primary action "Try it yourself". One coloured call to action per view:
-  the header's button is quiet (neutral fill, `html.cta-quiet`, set in the markup of
-  pages that have their own filled button and kept current by site.js) until the
-  page's first filled button has scrolled above the viewport, and again whenever a
-  filled button of the page is on screen. Below 720px: wordmark, primary action,
-  Menu button with a panel.
+  the primary action "Try it yourself". One coloured call to action per view: the
+  header's button is quiet (outlined, the hairline family of the icon buttons beside
+  it; `html.cta-quiet`, set in the markup of pages that have their own filled button
+  and kept current by site.js on scroll) until the page's first filled button has
+  scrolled above the viewport, and again whenever a filled button of the page is on
+  screen; otherwise it is the pink fill. Below 720px: wordmark, primary action, Menu
+  button with a panel.
 - While the name intro is pinned, `html.name-intro-active` keeps the header dark
   and its wordmark, links and controls visible throughout the zoom and unfold.
 - Footer: IVE and "from AIFOREU" (link to aiforgov.eu), the six links, and the line
@@ -136,9 +137,9 @@ Dark is the default (also without JS); `html[data-theme="light"]` overrides.
 --text-3         #8B919B               #5F656E    (light lifted 2026-10-31: 4.75:1 on the frame-shadow ground under captions)
 --text-4         #7C828C               #646A73    (lifted in QA round 1 and on 2026-10-31: 4.77:1 on --bg-inset)
 --accent         #8EC6BC               #216C63    (links, kickers, focus, selected tabs, diagram lines)
---accent-fill    #E7E9EC               #272A2E    (the header button while it is quiet)
---accent-fill-hover #FFFFFF            #17191C
---on-accent      #17191C               #FFFFFF    (text on the quiet fill: at least 14.4:1)
+--accent-fill    #E7E9EC               #272A2E    (no longer used by a button since 2026-10-31; kept
+--accent-fill-hover #FFFFFF            #17191C     for the pinned header block and the 404 page)
+--on-accent      #17191C               #FFFFFF
 --pop            #FF4F9B               #FF4F9B    (the one unexpected accent: filled buttons, the wordmark dot,
                                                    the prologue's merged cursor, the selection, the intro link's hover)
 --pop-ink        #17191C               #17191C    (text on the pop: 5.74:1; white would be 3.07:1)
