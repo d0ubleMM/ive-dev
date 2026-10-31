@@ -6,7 +6,8 @@
   'use strict';
   var root = document.documentElement;
   root.classList.remove('no-js');
-  var theme = 'light';
+  // the site's own default is dark; a first visit from the dark homepage must not open a light app
+  var theme = 'dark';
   try { var t = localStorage.getItem('ive-theme'); if (t === 'dark' || t === 'light') theme = t; } catch (e) {}
   root.setAttribute('data-theme', theme);
   var meta = document.querySelector('meta[name="theme-color"]');
