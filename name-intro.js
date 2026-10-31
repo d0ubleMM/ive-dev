@@ -8,6 +8,7 @@
   var line = intro.querySelector('[data-name-line]');
   var caps = Array.from(intro.querySelectorAll('[data-name-cap]'));
   var rests = Array.from(intro.querySelectorAll('[data-name-rest]'));
+  var prologue = document.querySelector('[data-cursor-intro]');
   var motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   var narrow = window.matchMedia('(max-width: 720px)');
   var measureData = null;
@@ -18,7 +19,9 @@
   function ease(x) { x = clamp(x); return x * x * (3 - 2 * x); }
   function header() {
     var rect = intro.getBoundingClientRect();
-    root.classList.toggle('name-intro-active', rect.top < 64 && rect.bottom > 64);
+    var on = rect.top < 64 && rect.bottom > 64;
+    if (!on && prologue) { var pr = prologue.getBoundingClientRect(); on = pr.top < 64 && pr.bottom > 64; }
+    root.classList.toggle('name-intro-active', on);
   }
   function measure() {
     root.classList.toggle('name-intro-live', !motion.matches);
@@ -46,6 +49,15 @@
       travel: Math.max(1, intro.offsetHeight - pin.offsetHeight)
     };
     var m = measureData;
+    if (prologue) {
+      // after the prologue the letters already stand (no zoom): the unfold (raw .24) starts
+      // where the prologue's travel ends, the rest of the sequence keeps its pace
+      var prologuePin = prologue.querySelector('[data-cursor-pin]');
+      var prologueEnd = prologue.getBoundingClientRect().top + window.scrollY + prologue.offsetHeight - (prologuePin ? prologuePin.offsetHeight : 0);
+      var pinEnd = m.top + intro.offsetHeight - pin.offsetHeight;
+      m.travel = Math.max(1, pinEnd - prologueEnd) / .76;
+      m.top = prologueEnd - .24 * m.travel;
+    }
     m.originX = m.column ? (.31 * capEm[1]) / m.a : (capEm[0] + GAP0 + .31 * capEm[1]) / m.a;
     var size0 = Math.min(m.width / m.a, m.height / m.lineHeight);
     var diagonal = Math.hypot(pin.clientWidth, pin.clientHeight);
@@ -59,7 +71,7 @@
     if (!measureData || motion.matches) return;
     var m = measureData;
     var raw = clamp((window.scrollY - m.top) / m.travel);
-    var z = clamp(raw / .2);
+    var z = prologue ? 1 : clamp(raw / .2);
     var p = clamp((raw - .24) / .62);
     var u = ease(p);
     var reveal = (m.a / m.b) * (Math.pow(1 + m.b / m.a, u) - 1);
@@ -88,7 +100,8 @@
     intro.style.setProperty('--name-reveal', reveal.toFixed(4));
     intro.style.setProperty('--name-slide', (-.15 * (1 - reveal)).toFixed(4) + 'em');
     intro.style.setProperty('--name-alpha', ease(p / .28).toFixed(3));
-    intro.style.setProperty('--name-hint', (1 - ease(raw / .3)).toFixed(3));
+    // after the prologue the visitor is already scrolling: no second hint
+    intro.style.setProperty('--name-hint', prologue ? '0' : (1 - ease(raw / .3)).toFixed(3));
     var by = ease((p - .78) / .22);
     intro.style.setProperty('--name-by', by.toFixed(3));
     intro.classList.toggle('has-maker', by > .05);

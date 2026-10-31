@@ -36,6 +36,14 @@ applicable. This is a website change only.
   letter surface below the visible navigation, including while fonts load.
   The zoom occupies only the first fifth of the short scroll sequence.
   `story.html` uses this same sequence; legacy `opening.*` is no longer loaded.
+- On Home a prologue precedes the name (`cursor-intro.css`, `cursor-intro.js`, one
+  canvas, 2026-10-31): a prompt is typed, the board fills with 1, 2, 4, 8, 12 sessions
+  (8 on phones), the sessions fold into their cursors, the cursors run together into one
+  block cursor, and that cursor types I, V, E into the name intro's own letters, which
+  then unfold as before. No zoom in either direction (owner: the in-and-out "bounce" was
+  unclean). The name intro starts under the canvas 36svh before the prologue ends; with
+  a prologue it skips its zoom and begins the unfold where the prologue's travel ends.
+  Reduced motion and no-JS: no prologue, the name as before.
   The linked "made by AIFOREU" signature appears as the name finishes unfolding.
   Reduced motion and no-JS show the full name and signature without a pinned scene.
 - The product previews remain generated demonstrations of existing app UI.
@@ -73,7 +81,7 @@ No two neighbours share a composition, and none appears twice.
 
 | Section | One job | Composition |
 |---|---|---|
-| Opening (in `#hero`) | The problem and the payoff without words, then the name | Pinned scroll scene on a dark ground in both themes: inside the machine, a grid corridor with ring ribs and camera drift (owner decision 2026-10-22), the swarm in it, board, zoom out of the V, IVE unfolds into Integrated Vibecoding Environment |
+| Opening (`.cursor-intro` + `#mark`) | One prompt becomes many agents, the cursor types the name | Pinned scroll scene on a dark ground in both themes: a typed prompt, the board filling to twelve sessions, their cursors running together into one block cursor that types I, V, E; IVE unfolds into Integrated Vibecoding Environment |
 | Hero `#hero` | Name the product and show it | Left headline block, then an 880px window into the dark board, rendered live (the two working sessions in view, the rest of the board by scrolling; the whole window on expand) |
 | Why IVE `#why` | The four reasons | Viewport-wide question that docks, statement column plus sticky media panel (pinned at 720px and up, in flow on phones) |
 | Inside IVE `#inside` | What IVE really does, as it happens; the terminal first | Chapter rail, one wide player, caption block; six generated scenes of the interface auto-advance, each scrubbable and scrollable: a session's terminal (typed into, then the same session as Overview), ten terminals on the board, start and queue, Auto-fix loop, Pipelines, loop detection |
@@ -295,8 +303,8 @@ Status glyphs belong only to product states inside diagrams and the app demos.
 ## Technical contract
 
 - Static HTML, CSS and JS, no build step. Shared: `site.css`, `site.js`; homepage
-  adds `home.css`, `workspace.css`, `workspace.js`, `name-intro.css`,
-  `name-intro.js`, `madeby.js`; pages with
+  adds `home.css`, `workspace.css`, `workspace.js`, `cursor-intro.css`,
+  `cursor-intro.js`, `name-intro.css`, `name-intro.js`, `madeby.js`; pages with
   app demos add `demo.css`, `demo.js` and `frame-src 'self'` to their CSP. The demo
   document (`assets/demo/r8/frame.html`) has its own CSP (`style-src 'unsafe-inline'`
   for the app's inline geometry; scripts `'self'` only).

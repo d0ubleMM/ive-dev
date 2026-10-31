@@ -1,0 +1,41 @@
+/* Before the name: one prompt, the board filling up, the cursors running together into one
+   block cursor that types I, V, E into the name intro's own letters. Drawn on one canvas by
+   cursor-intro.js. The name intro begins under the canvas before the prologue ends, so its
+   letters stand there when the canvas clears; the camera never moves. */
+.cursor-intro { display: none; }
+.name-intro-live .cursor-intro {
+  display: block;
+  position: relative;
+  z-index: 2;
+  height: 280vh;
+  height: 280svh;
+}
+.cursor-intro-pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: #0E1014;
+}
+.cursor-intro-canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; pointer-events: none; }
+.cursor-intro .name-intro-bottom { transition: opacity var(--t-med) ease; }
+/* the name's letters are in view under the canvas: the ground goes, the name intro's own
+   bottom row takes over, clicks reach it */
+.cursor-intro.is-letters .cursor-intro-pin { background: transparent; pointer-events: none; }
+.cursor-intro.is-letters .name-intro-bottom { opacity: 0; }
+.cursor-intro.is-done .cursor-intro-pin { visibility: hidden; }
+/* the name intro starts 36svh before the prologue's travel ends and keeps its own 100svh of travel */
+.name-intro-live .cursor-intro + .name-intro { margin-top: -136vh; margin-top: -136svh; height: 236vh; height: 236svh; }
+/* the capitals appear as the cursor types them (cursor-intro.js sets the variables) */
+html.cursor-intro-on .name-intro-word:nth-child(1) .name-intro-cap { opacity: var(--cap-i, 0); }
+html.cursor-intro-on .name-intro-word:nth-child(2) .name-intro-cap { opacity: var(--cap-v, 0); }
+html.cursor-intro-on .name-intro-word:nth-child(3) .name-intro-cap { opacity: var(--cap-e, 0); }
+/* no canvas: no prologue, the name intro as on its own */
+html.cursor-intro-off .cursor-intro { display: none; }
+html.cursor-intro-off .cursor-intro + .name-intro { margin-top: 0; height: 200vh; height: 200svh; }
+@media (max-width: 720px) {
+  .name-intro-live .cursor-intro { height: 240vh; height: 240svh; }
+  .name-intro-live .cursor-intro + .name-intro { margin-top: -128vh; margin-top: -128svh; height: 208vh; height: 208svh; }
+  html.cursor-intro-off .cursor-intro + .name-intro { margin-top: 0; height: 180vh; height: 180svh; }
+}

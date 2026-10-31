@@ -23,7 +23,8 @@ Then open `http://localhost:8000/`. The marketing pages can also be opened from 
 - `imprint.html` and `privacy.html`: legal provider information and site-specific privacy notice (their `<main>` is unchanged by the redesign)
 - `404.html`: self-contained not-found page (own hashed style and script, root-absolute URLs)
 - `site.css`, `site.js`: shared design system and behaviour for every page (tokens, header, footer, buttons, frames, theme, download logic, copy buttons, the still viewer)
-- `name-intro.css`, `name-intro.js`: the original letter zoom and measured word-unfold effect on Home and Story, with visible navigation and the made-by signature; `opening.css` and `opening.js` are retained legacy source, no longer loaded
+- `cursor-intro.css`, `cursor-intro.js`: the prologue before the name on Home (one canvas: a typed prompt, the board filling to twelve sessions, the cursors running together into one block cursor that types I, V, E into the name's letters)
+- `name-intro.css`, `name-intro.js`: the original letter zoom and measured word-unfold effect on Home and Story (on Home, after the prologue, without the zoom), with visible navigation and the made-by signature; `opening.css` and `opening.js` are retained legacy source, no longer loaded
 - `home.css`: retained phone, install and maker styles; `home.js`: the previous Why IVE/reel behaviour, no longer loaded by the homepage
 - `demo.css`, `demo.js`: the app previews in the page frames (iframes of `assets/demo/r5/frame.html`): sharp automatic scenes that always play in view, one Pause/Play next to each, the reel's chapters; loaded by `index.html` and `product.html`
 - `try.html`, `try.js`: "Try it yourself": the IVE app built into the site at window size under a slim strip (brand, the introduction's Skip/Again, Back to ive.dev), opened from the header of every page, the hero, the Try band, the Product and Download heads and the footer; `assets/demo/r7/frame.html?mode=app&tour=1`
