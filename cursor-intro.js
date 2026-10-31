@@ -12,7 +12,26 @@
   var root = document.documentElement;
   var section = document.querySelector('[data-cursor-intro]');
   var intro = document.querySelector('[data-name-intro]');
-  if (!section || !intro || !root.classList.contains('name-intro-live')) return;
+  if (!section || !intro) return;
+  var motionMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (!root.classList.contains('name-intro-live')) {
+    // reduced motion at load: no prologue. If the preference is lifted later, name-intro.js
+    // switches the page to live without a reload; the prologue then boots once, on the next
+    // frame (after name-intro.js has toggled the class), instead of showing an empty canvas
+    var late = function () {
+      if (motionMQ.matches) return;
+      requestAnimationFrame(function () {
+        if (!root.classList.contains('name-intro-live')) return;
+        if (motionMQ.removeEventListener) motionMQ.removeEventListener('change', late); else motionMQ.removeListener(late);
+        boot();
+      });
+    };
+    if (motionMQ.addEventListener) motionMQ.addEventListener('change', late); else motionMQ.addListener(late);
+    return;
+  }
+  boot();
+
+  function boot() {
   var pin = section.querySelector('[data-cursor-pin]');
   var canvas = section.querySelector('[data-cursor-canvas]');
   var ctx = canvas.getContext('2d');
@@ -491,4 +510,5 @@
     measure();
   });
   start();
+  }
 })();

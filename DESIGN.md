@@ -192,8 +192,11 @@ inline SVG, never font glyphs.
 
 ## Components
 
-- Buttons, one family, 6px radius, no pills: primary outlined (header, Get IVE),
-  primary filled (hero only), icon button 36×36, quiet (closers, links row).
+- Buttons, one family, 6px radius, no pills: the pink fill for "Try it yourself" (the
+  hero, the install section, the page heads of Product and Download, the Product closer,
+  and the header once no other filled button is in view), outlined for every other
+  primary action (Download for Mac, Install IVE, the header's quiet state), icon button
+  36×36, quiet (closers, links row). Status chip (`.soon`): not a button, no hairline.
 - Product frame: `--bg-inset`, 8px radius, hairline ring, soft shadow. No title bar
   and no fake macOS chrome: the app's own sidebar and top bar are the chrome.
   Pause and Expand controls; Expand opens the shared `<dialog>` viewer.
