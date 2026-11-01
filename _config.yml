@@ -5,6 +5,11 @@ exclude:
   - DESIGN.md
   - .gitignore
   - scripts
+  - worker
+  - wrangler.jsonc
+  - package.json
+  - package-lock.json
+  - subscriber-exports
   - node_modules
   - waitlist-exports
   - design

@@ -17,6 +17,7 @@ Then open `http://localhost:8000/`. The marketing pages can also be opened from 
 - `index.html`: homepage with a short zoom out of the V into IVE and the full-name reveal, then the workspace hero, three selectable dark product views (parallel terminals, terminal, review), an attention example, three progressive light workflow views, local/account facts, iPhone, install paths, FAQ and the maker strip
 - `workspace.css`, `workspace.js`: homepage composition and accessible preview tabs; all product scenes continue to use the existing generated IVE demo runtimes
 - `github-star.css`, `github-star.js`: the five-piece star animation and GitHub invitation after the install paths on Home and Download. Plays once in view, with a Replay control; reduced motion and no-JS show the finished star.
+- `updates.css`, `updates.js`: email-only interest list on Home and Download. The Cloudflare Worker in `worker/` saves the email and explicit consent; it sends no emails and does not verify addresses.
 - `story.html`: the same letter zoom and word reveal as a standalone page; the tunnel and agent swarm are no longer used
 - `product.html`: every view and every loop of the app, one row each, as generated demos of the interface in the app's light theme; the first row is the Terminal, the Board row shows ten terminal tiles
 - `download.html`: Mac app, terminal install (`#terminal`), source install, requirements, removal and five questions
@@ -71,6 +72,54 @@ D1 database and the Worker were deleted, and the signup code was removed from th
 repository; the privacy notice no longer mentions the waitlist. Its last state is
 in the git history before that removal. Do not bring back a signup form without a
 new backend and a matching privacy notice.
+
+## IVE interest list, 2026-11-01
+
+The owner requested a new list for future beta invitations and product news, then
+explicitly chose **save only: no confirmation email and no email sending**. This
+list is independent of the removed waitlist and the old beta installer invites.
+The site continues to offer the open-source app without requiring signup.
+
+- Form: `https://ive.dev/#updates` and `download.html#updates`.
+- API: `https://ive-updates.intertrans-vorschau.workers.dev/api/subscribe`.
+- Worker and new D1 database: `ive-updates` in the existing Maxi Cloudflare account.
+  D1 was created with EU jurisdiction. The site remains on GitHub Pages.
+- Stored fields: email, server-side consent scope/version/time, source page, a
+  random row ID and `verification=unverified`. No names or IPs are stored in the list.
+- Consent version: `2026-11-01-beta-news-v1`. The checkbox says: "I’d like emails
+  from AIFOREU GmbH about IVE beta testing, product news and releases."
+- A saved address is a submission, not a verified subscriber or an active IVE user.
+  Duplicate addresses return the same success response and preserve the first record.
+- The only scheduled operation deletes records after 12 months. There are no
+  provider credentials, automatic confirmations, welcome messages or campaigns.
+- Body limits, a honeypot, a strict origin allowlist and five requests per minute
+  per IP (IPv6 /64) reduce abuse. The list has no public read/export endpoint.
+
+### View, export and remove an entry
+
+[Open the private subscriber database](https://dash.cloudflare.com/09e664eee5ea251d91f207aba07c29bf/workers/d1/databases/ab8dcb7d-4eaa-4786-84e7-dc686e6f5d95)
+and select the `subscribers` table. Cloudflare account access is required.
+
+After `npm ci --ignore-scripts`, `npm run subscribers:export` writes a private CSV into ignored
+`subscriber-exports/`. It includes the unverified status and consent metadata;
+the script requires authenticated Wrangler access. Keep exports private and delete
+corresponding exported rows when someone withdraws their consent. A stale export
+is not the current list. Review any later email campaign separately; this project
+does not send messages.
+
+People can request removal at `contact@aiforgov.eu`, as stated in the privacy notice.
+Remove the matching row through the private database interface and from any saved
+exports. Never publish the database contents, contact lists or exports in Git.
+
+### Validate and publish
+
+Run `npm test` for the Worker and SQLite checks. The browser form supports native
+POST without JavaScript; with JavaScript it shows loading, success and retry states.
+Keep `SIGNUPS_ENABLED=false` until the database schema and bindings are ready.
+Create the fresh schema from `worker/schema.sql`, set `SIGNUPS_ENABLED=true`, deploy
+the Worker and verify `/health` plus a disposable signup before publishing the form.
+The Worker and GitHub Pages are separate deployments. Never deploy the signup form
+against an unavailable backend.
 
 ## Website review, 2026-10-25
 

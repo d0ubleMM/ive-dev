@@ -78,6 +78,17 @@ has been given. No star counts, tracking, new dependencies or pop-ups.
 This requested sequence extends the motion budget below; the star is the
 GitHub action's literal symbol, not decorative social proof.
 
+## Interest list, 2026-11-01
+
+The owner requested an email list for future beta invitations and IVE news, with
+no confirmation email and no sending. Home and Download each have one compact,
+email-only form after the star invitation, with explicit unchecked consent and
+plain success/error states. Keep the existing demo/download actions. The form's
+dedicated stylesheet uses the established theme tokens and local fonts. The
+privacy notice is updated for this new data collection. The form alone adds a
+specific Cloudflare `connect-src` / `form-action` exception to the static CSP;
+it makes no background requests and stores nothing in the browser.
+
 ## Idea
 
 IVE is the local control room for parallel coding agents: several sessions run

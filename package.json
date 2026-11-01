@@ -1,0 +1,12 @@
+{
+  "name": "ive-dev",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test worker/*.test.mjs",
+    "subscribers:export": "node scripts/export-subscribers.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "4.147.0"
+  }
+}

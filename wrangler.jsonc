@@ -1,0 +1,38 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ive-updates",
+  "main": "worker/index.mjs",
+  "compatibility_date": "2026-11-01",
+  "account_id": "09e664eee5ea251d91f207aba07c29bf",
+  "workers_dev": true,
+  "preview_urls": false,
+  "vars": {
+    "SIGNUPS_ENABLED": "true",
+    "PUBLIC_BASE_URL": "https://ive-updates.intertrans-vorschau.workers.dev"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "ive-updates",
+      "database_id": "ab8dcb7d-4eaa-4786-84e7-dc686e6f5d95"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "SIGNUP_LIMITER",
+      "namespace_id": "2026110101",
+      "simple": {
+        "limit": 5,
+        "period": 60
+      }
+    }
+  ],
+  "triggers": {
+    "crons": [
+      "20 3 * * *"
+    ]
+  },
+  "observability": {
+    "enabled": false
+  }
+}
