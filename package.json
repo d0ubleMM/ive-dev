@@ -7,6 +7,6 @@
     "subscribers:export": "node scripts/export-subscribers.mjs"
   },
   "devDependencies": {
-    "wrangler": "4.147.0"
+    "wrangler": "4.156.0"
   }
 }
