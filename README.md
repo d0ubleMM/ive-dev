@@ -16,6 +16,7 @@ Then open `http://localhost:8000/`. The marketing pages can also be opened from 
 
 - `index.html`: homepage with a short zoom out of the V into IVE and the full-name reveal, then the workspace hero, three selectable dark product views (parallel terminals, terminal, review), an attention example, three progressive light workflow views, local/account facts, iPhone, install paths, FAQ and the maker strip
 - `workspace.css`, `workspace.js`: homepage composition and accessible preview tabs; all product scenes continue to use the existing generated IVE demo runtimes
+- `github-star.css`, `github-star.js`: the five-piece star animation and GitHub invitation after the install paths on Home and Download. Plays once in view, with a Replay control; reduced motion and no-JS show the finished star.
 - `story.html`: the same letter zoom and word reveal as a standalone page; the tunnel and agent swarm are no longer used
 - `product.html`: every view and every loop of the app, one row each, as generated demos of the interface in the app's light theme; the first row is the Terminal, the Board row shows ten terminal tiles
 - `download.html`: Mac app, terminal install (`#terminal`), source install, requirements, removal and five questions

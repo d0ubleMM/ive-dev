@@ -35,6 +35,7 @@
 <link rel="stylesheet" href="workspace.css?v=20261031-7940a0bbaf31">
 <link rel="stylesheet" href="name-intro.css?v=20261031-f814ee5078ee">
 <link rel="stylesheet" href="cursor-intro.css?v=20261031-a3878d5babac">
+<link rel="stylesheet" href="github-star.css?v=20261101-27c9f6002243">
 </head>
 <body class="workspace-home" id="top">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -177,6 +178,33 @@
   </div>
 </section>
 
+<section class="github-star wrap" id="star" aria-labelledby="github-star-title" data-github-star>
+  <div class="github-star-inner">
+    <div class="github-star-art">
+      <svg viewBox="0 0 420 370" aria-hidden="true" focusable="false">
+        <g transform="translate(210 190)">
+          <path class="github-star-ghost" d="M0 -120 29.39 -40.45 114.13 -37.08 47.55 15.45 70.53 97.08 0 50 -70.53 97.08 -47.55 15.45 -114.13 -37.08 -29.39 -40.45Z"/>
+          <path class="github-star-shadow" d="M0 -120 29.39 -40.45 114.13 -37.08 47.55 15.45 70.53 97.08 0 50 -70.53 97.08 -47.55 15.45 -114.13 -37.08 -29.39 -40.45Z"/>
+          <path class="github-star-echo" d="M0 -120 29.39 -40.45 114.13 -37.08 47.55 15.45 70.53 97.08 0 50 -70.53 97.08 -47.55 15.45 -114.13 -37.08 -29.39 -40.45Z"/>
+          <g class="github-star-body">
+            <g class="github-star-arm" transform="rotate(0)"><g class="github-star-piece"><path d="M0 0 -29.39 -40.45 0 -120 29.39 -40.45Z"/><path class="github-star-facet" d="M0 0 -29.39 -40.45 0 -120Z"/><path class="github-star-seam" d="M0 -120 0 0"/></g></g>
+            <g class="github-star-arm" transform="rotate(72)"><g class="github-star-piece"><path d="M0 0 -29.39 -40.45 0 -120 29.39 -40.45Z"/><path class="github-star-facet" d="M0 0 -29.39 -40.45 0 -120Z"/><path class="github-star-seam" d="M0 -120 0 0"/></g></g>
+            <g class="github-star-arm" transform="rotate(144)"><g class="github-star-piece"><path d="M0 0 -29.39 -40.45 0 -120 29.39 -40.45Z"/><path class="github-star-facet" d="M0 0 -29.39 -40.45 0 -120Z"/><path class="github-star-seam" d="M0 -120 0 0"/></g></g>
+            <g class="github-star-arm" transform="rotate(216)"><g class="github-star-piece"><path d="M0 0 -29.39 -40.45 0 -120 29.39 -40.45Z"/><path class="github-star-facet" d="M0 0 -29.39 -40.45 0 -120Z"/><path class="github-star-seam" d="M0 -120 0 0"/></g></g>
+            <g class="github-star-arm" transform="rotate(288)"><g class="github-star-piece"><path d="M0 0 -29.39 -40.45 0 -120 29.39 -40.45Z"/><path class="github-star-facet" d="M0 0 -29.39 -40.45 0 -120Z"/><path class="github-star-seam" d="M0 -120 0 0"/></g></g>
+          </g>
+        </g>
+      </svg>
+      <button class="github-star-replay" type="button" data-star-replay aria-label="Replay the star animation" hidden><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.2 5.4A5.2 5.2 0 1 1 2.8 9M3.2 1.8v3.8H7"/></svg>Replay</button>
+    </div>
+    <div class="github-star-copy">
+      <p class="github-star-kicker">Like what we’re building?</p>
+      <h2 class="github-star-title" id="github-star-title"><a class="github-star-link" href="https://github.com/michaelAGI/ive" target="_blank" rel="noopener" aria-label="Star it on GitHub (opens in a new tab)"><span>Star it</span><span class="github-star-last">on GitHub<svg class="github-star-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a></h2>
+      <p class="github-star-note">Help more builders discover IVE.</p>
+    </div>
+  </div>
+</section>
+
 <section class="ws-questions wrap" aria-labelledby="questions-title"><div><p class="ws-kicker">A few useful details</p><h2 id="questions-title">Before you start.</h2><a class="ws-text-link" href="download.html">The full setup guide <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.75 8h10.5M9 3.75 13.25 8 9 12.25"/></svg></a></div><div class="ws-faq">
 <details><summary>Can I use the agents I already pay for?</summary><p>Yes. IVE uses your existing Claude Code, Codex and Gemini (Antigravity CLI) logins. Model availability and usage limits come from your CLI and provider account.</p></details>
 <details><summary>What can I try in the browser?</summary><p>The IVE interface with a sample project: start a task, open a terminal, answer a request and review a diff. The example replies are scripted; no coding provider runs in the demo.</p><a href="try.html">Open the browser demo</a></details>
@@ -219,6 +247,7 @@
   </div>
 </footer>
 <script src="site.js?v=20261031-959351378f3e" defer></script>
+<script src="github-star.js?v=20261101-825a92fc9246" defer></script>
 <script src="demo.js?v=20261031-eb196078a068" defer></script>
 <script src="workspace.js?v=20261031-aae0d094b51e" defer></script>
 <script src="madeby.js?v=20261023a" defer></script>

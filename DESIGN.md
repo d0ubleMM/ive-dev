@@ -64,6 +64,20 @@ applicable. This is a website change only.
 - The pipeline has a smaller mobile stage scale so the complete loop is in view;
   the full browser demo remains available for detailed interaction.
 
+## GitHub invitation, 2026-11-01
+
+The owner requested a dedicated animated "Star it on GitHub" moment. Home and
+Download each show one invitation after their install paths. Five faceted pieces
+assemble into one pink star, settle with one outline echo, and reveal the linked
+headline. Archivo, the existing pink and graphite tokens, and the page theme are
+preserved. The sequence lasts 2.4 seconds, plays once on entry, stops off-screen,
+and can be replayed. Reduced motion and no-JS show the finished star and link.
+The link opens the repository; it never stars automatically or claims that a star
+has been given. No star counts, tracking, new dependencies or pop-ups.
+
+This requested sequence extends the motion budget below; the star is the
+GitHub action's literal symbol, not decorative social proof.
+
 ## Idea
 
 IVE is the local control room for parallel coding agents: several sessions run
