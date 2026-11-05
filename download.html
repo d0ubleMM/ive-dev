@@ -74,7 +74,7 @@
         <details class="more"><summary>How it works<svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.75 6l4.25 4.25L12.25 6"/></svg></summary><div>
         <p class="body">Open the disk image and drag IVE into Applications. The app runs its own local service in the background: no terminal window, no browser tab, one app in the Dock. You need at least one coding CLI you are signed in to: Claude Code, Codex or Gemini (Antigravity&nbsp;CLI). The app is signed by AIFOREU GmbH and notarized by Apple. The SHA-256 is on the releases page.</p>
         <p class="body">Open a Terminal directly or choose an agent Session. In the Mac app, <kbd>⌘T</kbd> opens a new IVE tab; the <strong>+</strong> button works too. Your terminals keep running when you switch tabs.</p>
-        <p class="body">To update, quit IVE, download the current disk image and replace IVE in Applications. Your workspaces, sessions and settings stay on your Mac.</p>
+        <p class="body">To update, run the terminal command below, or quit IVE and replace it in Applications with the current disk image. Your workspaces, sessions and settings stay on your Mac.</p>
         <p><a class="arrow-link" href="https://github.com/michaelAGI/ive/releases" target="_blank" rel="noopener">Release notes on GitHub<svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.75 11.25l6.5-6.5M5.75 4.75h5.5v5.5"/></svg><span class="sr-only"> (opens in a new tab)</span></a></p>
         </div></details>
       </section>
@@ -86,9 +86,10 @@
           <button class="term-copy" type="button" data-copy="curl -fsSL https://ive.dev/install.sh | bash" aria-label="Copy the install command" hidden><svg class="icon icon-copy" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.25" y="5.25" width="8" height="8" rx="1.5"/><path d="M10.75 5.25V3.75a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h1.5"/></svg><svg class="icon icon-check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.25 8.5l3 3 6.5-7"/></svg><span data-copy-label>Copy</span></button>
           <span class="sr-only" role="status" aria-live="polite" data-copy-status></span>
         </div>
-        <p class="facts">Requirements: macOS or Linux · Python 3.11+ · Node.js 22.12+ with npm · Git · at least one coding CLI: Claude Code, Codex or Gemini (Antigravity&nbsp;CLI)</p>
-        <details class="more"><summary>After the install<svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.75 6l4.25 4.25L12.25 6"/></svg></summary><div>
-        <p class="body">Then start IVE with <code>ive</code>. It runs in the background and opens http://127.0.0.1:5111; you can close the terminal. <code>ive stop</code> stops it; <code>ive status</code>, <code>ive logs</code> and <code>ive update</code> do what they say; <code>ive uninstall</code> removes it. The installer puts the code in <code>~/.ive</code>, installs its dependencies, builds the app and adds the <code>ive</code> command to <code>~/.local/bin</code>. It does not use sudo.</p>
+        <p class="facts">Mac with Apple silicon: installs the Mac app · Linux and Intel Macs: build from source with Python 3.11+, Node.js 22.12+ with npm and Git · always: at least one coding CLI: Claude Code, Codex or Gemini (Antigravity&nbsp;CLI)</p>
+        <details class="more"><summary>What the command does<svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.75 6l4.25 4.25L12.25 6"/></svg></summary><div>
+        <p class="body">On a Mac with Apple silicon it downloads the signed app from the latest release, checks its SHA-256, lets macOS verify the signature and notarization, puts IVE into Applications and opens it. Run it again to update. Python, Node.js and Git are not needed.</p>
+        <p class="body">On Linux and Intel Macs it builds IVE from source: the code goes to <code>~/.ive</code>, the <code>ive</code> command to <code>~/.local/bin</code>, nothing needs sudo. Then start IVE with <code>ive</code>. It runs in the background and opens http://127.0.0.1:5111; you can close the terminal. <code>ive stop</code> stops it; <code>ive status</code>, <code>ive logs</code> and <code>ive update</code> do what they say; <code>ive uninstall</code> removes it.</p>
         <p><a class="arrow-link" href="https://github.com/michaelAGI/ive/blob/main/get.sh" target="_blank" rel="noopener">Read the script first on GitHub<svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.75 11.25l6.5-6.5M5.75 4.75h5.5v5.5"/></svg><span class="sr-only"> (opens in a new tab)</span></a></p>
         </div></details>
       </section>
@@ -96,11 +97,11 @@
       <section class="panel panel-lg" id="source" aria-labelledby="source-title">
         <h2 class="label" id="source-title">From source</h2>
         <div class="term term-multi" data-copy-box>
-          <pre class="term-code" data-copy-source><code><span class="term-line">git clone https://github.com/michaelAGI/ive.git</span><span class="term-line">cd ive</span><span class="term-line">bash install.sh</span><span class="term-line">bin/ive</span></code></pre>
-          <button class="term-copy" type="button" data-copy="git clone https://github.com/michaelAGI/ive.git&#10;cd ive&#10;bash install.sh&#10;bin/ive" aria-label="Copy the four setup commands" hidden><svg class="icon icon-copy" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.25" y="5.25" width="8" height="8" rx="1.5"/><path d="M10.75 5.25V3.75a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h1.5"/></svg><svg class="icon icon-check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.25 8.5l3 3 6.5-7"/></svg><span data-copy-label>Copy</span></button>
+          <pre class="term-code" data-copy-source><code><span class="term-line">git clone https://github.com/michaelAGI/ive.git</span><span class="term-line">cd ive</span><span class="term-line">bash install.sh</span></code></pre>
+          <button class="term-copy" type="button" data-copy="git clone https://github.com/michaelAGI/ive.git&#10;cd ive&#10;bash install.sh" aria-label="Copy the three setup commands" hidden><svg class="icon icon-copy" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.25" y="5.25" width="8" height="8" rx="1.5"/><path d="M10.75 5.25V3.75a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h1.5"/></svg><svg class="icon icon-check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.25 8.5l3 3 6.5-7"/></svg><span data-copy-label>Copy</span></button>
           <span class="sr-only" role="status" aria-live="polite" data-copy-status></span>
         </div>
-        <p class="body">Add <code>--plan</code> to print the steps without running them.</p>
+        <p class="body">On a Mac with Apple silicon, <code>install.sh</code> installs the Mac app from the latest release. On Linux and Intel Macs it builds the clone; start it with <code>bin/ive</code>. Add <code>--plan</code> to print the steps without running them. To build from source on an Apple silicon Mac, run <code>IVE_INSTALL=source bash install.sh</code>.</p>
       </section>
       <section class="panel panel-lg" id="iphone" aria-labelledby="iphone-title">
         <h2 class="label" id="iphone-title">iPhone app</h2>
