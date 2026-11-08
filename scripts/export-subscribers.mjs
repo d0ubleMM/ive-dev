@@ -4,7 +4,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { EXPORT_QUERY } from '../worker/index.mjs';
 
-export const COLUMNS = ['email', 'source', 'consent_at', 'consent_scope', 'consent_version', 'verification'];
+export const COLUMNS = ['email', 'source', 'consent_at', 'consent_scope', 'consent_version', 'verification', 'confirmed_at', 'confirmation_method'];
 export function toCsv(rows) {
   const cell = value => {
     let text = String(value ?? '');
@@ -26,9 +26,9 @@ function main() {
   if (!Array.isArray(result) || result.some(item => item.success !== true)) throw new Error('Export failed.');
   const rows = result.flatMap(item => item.results || []);
   const stamp = new Date().toISOString().replaceAll(':', '-');
-  const output = resolve(process.argv[2] || `${root}subscriber-exports/ive-unverified-${stamp}.csv`);
+  const output = resolve(process.argv[2] || `${root}subscriber-exports/ive-confirmed-${stamp}.csv`);
   mkdirSync(dirname(output), { recursive: true, mode: 0o700 });
   writeFileSync(output, toCsv(rows), { mode: 0o600, flag: 'wx' });
-  console.log(`Exported ${rows.length} unverified entries to ${output}. No email was sent.`);
+  console.log(`Exported ${rows.length} confirmed subscribers to ${output}. No email was sent.`);
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main();

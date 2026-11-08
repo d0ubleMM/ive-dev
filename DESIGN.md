@@ -78,10 +78,12 @@ has been given. No star counts, tracking, new dependencies or pop-ups.
 This requested sequence extends the motion budget below; the star is the
 GitHub action's literal symbol, not decorative social proof.
 
-## Interest list, 2026-11-01
+## Interest list, updated 2026-11-08
 
-The owner requested an email list for future beta invitations and IVE news, with
-no confirmation email and no sending. Home and Download each have one compact,
+The owner requested an email list for future beta invitations and IVE news, and
+on 2026-11-08 requested double opt-in. A neutral confirmation email and an explicit
+confirmation button activate each subscription; the initial success says to check
+the inbox. Home and Download each have one compact,
 email-only form after the star invitation, with explicit unchecked consent and
 plain success/error states. Keep the existing demo/download actions. The form's
 dedicated stylesheet uses the established theme tokens and local fonts. The

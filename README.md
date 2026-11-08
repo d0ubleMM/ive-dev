@@ -73,53 +73,71 @@ repository; the privacy notice no longer mentions the waitlist. Its last state i
 in the git history before that removal. Do not bring back a signup form without a
 new backend and a matching privacy notice.
 
-## IVE interest list, 2026-11-01
+## IVE interest list: double opt-in, 2026-11-08
 
-The owner requested a new list for future beta invitations and product news, then
-explicitly chose **save only: no confirmation email and no email sending**. This
-list is independent of the removed waitlist and the old beta installer invites.
-The site continues to offer the open-source app without requiring signup.
+The owner requested double opt-in on 2026-11-08, superseding the earlier save-only
+choice. Home and Download still offer the app without requiring any signup.
 
-- Form: `https://ive.dev/#updates` and `download.html#updates`.
+- Forms: `https://ive.dev/#updates` and `download.html#updates`.
 - API: `https://ive-updates.intertrans-vorschau.workers.dev/api/subscribe`.
-- Worker and new D1 database: `ive-updates` in the existing Maxi Cloudflare account.
-  D1 was created with EU jurisdiction. The site remains on GitHub Pages.
-- Stored fields: email, server-side consent scope/version/time, source page, a
-  random row ID and `verification=unverified`. No names or IPs are stored in the list.
-- Consent version: `2026-11-01-beta-news-v1`. The checkbox says: "I’d like emails
-  from AIFOREU GmbH about IVE beta testing, product news and releases."
-- A saved address is a submission, not a verified subscriber or an active IVE user.
-  Duplicate addresses return the same success response and preserve the first record.
-- The only scheduled operation deletes records after 12 months. There are no
-  provider credentials, automatic confirmations, welcome messages or campaigns.
-- Body limits, a honeypot, a strict origin allowlist and five requests per minute
-  per IP (IPv6 /64) reduce abuse. The list has no public read/export endpoint.
+- Worker and EU D1 database: `ive-updates` in the existing Maxi Cloudflare account.
+- Each explicit signup sends a neutral confirmation email from `IVE <beta@ive.dev>`
+  through Cloudflare Email Service. Replies go to `contact@aiforgov.eu`.
+- The link opens `/confirm` on the Worker. GET only shows a form; an explicit POST
+  confirms, so ordinary email link scanners do not opt anyone in. No JS is required.
+- Tokens use 32 random bytes; only SHA-256 hashes are stored. Pending requests and
+  tokens expire seven days after signup. Resending preserves still-valid links.
+- Confirmation records the server timestamp and `confirmation_method=email-link`.
+  The original consent text/version/time and form source are retained. No names,
+  IP addresses, raw tokens, mail-open tracking or marketing campaigns are stored.
+- The text version remains `2026-11-01-beta-news-v1`: the consent scope is unchanged.
+- Duplicate confirmed signups do not change consent or send email. Pending attempts
+  are limited to one every 10 minutes, three per address per day, and 500 globally
+  per UTC day, including failed attempts. The existing IP / IPv6 /64 limit remains.
+- The scheduler only deletes expired data. It never contacts legacy entries or sends
+  reminders. Existing unverified rows remain unverified until a fresh explicit signup
+  and confirmation. `initial_verification` is historical; `confirmed_at` together with
+  `confirmation_method` determines current eligibility.
+- Confirmed subscriptions and legacy submissions expire twelve months after signup.
 
-### View, export and remove an entry
+### Export and removal
 
-[Open the private subscriber database](https://dash.cloudflare.com/09e664eee5ea251d91f207aba07c29bf/workers/d1/databases/ab8dcb7d-4eaa-4786-84e7-dc686e6f5d95)
-and select the `subscribers` table. Cloudflare account access is required.
+[Open the private subscriber database](https://dash.cloudflare.com/09e664eee5ea251d91f207aba07c29bf/workers/d1/databases/ab8dcb7d-4eaa-4786-84e7-dc686e6f5d95).
 
-After `npm ci --ignore-scripts`, `npm run subscribers:export` writes a private CSV into ignored
-`subscriber-exports/`. It includes the unverified status and consent metadata;
-the script requires authenticated Wrangler access. Keep exports private and delete
-corresponding exported rows when someone withdraws their consent. A stale export
-is not the current list. Review any later email campaign separately; this project
-does not send messages.
+`npm run subscribers:export` exports **only confirmed** subscriptions with the current
+consent scope, confirmation evidence and a signup less than twelve months ago. CSVs
+are formula-safe and written privately to the ignored `subscriber-exports/` directory.
+Existing old exports are not proof of double opt-in and must not be used for sending.
 
-People can request removal at `contact@aiforgov.eu`, as stated in the privacy notice.
-Remove the matching row through the private database interface and from any saved
-exports. Never publish the database contents, contact lists or exports in Git.
+Remove withdrawn addresses through the private database, including their token rows
+and any saved exports. Foreign keys cascade token removal. The contact address for
+withdrawal is `contact@aiforgov.eu`. No public list or export endpoint exists.
 
-### Validate and publish
+### Validate and activate
 
-Run `npm test` for the Worker and SQLite checks. The browser form supports native
-POST without JavaScript; with JavaScript it shows loading, success and retry states.
-Keep `SIGNUPS_ENABLED=false` until the database schema and bindings are ready.
-Create the fresh schema from `worker/schema.sql`, set `SIGNUPS_ENABLED=true`, deploy
-the Worker and verify `/health` plus a disposable signup before publishing the form.
-The Worker and GitHub Pages are separate deployments. Never deploy the signup form
-against an unavailable backend.
+1. Run `npm test`. Tests use real in-memory SQLite and a stub mail provider; they do
+   not send email. Browser verification: `node scripts/qa-double-opt-in.mjs` with
+   Playwright available (or `PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs`).
+   It intercepts all requests and covers Chromium/WebKit, phone/desktop, and no-JS. For an existing DB, apply the additive migration with
+   `wrangler d1 migrations apply ive-updates --remote`. For a fresh DB, use
+   `worker/schema.sql` instead. Never apply both to the same database.
+2. In the Cloudflare account that owns `ive.dev` (`michaelsaccount`), verify that
+   Email Service → Email Sending is enabled for the domain. Disable Email preview
+   to avoid storing confirmation mail bodies/links. Use a dedicated API token with
+   **Email Sending: Edit**, restricted to that account. Do not reuse the developer's
+   Wrangler OAuth token as a Worker secret.
+3. Set `EMAIL_ACCOUNT_ID` and `EMAIL_API_TOKEN` as Worker secrets using
+   `wrangler secret put`. Neither belongs in Git, client code, logs or chat.
+4. Deploy the Worker and check `/health`. Missing mail credentials or the old schema
+   make the new Worker fail closed. Configuration readiness is not a delivery test.
+5. With an owner-controlled mailbox, verify one signup, actual inbox delivery,
+   GET without confirmation, the explicit confirmation, and confirmed-only export.
+6. Publish the site and privacy notice to GitHub Pages after the backend works.
+   Frontend and Worker are separate deployments. Verify both live.
+
+Production activation remains pending until the mail account is configured and the
+inbox test passes. Do not replace the live service with an unconfigured Worker.
+No mass confirmation send, newsletter or welcome email is part of this change.
 
 ## Website review, 2026-10-25
 
