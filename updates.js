@@ -10,7 +10,7 @@
       if (busy || !form.reportValidity()) return;
       busy = true;
       button.disabled = true;
-      button.textContent = 'Saving…';
+      button.textContent = 'Sending…';
       form.setAttribute('aria-busy', 'true');
       status.textContent = '';
       delete status.dataset.state;
@@ -35,16 +35,16 @@
         const result = await response.json().catch(() => null);
         if (!response.ok || result?.ok !== true) {
           const message = typeof result?.message === 'string' ? result.message :
-            'We couldn’t save your email. Please try again shortly.';
+            'We couldn’t send your confirmation email. Please try again shortly.';
           throw new Error(message);
         }
         status.dataset.state = 'success';
-        status.textContent = result.message || 'You’re on the list. Your email has been saved.';
+        status.textContent = result.message || 'Check your inbox and confirm your email to join the list.';
         form.reset();
       } catch (error) {
         status.dataset.state = 'error';
         status.textContent = error.name === 'AbortError' ?
-          'The request took longer than expected. Please try again; your address will only be saved once.' :
+          'The request took longer than expected. Check your inbox first; you can request another confirmation email after 10 minutes.' :
           (error instanceof TypeError ? 'We couldn’t connect. Check your connection and try again.' : error.message);
       } finally {
         clearTimeout(timeout);
