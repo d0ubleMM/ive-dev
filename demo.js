@@ -20,7 +20,7 @@
   var whyGroup = [];
 
   function frameUrl(scene, theme, extra) {
-    var q = 'scene=' + encodeURIComponent(scene) + '&theme=' + encodeURIComponent(theme || 'light');
+    var q = 'v=20261117-lavender&scene=' + encodeURIComponent(scene) + '&theme=' + encodeURIComponent(theme || 'light');
     if (extra) q += '&' + extra;
     return FRAME + '?' + q;
   }

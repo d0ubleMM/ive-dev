@@ -15,6 +15,10 @@ body { background: var(--x-bg); }
 #stage .x-panel { max-width: none; }
 .x-app-shell { position: relative; }
 
+/* A quiet lavender outline for sessions awaiting a reply in the website previews. */
+.ive-cell-needs-you { outline-color: #75658f; }
+html[data-theme="dark"] .ive-cell-needs-you { outline-color: #a99bcb; }
+
 /* synthetic pointer */
 .demo-cursor {
   position: absolute; left: 0; top: 0; z-index: 2147483000;
