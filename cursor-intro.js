@@ -82,7 +82,7 @@
   // went too fast at half that), the typed line and its growth the last third. The name's
   // letters come into view under the canvas at letterP (from the layout, .75), just before
   // the line starts to grow.
-  var T = { hint: [0, .039], morph: [.021, .064], spawn: [.064, .464], fold: [.5, .557], gather: [.543, .664], grow: [.771, .957] };
+  var T = { morph: [.021, .064], spawn: [.064, .464], fold: [.5, .557], gather: [.543, .664], grow: [.771, .957] };
   // the typed line: one character per LINE_STEP of travel from LINE_AT on
   var LINE_TEXT = 'Meet IVE', LINE_AT = .679, LINE_STEP = .0089, SOLID_AFTER = .012;
   // inside the growth: "Meet" and the block cursor go (MEET, CURSOR), the mono letters move
@@ -478,7 +478,6 @@
     if (!geom && !done && ready && fontsReady && key !== drawn) geom = measureCaps();
     section.classList.toggle('is-done', done);
     section.classList.toggle('is-letters', p >= letterP && !!geom);
-    setVar(section, '--name-hint', (1 - seg(p, T.hint)).toFixed(3));
     if (done) {
       restName(); showCaps('1');
     } else if (key !== drawn) { drawn = key; draw(p, now); }
